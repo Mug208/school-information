@@ -1,0 +1,97 @@
+.dugme-multi-select.aktivan {
+    background: var(--primarna);
+    color: var(--primarna-tekst);
+    border-color: var(--primarna);
+}
+
+.dugme-multi-select.aktivan:hover {
+    background: var(--primarna-hover);
+    color: var(--primarna-tekst);
+}
+
+.dugme:disabled {
+    opacity: 0.45;
+    pointer-events: none;
+}
+.stampa-dugme {
+    font-size: 1rem;
+    padding: 6px 9px;
+    opacity: 0.75;
+}
+
+.stampa-dugme:hover {
+    opacity: 1;
+}
+.dugme {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 9px 17px;
+    border-radius: var(--radius);
+    border: 1px solid transparent;
+    font-size: 0.83rem;
+    font-weight: 650;
+    white-space: nowrap;
+    transition: var(--tranzicija);
+    user-select: none;
+}
+
+.dugme:active {
+    transform: translateY(1px);
+}
+
+.dugme-glavno {
+    background: var(--primarna);
+    color: var(--primarna-tekst);
+    box-shadow: var(--senka-sm);
+}
+
+.dugme-glavno:hover {
+    background: var(--primarna-hover);
+    box-shadow: var(--senka-md);
+}
+
+.dugme-sekundarno {
+    background: var(--bg-muted);
+    border-color: var(--ivica);
+    color: var(--tekst-primarni);
+}
+
+.dugme-sekundarno:hover {
+    border-color: var(--primarna-40);
+    color: var(--primarna);
+}
+
+.dugme-opasno {
+    background: var(--opasna);
+    color: #fff;
+    box-shadow: var(--senka-sm);
+}
+
+.dugme-opasno:hover {
+    background: var(--opasna-hover);
+}
+
+.dugme-malo {
+    padding: 5px 11px;
+    font-size: 0.75rem;
+}
+
+.dugme-ghost {
+    background: transparent;
+    color: var(--tekst-sekundarni);
+}
+
+.dugme-ghost:hover {
+    background: var(--bg-muted);
+    color: var(--primarna);
+}
+
+.dugme-ikona {
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    font-size: 0.82rem;
+    border-radius: 6px;
+}

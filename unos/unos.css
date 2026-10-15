@@ -1,0 +1,392 @@
+.form-grupa {
+    margin-bottom: 14px;
+}
+
+.form-grupa:last-child {
+    margin-bottom: 4px;
+}
+
+.form-grupa label {
+    display: block;
+    font-size: 0.73rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--tekst-sekundarni);
+    margin-bottom: 6px;
+}
+
+.form-red {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="time"],
+select,
+textarea {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid var(--ivica);
+    border-radius: var(--radius);
+    background: var(--bg-glavni);
+    color: var(--tekst-primarni);
+    font: inherit;
+    font-size: 0.875rem;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--primarna);
+    box-shadow: 0 0 0 3px var(--primarna-20);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+select {
+    cursor: pointer;
+}
+
+.form-hint {
+    font-size: 0.71rem;
+    color: var(--tekst-muted);
+    margin-top: 5px;
+    line-height: 1.45;
+}
+
+
+.birac-boje {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+input[type="color"] {
+    width: 46px;
+    height: 38px;
+    padding: 3px;
+    border: 1px solid var(--ivica);
+    border-radius: var(--radius);
+    background: var(--bg-glavni);
+    cursor: pointer;
+    flex: none;
+}
+
+input[type="color"]:focus {
+    outline: none;
+    border-color: var(--primarna);
+    box-shadow: 0 0 0 3px var(--primarna-20);
+}
+
+.boje-preseti {
+    display: flex;
+    gap: 7px;
+    flex-wrap: wrap;
+}
+
+.boja-preset {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid var(--bg-kartica);
+    box-shadow: 0 0 0 1px var(--ivica);
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.boja-preset:hover {
+    transform: scale(1.15);
+}
+
+.boja-preset.aktivan {
+    box-shadow: 0 0 0 2px var(--primarna), 0 0 0 4px var(--primarna-20);
+    transform: scale(1.12);
+}
+.info-slota {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    align-items: center;
+    padding: 9px 11px;
+    margin-bottom: 14px;
+    background: var(--primarna-10);
+    border: 1px solid var(--primarna-40);
+    border-radius: var(--radius);
+}
+
+.is-cip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    background: var(--bg-muted);
+    color: var(--tekst-sekundarni);
+    white-space: nowrap;
+}
+
+.is-cip.is-dan {
+    background: var(--primarna);
+    color: var(--primarna-tekst);
+}
+
+.is-cip.is-vreme {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+}
+
+.is-cip.is-smena {
+    background: transparent;
+    border: 1px dashed var(--ivica);
+    color: var(--tekst-muted);
+    font-weight: 700;
+}
+
+
+
+.bp-pretraga {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.bp-pretraga .ik {
+    position: absolute;
+    left: 11px;
+    font-size: 0.85rem;
+    color: var(--tekst-muted);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.bp-pretraga input {
+    padding-left: 34px;
+}
+
+
+
+.birac-predmeta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 9px;
+    max-height: 258px;
+    overflow-y: auto;
+    padding: 2px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--ivica) transparent;
+}
+
+.birac-predmeta::-webkit-scrollbar {
+    width: 8px;
+}
+
+.birac-predmeta::-webkit-scrollbar-thumb {
+    background: var(--ivica);
+    border-radius: 999px;
+}
+
+.bp-predmet {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 10px;
+    min-width: 0;
+    background: var(--bg-kartica);
+    border: 1px solid var(--ivica);
+    border-radius: var(--radius);
+    text-align: left;
+    cursor: pointer;
+    position: relative;
+    transition: border-color 0.13s ease, box-shadow 0.13s ease, transform 0.13s ease;
+}
+
+.bp-predmet:hover {
+    border-color: var(--pb, var(--primarna));
+    transform: translateY(-1px);
+    box-shadow: var(--senka-md);
+}
+
+.bp-predmet:focus-visible {
+    outline: 2px solid var(--primarna);
+    outline-offset: 1px;
+}
+
+.bp-predmet.izabran {
+    border-color: var(--pb, var(--primarna));
+    background: var(--bg-muted);
+    background: color-mix(in srgb, var(--pb, var(--primarna)) 16%, var(--bg-kartica));
+    box-shadow: inset 0 0 0 1px var(--pb, var(--primarna));
+}
+
+
+.bp-cip {
+    width: 20px;
+    height: 20px;
+    flex: none;
+    border-radius: 7px;
+    background: var(--pb, var(--primarna));
+    border: 1px solid rgba(0, 0, 0, 0.28);
+    box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.22);
+}
+
+.bp-sadrzaj {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 0;
+}
+
+.bp-naziv {
+    font-size: 0.8rem;
+    font-weight: 650;
+    line-height: 1.25;
+    color: var(--tekst-primarni);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.bp-meta {
+    font-size: 0.66rem;
+    font-weight: 500;
+    color: var(--tekst-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+.bp-cek {
+    display: none;
+    margin-left: auto;
+    flex: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    background: var(--pb, var(--primarna));
+    color: #ffffff;
+    font-size: 0.72rem;
+    font-weight: 900;
+    line-height: 1;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.7), 0 0 2px rgba(0, 0, 0, 0.7), 0 0 2px rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.bp-predmet.izabran .bp-cek {
+    display: inline-flex;
+}
+
+
+.bp-prazno {
+    grid-column: 1 / -1;
+    padding: 18px 14px;
+    border: 1px dashed var(--ivica);
+    border-radius: var(--radius);
+    text-align: center;
+    color: var(--tekst-sekundarni);
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    align-items: center;
+}
+
+.bp-prazno-naslov {
+    font-weight: 700;
+    font-size: 0.82rem;
+    color: var(--tekst-primarni);
+}
+
+.bp-prazno p {
+    margin: 0;
+    font-size: 0.74rem;
+    line-height: 1.45;
+    max-width: 34ch;
+}
+
+
+.bp-greska {
+    animation: bp-tresi 0.45s ease;
+}
+
+@keyframes bp-tresi {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-5px); }
+    40% { transform: translateX(5px); }
+    60% { transform: translateX(-3px); }
+    80% { transform: translateX(3px); }
+}
+.kuca-izbor {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    cursor: pointer;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--tekst-primarni);
+    user-select: none;
+}
+
+.kuca-izbor input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.kuca-izbor-kvadratic {
+    width: 18px;
+    height: 18px;
+    flex: none;
+    border: 2px solid var(--ivica);
+    border-radius: 5px;
+    background: var(--bg-kartica);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--tranzicija);
+}
+
+.kuca-izbor-kvadratic::after {
+    content: '✓';
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: var(--primarna-tekst);
+    opacity: 0;
+    transform: scale(0.4);
+    transition: var(--tranzicija);
+}
+
+.kuca-izbor input:checked + .kuca-izbor-kvadratic {
+    background: var(--primarna);
+    border-color: var(--primarna);
+}
+
+.kuca-izbor input:checked + .kuca-izbor-kvadratic::after {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.kuca-izbor:hover .kuca-izbor-kvadratic { border-color: var(--primarna-40); }
+
+.kuca-izbor input:focus-visible + .kuca-izbor-kvadratic {
+    outline: 2px solid var(--primarna-50);
+    outline-offset: 2px;
+}
+
+.form-grupa-potpuni { margin-top: -4px; }

@@ -1,0 +1,239 @@
+.kartica {
+    background: var(--bg-kartica);
+    border: 1px solid var(--ivica);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--senka-sm);
+    overflow: hidden;
+}
+
+.kartica-zaglavlje {
+    padding: 14px 16px 11px;
+    border-bottom: 1px solid var(--ivica-svetla);
+}
+
+.kartica-zaglavlje h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+.kartica-zaglavlje p {
+    font-size: 0.74rem;
+    color: var(--tekst-sekundarni);
+    margin-top: 2px;
+}
+
+.kartica-zaglavlje-red {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.kartica-telo {
+    padding: 12px 16px 16px;
+}
+
+
+.kalendar-raspored {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 350px;
+    gap: 16px;
+    align-items: start;
+}
+
+.kalendar-zaglavlje {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.kalendar-naslov {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.kalendar-nav-dugme {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius);
+    background: var(--bg-muted);
+    border: 1px solid var(--ivica);
+    color: var(--tekst-sekundarni);
+    font-size: 0.72rem;
+    transition: var(--tranzicija);
+}
+
+.kalendar-nav-dugme:hover {
+    border-color: var(--primarna-40);
+    color: var(--primarna);
+    background: var(--bg-kartica);
+}
+
+
+.kalendar-danas-dugme {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--primarna);
+    background: var(--primarna-10);
+    border: 1px solid var(--primarna-30);
+    border-radius: 999px;
+    padding: 4px 10px;
+    white-space: nowrap;
+    transition: var(--tranzicija);
+}
+
+.kalendar-danas-dugme:hover {
+    background: var(--primarna-20);
+    border-color: var(--primarna-40);
+    box-shadow: 0 0 12px -4px var(--primarna-50);
+}
+
+.kalendar-danas-dugme:active { transform: scale(0.95); }
+
+.kalendar-dani-u-nedelji {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-bottom: 6px;
+}
+
+.dan-u-nedelji {
+    text-align: center;
+    font-size: 0.66rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--tekst-muted);
+    padding: 4px 0;
+}
+
+.kalendar-dani {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+
+.kalendar-dan {
+    position: relative;
+    aspect-ratio: 1;
+    min-height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    border: 1px solid transparent;
+    background: var(--bg-muted);
+    font-size: 0.84rem;
+    font-weight: 550;
+    font-variant-numeric: tabular-nums;
+    color: var(--tekst-primarni);
+    cursor: pointer;
+    transition: var(--tranzicija);
+}
+
+.kalendar-dan:hover {
+    border-color: var(--primarna-40);
+    background: var(--bg-kartica);
+    box-shadow: var(--senka-sm);
+}
+
+.kalendar-dan.drugi-mesec {
+    opacity: 0.32;
+    background: transparent;
+    cursor: default;
+}
+
+.kalendar-dan.drugi-mesec:hover {
+    border-color: transparent;
+    box-shadow: none;
+    background: transparent;
+}
+
+.kalendar-dan.danas {
+    border-color: var(--primarna);
+    font-weight: 800;
+    box-shadow: inset 0 0 0 1px var(--primarna-40);
+}
+
+.kalendar-dan.izabran {
+    background: var(--primarna);
+    border-color: var(--primarna);
+    color: var(--primarna-tekst);
+    font-weight: 800;
+    box-shadow: var(--senka-md);
+}
+
+.kalendar-dan.izabran.danas {
+    box-shadow: inset 0 0 0 2px var(--bg-kartica);
+}
+
+
+.tacke-beleski {
+    position: absolute;
+    bottom: 4px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 3px;
+    pointer-events: none;
+}
+
+.tacka {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px rgb(0 0 0 / 0.08);
+}
+.kalendar-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: sticky;
+    top: 120px;
+}
+.nadolazeca-stavka {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 10px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: var(--tranzicija);
+}
+
+.nadolazeca-stavka:hover {
+    background: var(--bg-muted);
+    border-color: var(--ivica);
+}
+
+.nadolazeca-stavka-ikona {
+    flex: none;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.nadolazeca-stavka-sadrzaj {
+    flex: 1;
+    min-width: 0;
+}
+
+.nadolazeca-stavka-naslov {
+    font-size: 0.8rem;
+    font-weight: 650;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.nadolazeca-stavka-datum {
+    font-size: 0.69rem;
+    color: var(--tekst-sekundarni);
+    margin-top: 1px;
+}

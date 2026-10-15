@@ -1,0 +1,20 @@
+body.code-tema .toast {
+    background: var(--bg-zaglavlje);
+    color: var(--tekst-primarni);
+    border: 1px solid var(--ivica);
+    border-radius: 3px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), 0 0 18px rgba(var(--gx-rgb), 0.15);
+}
+
+body.code-tema .toast-uspesno,
+body.code-tema .toast.uspeh {
+    border-color: var(--uspesna);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), 0 0 18px rgba(var(--gx-rgb), 0.3);
+}
+
+body.code-tema .toast-greska,
+body.code-tema .toast.greska {
+    border-color: var(--opasna);
+    color: #ffd7de;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), 0 0 18px rgba(255, 56, 96, 0.3);
+}

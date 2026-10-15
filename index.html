@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Školska Informacija v2.0</title>
+    <meta name="description" content="Školski informacioni sistem / raspored časova, kalendar i beleške.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%2304120d'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='%2300ff9c' font-family='monospace' font-weight='700'>&gt;_</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./osnova/osnova.css">
+    <link rel="stylesheet" href="./osnova/ikone.css">
+    <link rel="stylesheet" href="./zaglavlje/zaglavlje.css">
+    <link rel="stylesheet" href="./dugmad/dugme.css">
+    <link rel="stylesheet" href="./raspored/raspored.css">
+    <link rel="stylesheet" href="./kalendar/kalendar.css">
+    <link rel="stylesheet" href="./beleske/beleske.css">
+    <link rel="stylesheet" href="./unos/unos.css">
+    <link rel="stylesheet" href="./modal/modal.css">
+    <link rel="stylesheet" href="./komande/komande.css">
+    <link rel="stylesheet" href="./toast/toast.css">
+    <link rel="stylesheet" href="./podnozje/podnozje.css">
+    <link rel="stylesheet" href="./responsivno/responsivno.css">
+    <link rel="stylesheet" href="./c-tema/c-osnova.css">
+    <link rel="stylesheet" href="./c-tema/c-animacije.css">
+    <link rel="stylesheet" href="./c-tema/c-detali.css">
+    <link rel="stylesheet" href="./c-tema/c-responsivno.css">
+    <link rel="stylesheet" href="./zaglavlje/zaglavlje-c.css">
+    <link rel="stylesheet" href="./dugmad/dugme-c.css">
+    <link rel="stylesheet" href="./raspored/raspored-c.css">
+    <link rel="stylesheet" href="./kalendar/kalendar-c.css">
+    <link rel="stylesheet" href="./beleske/beleske-c.css">
+    <link rel="stylesheet" href="./unos/unos-c.css">
+    <link rel="stylesheet" href="./modal/modal-c.css">
+    <link rel="stylesheet" href="./komande/komande-c.css">
+    <link rel="stylesheet" href="./toast/toast-c.css">
+    <link rel="stylesheet" href="./podnozje/podnozje-c.css">
+    <link rel="stylesheet" href="./bios/bios-okvir.css">
+    <link rel="stylesheet" href="./bios/bios-ploce.css">
+    <link rel="stylesheet" href="./bios/bios-dijalog.css">
+    <link rel="stylesheet" href="./bios/bios-elementi.css">
+    <link rel="stylesheet" href="./bios/bios-responsivno.css">
+    <link rel="stylesheet" href="./bios/bios-c.css">
+    <link rel="stylesheet" href="./v-tema/v-osnova.css">
+    <link rel="stylesheet" href="./v-tema/v-xray.css">
+    <link rel="stylesheet" href="./v-tema/v-panel.css">
+    <link rel="stylesheet" href="./v-tema/v-tranzicija.css">
+
+</head>
+<body>
+    <canvas id="codeRain" class="code-kisa" aria-hidden="true"></canvas>
+
+    <div id="crtSloj" aria-hidden="true"></div>
+
+    <div id="appKoren" class="app-koren">
+
+        <header class="zaglavlje">
+            <div class="zaglavlje-sadrzaj">
+                <div class="logo">
+                    <span class="logo-ikona" id="logoIkona" title="Školska Informacija">🎓</span>
+                    <div class="logo-tekst">
+                        <h1 id="nazivSkole" class="logo-naslov" data-text="Smart Gimnazija"><span class="tajna-rec" id="tajnaRec1" title="Pronašao si deo tajne!">Smart</span> <span id="nazivSkoleOstatak">Gimnazija</span></h1>
+                        <p id="nazivRazreda">Razred: IV-3</p>
+                    </div>
+                </div>
+
+                <nav class="desktop-nav" aria-label="Glavna navigacija">
+                    <button class="nav-dugme aktivan" data-tab="raspored">
+                        <span class="nav-ikona" aria-hidden="true"><span class="ik" data-e="🕐" data-a="[#]"></span></span>
+                        <span>Raspored</span>
+                    </button>
+                    <button class="nav-dugme" data-tab="kalendar">
+                        <span class="nav-ikona" aria-hidden="true"><span class="ik" data-e="📅" data-a="[D]"></span></span>
+                        <span>Kalendar</span>
+                    </button>
+                    <button class="nav-dugme" data-tab="beleske">
+                        <span class="nav-ikona" aria-hidden="true"><span class="ik" data-e="📝" data-a="[N]"></span></span>
+                        <span>Beleške</span>
+                    </button>
+                </nav>
+
+                <div class="zaglavlje-akcije">
+                    <div class="obavestenje-wrapper">
+                        <button class="ikonica-dugme" id="dugmeObavestenja" aria-label="Obaveštenja" aria-expanded="false">
+                            <span class="ikona-zvono" aria-hidden="true"><span class="ik" data-e="🔔" data-a="[!]"></span></span>
+                            <span class="obavestenje-oznaka" id="brojObavestenja">0</span>
+                        </button>
+                        <div class="obavestenje-dropdown" id="dropdownObavestenja" role="menu">
+                            <div class="dropdown-zaglavlje">Nadolazeći događaji</div>
+                            <div class="dropdown-sadrzaj" id="listaObavestenja">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="ikonica-dugme" id="dugmeKomande" aria-label="Komande" title="Komandna paleta (Ctrl+K)">
+                        <span class="kp-dugme-tekst" aria-hidden="true">&gt;_</span>
+                    </button>
+
+                    <button class="ikonica-dugme" id="dugmeTema" aria-label="Promena teme">
+                        <span id="ikonaTema">🌙</span>
+                    </button>
+
+                    <button class="ikonica-dugme" id="dugmePodesavanja" aria-label="Podešavanja (BIOS)" title="Podešavanja / BIOS (DEL)">
+                        <span aria-hidden="true"><span class="ik" data-e="⚙️" data-a="[S]"></span></span>
+                        <span class="bios-nagovestaj" aria-hidden="true">BIOS</span>
+                    </button>
+
+                    <button class="ikonica-dugme mobilno" id="dugmeMobilniMeni" aria-label="Meni">
+                        <span aria-hidden="true">☰</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="statusna-traka">
+                <div class="status-levo">
+                    <span class="ikona-smene" id="ikonaSmene" aria-hidden="true">🌅</span>
+                    <span id="nazivSmene">Jutarnja smena</span>
+                    <span class="status-separator" aria-hidden="true">│</span>
+                    <span id="statusTekst">Slobodno</span>
+                </div>
+                <div class="status-desno">
+                    <span id="livDatum" class="liv-datum">/</span>
+                    <span id="livSat" class="liv-sat" aria-label="Trenutno vreme">00:00:00</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="mobilni-meni" id="mobilniMeni">
+            <button class="mobilni-nav-dugme aktivan" data-tab="raspored">
+                <span class="nav-ikona" aria-hidden="true"><span class="ik" data-e="🕐" data-a="[#]"></span></span>
+                <span>Raspored časova</span>
+            </button>
+            <button class="mobilni-nav-dugme" data-tab="kalendar">
+                <span class="nav-ikona" aria-hidden="true"><span class="ik" data-e="📅" data-a="[D]"></span></span>
+                <span>Kalendar</span>
+            </button>
+            <button class="mobilni-nav-dugme" data-tab="beleske">
+                <span class="nav-ikona" aria-hidden="true"><span class="ik" data-e="📝" data-a="[N]"></span></span>
+                <span>Beleške</span>
+            </button>
+        </div>
+
+        <main class="glavni">
+            <section class="tab-sadrzaj aktivan" id="tabRaspored" aria-label="Raspored časova">
+                <div class="print-zaglavlje" id="printZaglavlje" aria-hidden="true"></div>
+
+                <div class="mobilni-birac-dana">
+                    <button class="dugme-nav-dana" id="dugmePredhodniDan" aria-label="Prethodni dan">◀</button>
+                    <select id="selektorDana" aria-label="Dan u nedelji">
+                        <option value="0">Ponedeljak</option>
+                        <option value="1">Utorak</option>
+                        <option value="2">Sreda</option>
+                        <option value="3">Četvrtak</option>
+                        <option value="4">Petak</option>
+                    </select>
+                    <button class="dugme-nav-dana" id="dugmeSledeciDan" aria-label="Sledeći dan">▶</button>
+                </div>
+
+                <div class="pretraga-predmeta" id="pretragaPredmetaBar" role="search" aria-label="Pretraga predmeta u rasporedu" hidden>
+                    <div class="pp-red">
+                        <span class="pp-ikona" aria-hidden="true"><span class="ik" data-e="🔍" data-a="[>]"></span></span>
+                        <input type="text" id="ppUnos" class="pp-unos" placeholder="Pretraži predmet…  ( , za još predmeta )"
+                               autocomplete="off" spellcheck="false"
+                               aria-label="Pretraga predmeta / zarez za više predmeta odjednom">
+                        <span class="pp-broj" id="ppBroj" aria-live="polite"></span>
+                        <button type="button" class="pp-zatvori" id="ppZatvori" title="Zatvori i poništi (ESC)" aria-label="Zatvori pretragu predmeta">
+                            <span class="ik" data-e="✕" data-a="X"></span>
+                        </button>
+                    </div>
+                    <div class="pp-pogodci" id="ppPogodci" aria-label="Pronađeni predmeti"></div>
+                </div>
+
+                <div class="ms-traka" id="multiSelectBar" role="toolbar" aria-label="Višestruki izbor časova" hidden>
+                    <div class="ms-red">
+                        <span class="ms-ikona" aria-hidden="true"><span class="ik" data-e="☑️" data-a="[M]"></span></span>
+                        <span class="ms-tekst">Izabrano: <span class="ms-broj" id="msBroj">0</span></span>
+                        <span class="ms-cip is-smena" id="msSmena">JUTARNJA SMENA</span>
+                        <span class="ms-akcije">
+                            <button type="button" class="dugme dugme-ghost dugme-malo" id="msSve" title="Izaberi svih 5 dana">Sve</button>
+                            <button type="button" class="dugme dugme-ghost dugme-malo" id="msNista" title="Poništi izbor">Ništa</button>
+                            <button type="button" class="dugme dugme-sekundarno dugme-malo" id="msObrisi" title="Obriši sve izabrane časove" disabled><span class="ik" data-e="🗑️" data-a="[x]"></span> Obriši</button>
+                            <button type="button" class="dugme dugme-glavno dugme-malo" id="msIzmeni" title="Izmeni sve izabrane časove odjednom" disabled><span class="ik" data-e="✏️" data-a="&gt;"></span> Izmeni</button>
+                            <button type="button" class="pp-zatvori" id="msZatvori" title="Izađi iz višestrukog izbora (ESC)" aria-label="Izađi iz višestrukog izbora">
+                                <span class="ik" data-e="✕" data-a="X"></span>
+                            </button>
+                        </span>
+                    </div>
+                    <p class="ms-napomena">Kliknite na časove u tabeli da ih izaberete (važi za aktivnu smenu) / zatim „Izmeni” za grupsku izmenu.</p>
+                </div>
+
+                <div class="raspored-kontejner desktop">
+                    <div class="raspored-zaglavlje">
+                        <div class="raspored-zaglavlje-red">
+                            <div>
+                                <h2>Raspored časova</h2>
+                                <p>Kliknite na čas da biste ga izmenili · klik na dan u zaglavlju ističe celu kolonu · <strong>S</strong> / pretraga · <strong>M</strong> / višestruki izbor</p>
+                            </div>
+                            <div class="zaglavlje-akcije">
+                                <button class="dugme dugme-ghost dugme-ikona dugme-multi-select" id="dugmeMultiSelect" type="button" title="Višestruki izbor časova (M)" aria-label="Višestruki izbor časova (prečica M)" aria-pressed="false"><span class="ik" data-e="☑️" data-a="[M]"></span></button>
+                                <button class="dugme dugme-ghost dugme-ikona dugme-pretraga-predmeta" id="dugmePretragaPredmeta" type="button" title="Pretraga predmeta (S)" aria-label="Pretraga predmeta (prečica S)"><span class="ik" data-e="🔍" data-a="[S]"></span></button>
+                                <button class="dugme dugme-ghost dugme-ikona stampa-dugme" id="dugmeStampaj" type="button" title="Odštampaj celu nedelju" aria-label="Odštampaj celu nedelju"><span class="ik" data-e="🖨️" data-a="PRN"></span></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="raspored-mreza" id="desktopRaspored">
+                    </div>
+                </div>
+
+                <div class="raspored-kontejner mobilni">
+                    <div class="raspored-zaglavlje">
+                        <div class="raspored-zaglavlje-red">
+                            <div>
+                                <h2><span id="naslovMobilniDan">Ponedeljak</span> <span class="mobilni-dan-datum" id="mobilniDanDatum" aria-hidden="true"></span></h2>
+                                <p>Kliknite na čas da biste ga izmenili · <strong>S</strong> / pretraga · <strong>M</strong> / višestruki izbor</p>
+                            </div>
+                            <div class="zaglavlje-akcije">
+                                <button class="dugme dugme-ghost dugme-ikona dugme-multi-select dugmeMultiSelectMobilni" type="button" title="Višestruki izbor časova (M)" aria-label="Višestruki izbor časova (prečica M)" aria-pressed="false"><span class="ik" data-e="☑️" data-a="[M]"></span></button>
+                                <button class="dugme dugme-ghost dugme-ikona dugme-pretraga-predmeta dugmePretragaPredmetaMobilni" type="button" title="Pretraga predmeta (S)" aria-label="Pretraga predmeta (prečica S)"><span class="ik" data-e="🔍" data-a="[S]"></span></button>
+                                <button class="dugme dugme-ghost dugme-ikona stampa-dugme dugmeStampajMobilni" type="button" title="Odštampaj celu nedelju" aria-label="Odštampaj celu nedelju"><span class="ik" data-e="🖨️" data-a="PRN"></span></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="raspored-lista" id="mobilniRaspored">
+                    </div>
+                </div>
+            </section>
+
+            <section class="tab-sadrzaj" id="tabKalendar" aria-label="Kalendar">
+                <div class="kalendar-raspored">
+                    <div class="kalendar-kontejner">
+                        <div class="kartica">
+                            <div class="kartica-zaglavlje">
+                                <h3>Kalendar</h3>
+                                <p>Izaberite datum da vidite beleške</p>
+                            </div>
+                            <div class="kartica-telo" id="kalendarWrapper">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="kalendar-sidebar">
+                        <div class="kartica">
+                            <div class="kartica-zaglavlje">
+                                <div class="kartica-zaglavlje-red">
+                                    <h3 id="naslovIzabraniDatum">Danas</h3>
+                                    <button class="dugme dugme-glavno dugme-malo" id="dugmeDodajBelesku">
+                                        <span aria-hidden="true">+</span> Dodaj
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="kartica-telo" id="beleskeIzabraniDatum">
+                            </div>
+                        </div>
+
+                        <div class="kartica" id="karticaNadolazeci">
+                            <div class="kartica-zaglavlje">
+                                <h3><span class="ikona-zvono" aria-hidden="true"><span class="ik" data-e="🔔" data-a="[!]"></span></span> Nadolazeći događaji</h3>
+                            </div>
+                            <div class="kartica-telo" id="nadolazeciDogadjaji">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="tab-sadrzaj" id="tabBeleske" aria-label="Beleške">
+                <div class="beleske-zaglavlje">
+                    <div class="beleske-naslov-wrap">
+                        <h2>Beleške</h2>
+                        <div class="beleske-progres" id="beleskeProgres" hidden>
+                            <div class="beleske-progres-traka" role="progressbar" aria-labelledby="beleskeProgresTekst" aria-valuemin="0" aria-valuemax="100" id="beleskeProgresTraka">
+                                <div class="beleske-progres-popunjeno" id="beleskeProgresPopunjeno"></div>
+                            </div>
+                            <span class="beleske-progres-tekst" id="beleskeProgresTekst"></span>
+                        </div>
+                    </div>
+                    <button class="dugme dugme-glavno" id="dugmeNovaBeleska">
+                        <span aria-hidden="true">+</span> Nova beleška
+                    </button>
+                </div>
+
+                <div class="filter-dugmad" role="toolbar" aria-label="Filter beleški">
+                    <button class="filter-dugme aktivan" data-filter="sve">Sve (<span id="brojSve">0</span>)</button>
+                    <button class="filter-dugme" data-filter="kontrolni"><span class="ik" data-e="🔴" data-a="!!"></span> Kontrolni (<span id="brojKontrolni">0</span>)</button>
+                    <button class="filter-dugme" data-filter="pismeni"><span class="ik" data-e="🟣" data-a="[W]"></span> Pismeni (<span id="brojPismeni">0</span>)</button>
+                    <button class="filter-dugme" data-filter="blic"><span class="ik" data-e="🟡" data-a="[B]"></span> Blic (<span id="brojBlic">0</span>)</button>
+                    <button class="filter-dugme" data-filter="prezentacija"><span class="ik" data-e="🎤" data-a="[PR]"></span> Prezentacija (<span id="brojPrezentacija">0</span>)</button>
+                    <button class="filter-dugme" data-filter="domaci"><span class="ik" data-e="🔵" data-a="[HW]"></span> Domaći (<span id="brojDomaci">0</span>)</button>
+                    <button class="filter-dugme" data-filter="ostalo"><span class="ik" data-e="⚫" data-a="[O]"></span> Ostalo (<span id="brojOstalo">0</span>)</button>
+                </div>
+
+                <div class="pretraga-traka" role="search">
+                    <div class="pretraga-kutija">
+                        <span class="pretraga-ikona" aria-hidden="true">&gt;_</span>
+                        <input type="search" id="pretragaBeleske" placeholder="Pretraži beleške… (naslov ili sadržaj)" aria-label="Pretraži beleške po naslovu ili sadržaju" autocomplete="off" spellcheck="false" />
+                        <button type="button" class="pretraga-ocisti" id="dugmeOcistiPretragu" aria-label="Očisti pretragu" hidden>×</button>
+                    </div>
+                    <span class="pretraga-broj" id="pretragaBroj" aria-live="polite"></span>
+                </div>
+
+                <div class="beleske-mreza" id="mrezaBeleski">
+                </div>
+            </section>
+        </main>
+
+        <footer class="podnozje">
+            <div class="podnozje-sadrzaj">
+                <div class="podnozje-levo">
+                    <span class="podnozje-logo" aria-hidden="true">&gt;_</span>
+                    <span>Školska Informacija <strong>v2.0</strong></span>
+                    <span class="podnozje-tacka" aria-hidden="true">•</span>
+                    <span>Official version</span>
+                </div>
+                <div class="podnozje-desno">
+                    <span class="podnozje-prečice samo-desktop" aria-hidden="true"><kbd>1</kbd>–<kbd>3</kbd> tabovi • <kbd>N</kbd> beleška • <kbd>/</kbd> pretraga • <kbd>Ctrl</kbd>+<kbd>K</kbd> komande • <kbd>?</kbd> pomoć • <kbd>DEL</kbd> BIOS</span>
+                    <span id="podnozjeStat">Podaci sačuvani lokalno</span>
+                </div>
+            </div>
+        </footer>
+
+        <div class="modal" id="modalRaspored" role="dialog" aria-modal="true" aria-labelledby="naslovModalRaspored">
+            <div class="modal-prekrivac" data-zatvori="modalRaspored"></div>
+            <div class="modal-kartica">
+                <div class="modal-zaglavlje">
+                    <h3 id="naslovModalRaspored">Dodaj čas</h3>
+                    <button class="modal-zatvori" id="zatvoriModalRaspored" aria-label="Zatvori">✕</button>
+                </div>
+                <div class="modal-telo">
+                    <div class="info-slota" id="infoSlota" aria-live="polite"></div>
+                    <div class="form-red">
+                        <div class="form-grupa">
+                            <label for="rasporedDan">Dan</label>
+                            <select id="rasporedDan">
+                                <option value="0">Ponedeljak</option>
+                                <option value="1">Utorak</option>
+                                <option value="2">Sreda</option>
+                                <option value="3">Četvrtak</option>
+                                <option value="4">Petak</option>
+                            </select>
+                        </div>
+                        <div class="form-grupa">
+                            <label for="rasporedCas">Čas</label>
+                            <select id="rasporedCas">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-grupa">
+                        <label for="pretragaPredmeta">Predmet</label>
+                        <div class="bp-pretraga">
+                            <span class="ik" data-e="🔍" data-a="[&gt;]" aria-hidden="true"></span>
+                            <input type="text" id="pretragaPredmeta" placeholder="Traži predmet po nazivu ili nastavniku..." autocomplete="off" maxlength="60">
+                        </div>
+                        <div class="birac-predmeta" id="biracPredmeta" role="group" aria-label="Izbor predmeta">
+                        </div>
+                    </div>
+                    <div class="form-grupa">
+                        <label for="rasporedKabinet">Kabinet (opciono)</label>
+                        <input type="text" id="rasporedKabinet" placeholder="npr. Kabinet 5" maxlength="24">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="dugme dugme-opasno" id="dugmeObrisiRaspored" style="display:none;">Obriši</button>
+                    <div class="modal-footer-desno">
+                        <button class="dugme dugme-sekundarno" id="dugmeOtkaziRaspored">Otkaži</button>
+                        <button class="dugme dugme-glavno" id="dugmeSacuvajRaspored">Sačuvaj</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="modalGrupnaIzmena" role="dialog" aria-modal="true" aria-labelledby="naslovModalGrupnaIzmena">
+            <div class="modal-prekrivac" data-zatvori="modalGrupnaIzmena"></div>
+            <div class="modal-kartica">
+                <div class="modal-zaglavlje">
+                    <h3 id="naslovModalGrupnaIzmena"><span class="ik" data-e="☑️" data-a="[M]"></span> Grupna izmena časova</h3>
+                    <button class="modal-zatvori" id="zatvoriModalGrupnaIzmena" aria-label="Zatvori">✕</button>
+                </div>
+                <div class="modal-telo">
+                    <div class="info-slota" id="giInfo" aria-live="polite"></div>
+                    <div class="form-grupa">
+                        <label class="kuca-izbor">
+                            <input type="checkbox" id="giPromeniPredmet" checked>
+                            <span class="kuca-izbor-kvadratic" aria-hidden="true"></span>
+                            <span><span class="ik" data-e="📚" data-a="[B]"></span> Promeni predmet</span>
+                        </label>
+                        <div class="gi-polje" id="giPoljePredmet">
+                            <div class="bp-pretraga">
+                                <span class="ik" data-e="🔍" data-a="[&gt;]" aria-hidden="true"></span>
+                                <input type="text" id="giPretraga" placeholder="Traži predmet po nazivu ili nastavniku..." autocomplete="off" maxlength="60" aria-label="Pretraga predmeta za grupnu izmenu">
+                            </div>
+                            <div class="birac-predmeta" id="biracGrupne" role="group" aria-label="Izbor predmeta za grupnu izmenu">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-grupa">
+                        <label class="kuca-izbor">
+                            <input type="checkbox" id="giPromeniKabinet">
+                            <span class="kuca-izbor-kvadratic" aria-hidden="true"></span>
+                            <span><span class="ik" data-e="📍" data-a="@"></span> Promeni kabinet</span>
+                        </label>
+                        <div class="gi-polje gi-onemoguceno" id="giPoljeKabinet">
+                            <input type="text" id="giKabinet" placeholder="npr. Kabinet 5" maxlength="24">
+                            <p class="gi-napomena">Prazno polje briše kabinet sa svih izabranih časova.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="modal-footer-desno">
+                        <button class="dugme dugme-sekundarno" id="dugmeOtkaziGrupnu">Otkaži</button>
+                        <button class="dugme dugme-glavno" id="dugmeSacuvajGrupnu">Primeni izmene</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="modalBeleska" role="dialog" aria-modal="true" aria-labelledby="naslovModalBeleska">
+            <div class="modal-prekrivac" data-zatvori="modalBeleska"></div>
+            <div class="modal-kartica">
+                <div class="modal-zaglavlje">
+                    <h3 id="naslovModalBeleska">Nova beleška</h3>
+                    <button class="modal-zatvori" id="zatvoriModalBeleska" aria-label="Zatvori">✕</button>
+                </div>
+                <div class="modal-telo">
+                    <div class="form-grupa">
+                        <label for="beleskaNaslov">Naslov</label>
+                        <input type="text" id="beleskaNaslov" placeholder="Unesite naslov..." maxlength="120">
+                    </div>
+                    <div class="form-red">
+                        <div class="form-grupa">
+                            <label for="beleskaTip">Tip</label>
+                            <select id="beleskaTip">
+                                <option value="kontrolni">Kontrolni</option>
+                                <option value="pismeni">Pismeni</option>
+                                <option value="blic">Blic</option>
+                                <option value="prezentacija">Prezentacija</option>
+                                <option value="domaci">Domaći</option>
+                                <option value="ostalo">Ostalo</option>
+                            </select>
+                        </div>
+                        <div class="form-grupa">
+                            <label for="beleskaDatum">Datum</label>
+                            <input type="date" id="beleskaDatum">
+                        </div>
+                    </div>
+                    <div class="form-grupa">
+                        <label for="beleskaPredmet">Predmet (opciono)</label>
+                        <select id="beleskaPredmet">
+                            <option value="">-- Bez predmeta --</option>
+                        </select>
+                    </div>
+                    <div class="form-grupa">
+                        <label for="beleskaOpis">Opis</label>
+                        <textarea id="beleskaOpis" rows="3" placeholder="Detalji..." maxlength="500"></textarea>
+                    </div>
+                    <div class="form-grupa form-grupa-potpuni">
+                        <label class="kuca-izbor">
+                            <input type="checkbox" id="beleskaZakaci">
+                            <span class="kuca-izbor-kvadratic" aria-hidden="true"></span>
+                            <span><span class="ik" data-e="📌" data-a="*"></span> Zakači na vrh liste</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="dugme dugme-opasno" id="dugmeObrisiBelesku" style="display:none;">Obriši</button>
+                    <div class="modal-footer-desno">
+                        <button class="dugme dugme-sekundarno" id="dugmeOtkaziBelesku">Otkaži</button>
+                        <button class="dugme dugme-glavno" id="dugmeSacuvajBelesku">Sačuvaj</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="modalPredmet" role="dialog" aria-modal="true" aria-labelledby="naslovModalPredmet">
+            <div class="modal-prekrivac" data-zatvori="modalPredmet"></div>
+            <div class="modal-kartica modal-mali">
+                <div class="modal-zaglavlje">
+                    <h3 id="naslovModalPredmet">Dodaj predmet</h3>
+                    <button class="modal-zatvori" id="zatvoriModalPredmet" aria-label="Zatvori">✕</button>
+                </div>
+                <div class="modal-telo">
+                    <div class="form-grupa">
+                        <label for="predmetNaziv">Naziv predmeta</label>
+                        <input type="text" id="predmetNaziv" placeholder="npr. Matematika" maxlength="60">
+                    </div>
+                    <div class="form-grupa">
+                        <label>Boja</label>
+                        <div class="birac-boje">
+                            <input type="color" id="predmetBoja" value="#0d9488" aria-label="Boja predmeta">
+                            <div class="boje-preseti">
+                                <button type="button" class="boja-preset" data-color="#ef4444" style="background:#ef4444" aria-label="Crvena"></button>
+                                <button type="button" class="boja-preset" data-color="#f59e0b" style="background:#f59e0b" aria-label="Narandžasta"></button>
+                                <button type="button" class="boja-preset" data-color="#eab308" style="background:#eab308" aria-label="Žuta"></button>
+                                <button type="button" class="boja-preset" data-color="#22c55e" style="background:#22c55e" aria-label="Zelena"></button>
+                                <button type="button" class="boja-preset" data-color="#0d9488" style="background:#0d9488" aria-label="Tirkiz"></button>
+                                <button type="button" class="boja-preset" data-color="#3b82f6" style="background:#3b82f6" aria-label="Plava"></button>
+                                <button type="button" class="boja-preset" data-color="#8b5cf6" style="background:#8b5cf6" aria-label="Ljubičasta"></button>
+                                <button type="button" class="boja-preset" data-color="#ec4899" style="background:#ec4899" aria-label="Roze"></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-grupa">
+                        <label for="predmetNastavnik">Nastavnik (opciono)</label>
+                        <input type="text" id="predmetNastavnik" placeholder="Ime nastavnika" maxlength="60">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="dugme dugme-opasno" id="dugmeObrisiPredmet" style="display:none;">Obriši</button>
+                    <div class="modal-footer-desno">
+                        <button class="dugme dugme-sekundarno" id="dugmeOtkaziPredmet">Otkaži</button>
+                        <button class="dugme dugme-glavno" id="dugmeSacuvajPredmet">Sačuvaj</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="modalPotvrda" role="alertdialog" aria-modal="true" aria-labelledby="naslovModalPotvrda">
+            <div class="modal-prekrivac" data-zatvori="modalPotvrda"></div>
+            <div class="modal-kartica modal-mali">
+                <div class="modal-zaglavlje">
+                    <h3 id="naslovModalPotvrda"><span class="ik" data-e="⚠️" data-a="[!]"></span> Potvrda</h3>
+                </div>
+                <div class="modal-telo">
+                    <p id="tekstPotvrde">Da li ste sigurni?</p>
+                </div>
+                <div class="modal-footer">
+                    <div class="modal-footer-desno">
+                        <button class="dugme dugme-sekundarno" id="dugmePotvrdaOtkazi">Otkaži</button>
+                        <button class="dugme dugme-opasno" id="dugmePotvrdaOk">Potvrdi</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <input type="file" id="inputUvoz" accept=".json" style="display:none;" aria-hidden="true">
+
+        <div class="kp-overlay" id="kpOverlay" hidden>
+            <div class="kp-prekrivac" data-kp-zatvori></div>
+            <div class="kp-panel" role="dialog" aria-modal="true" aria-label="Komandna paleta">
+                <div class="kp-zaglavlje">
+                    <span class="kp-prompt" aria-hidden="true">&gt;_</span>
+                    <input type="text" id="kpUnos" placeholder="Ukucajte komandu… (npr. „raspored", „tema", „bios")" autocomplete="off" spellcheck="false" aria-label="Komanda">
+                    <span class="kp-brojac" id="kpBrojac" aria-live="polite"></span>
+                </div>
+                <div class="kp-lista" id="kpLista" role="listbox" aria-label="Rezultati komandi"></div>
+                <div class="kp-footer">
+                    <span class="kp-footer-levo">ŠKOLSKI TERMINAL · v2.0</span>
+                    <span class="kp-footer-desno"><kbd>↑</kbd><kbd>↓</kbd> izbor • <kbd>↵</kbd> izvrši • <kbd>esc</kbd> zatvori</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-kontejner" id="toastKontejner" aria-live="polite" aria-atomic="false"></div>
+
+    <div class="bios-overlay" id="biosOverlay" role="dialog" aria-modal="true" aria-label="BIOS podešavanja" hidden>
+        <div class="bios-boot" id="biosBoot" hidden>
+            <div class="bios-boot-logo" aria-hidden="true">ŠKOLSKI BIOS</div>
+            <div class="bios-boot-log" id="biosBootLog" aria-live="polite"></div>
+            <div class="bios-boot-skip">Pritisnite bilo koji taster za nastavak...</div>
+        </div>
+
+        <div class="bios-ui" id="biosUI" hidden>
+            <header class="bios-header">
+                <div class="bios-header-levo">
+                    <span class="bios-naziv">ŠKOLSKI BIOS <span class="bios-verzija">v2.0</span></span>
+                    <span class="bios-podnaziv">Školska Informacija / Utility za podešavanja</span>
+                </div>
+                <div class="bios-header-desno">
+                    <span class="bios-mem" aria-hidden="true">MEM: 65536K OK</span>
+                    <span class="bios-sat" id="biosSat">00:00:00</span>
+                </div>
+            </header>
+
+            <nav class="bios-nav" id="biosNav" role="tablist" aria-label="BIOS kategorije">
+            </nav>
+
+            <div class="bios-telo">
+                <div class="bios-panel">
+                    <div class="bios-kategorija-naslov" id="biosKategorijaNaslov"></div>
+                    <div class="bios-redovi" id="biosRedovi" role="listbox" aria-label="BIOS stavke"></div>
+                </div>
+
+                <aside class="bios-side" id="biosSide" role="region" aria-label="BIOS podmeni" hidden>
+                    <div class="bios-side-naslov" id="biosSideNaslov">PODMENI</div>
+                    <div class="bios-side-sadrzaj" id="biosSideSadrzaj"></div>
+                    <div class="bios-side-footer" id="biosSideFooter"></div>
+                </aside>
+
+                <aside class="bios-info" id="biosInfo">
+                    <div class="bios-info-kutija">
+                        <h4 class="bios-info-naslov">SISTEM</h4>
+                        <dl id="biosInfoSistem"></dl>
+                    </div>
+                    <div class="bios-info-kutija">
+                        <h4 class="bios-info-naslov">TASTERI</h4>
+                        <ul id="biosInfoTasteri">
+                            <li><kbd>↑↓</kbd> / izbor stavke</li>
+                            <li><kbd>←→</kbd> / promena kategorije</li>
+                            <li><kbd>+/−</kbd> / promena vrednosti</li>
+                            <li><kbd>Enter</kbd> / izmeni / potvrdi</li>
+                            <li><kbd>F10</kbd> / sačuvaj i izađi</li>
+                            <li><kbd>ESC</kbd> / izlaz</li>
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+
+            <footer class="bios-footer">
+                <span><kbd>↑↓</kbd> Izbor stavke</span>
+                <span><kbd>←→</kbd> Kategorija</span>
+                <span><kbd>+/−</kbd> Vrednost</span>
+                <span><kbd>Enter</kbd> Izmeni</span>
+                <span><kbd>F1</kbd> Pomoć</span>
+                <span><kbd>F9</kbd> Podrazumevano</span>
+                <span><kbd>F10</kbd> Sačuvaj i izađi</span>
+                <span class="bios-footer-desno"><kbd>ESC</kbd> Izlaz</span>
+            </footer>
+        </div>
+
+        <div class="bios-dialog" id="biosDialog" hidden>
+            <div class="bios-dialog-kutija" role="alertdialog" aria-labelledby="biosDialogNaslov">
+                <div class="bios-dialog-naslov" id="biosDialogNaslov"></div>
+                <div class="bios-dialog-sadrzaj" id="biosDialogSadrzaj"></div>
+                <div class="bios-dialog-dugmad" id="biosDialogDugmad"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tajna-nagovestaj" id="tajnaNagovestaj" title="Nešto je skriveno ispod te kape...">🎓 × 2 <span>= <span class="ik" data-e=">_" data-a="!!"></span></span></div>
+
+    <script src="./osnova/podaci.js"></script>
+    <script src="./osnova/stanje.js"></script>
+    <script src="./osnova/pomocne.js"></script>
+    <script src="./osnova/skladiste.js"></script>
+    <script src="./tema/tema.js"></script>
+    <script src="./smene/smene.js"></script>
+    <script src="./zaglavlje/zaglavlje.js"></script>
+    <script src="./raspored/raspored.js"></script>
+    <script src="./kalendar/kalendar.js"></script>
+    <script src="./beleske/beleske.js"></script>
+    <script src="./unos/unos.js"></script>
+    <script src="./modal/modal.js"></script>
+    <script src="./toast/toast.js"></script>
+    <script src="./komande/komande.js"></script>
+    <script src="./osnova/app.js"></script>
+    <script src="./dogadjaji/dogadjaji.js"></script>
+    <script src="./c-tema/c-stanje.js"></script>
+    <script src="./c-tema/c-kisa.js"></script>
+    <script src="./c-tema/c-efekti.js"></script>
+    <script src="./c-tema/c-motor.js"></script>
+    <script src="./bios/bios-osnova.js"></script>
+    <script src="./bios/bios-boje.js"></script>
+    <script src="./bios/bios-redovi.js"></script>
+    <script src="./bios/bios-prikaz.js"></script>
+    <script src="./bios/bios-navigacija.js"></script>
+    <script src="./bios/bios-panel.js"></script>
+    <script src="./bios/bios-sistem.js"></script>
+    <script src="./bios/bios-boot.js"></script>
+    <script src="./bios/bios-upravljanje.js"></script>
+    <script src="./v-tema/v-stanje.js"></script>
+    <script src="./v-tema/v-tekst.js"></script>
+    <script src="./v-tema/v-efekti.js"></script>
+    <script src="./v-tema/v-xray.js"></script>
+    <script src="./v-tema/v-panel.js"></script>
+    <script src="./v-tema/v-motor.js"></script>
+</body>
+</html>

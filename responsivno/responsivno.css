@@ -1,0 +1,186 @@
+@media (max-width: 560px) {
+    .ms-tekst {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .ms-akcije {
+        width: 100%;
+        margin-left: 0;
+        justify-content: flex-end;
+    }
+}
+@media (max-width: 460px) {
+    .birac-predmeta {
+        grid-template-columns: 1fr;
+        max-height: 236px;
+    }
+
+    .info-slota {
+        gap: 5px;
+    }
+
+    .is-cip {
+        padding: 3px 8px;
+        font-size: 0.66rem;
+    }
+
+
+    .pretraga-predmeta {
+        gap: 7px;
+        padding: 7px 9px 8px;
+        margin-bottom: 10px;
+    }
+
+    .pp-unos {
+        font-size: 0.82rem;
+    }
+
+    .pp-cip {
+        padding: 4px 9px;
+        gap: 5px;
+        min-height: 26px;
+        font-size: 0.7rem;
+    }
+
+    .pp-ime {
+        max-width: 108px;
+    }
+}
+@media (min-width: 900px) {
+    .podnozje-prečice.samo-desktop {
+        display: inline-flex;
+    }
+}
+@media (max-width: 1024px) {
+    .kalendar-raspored {
+        grid-template-columns: 1fr;
+    }
+
+    .kalendar-sidebar {
+        position: static;
+    }
+}
+
+
+@media (max-width: 899px) {
+    .raspored-kontejner.desktop {
+        display: none;
+    }
+
+    .raspored-kontejner.mobilni {
+        display: block;
+    }
+
+    .mobilni-birac-dana {
+        display: flex;
+    }
+
+    #selektorDana {
+        flex: 1;
+        max-width: 240px;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .desktop-nav {
+        display: none;
+    }
+
+    .ikonica-dugme.mobilno {
+        display: inline-flex;
+    }
+
+    .zaglavlje-sadrzaj {
+        padding: 9px 14px;
+        gap: 10px;
+    }
+
+    .logo-naslov {
+        max-width: 46vw;
+        font-size: 0.98rem;
+    }
+
+    .statusna-traka {
+        padding: 5px 14px;
+    }
+
+    .status-desno {
+        gap: 8px;
+    }
+
+    .liv-datum {
+        display: none;
+    }
+
+    .glavni {
+        padding: 15px 14px 24px;
+    }
+
+    .raspored-kontejner {
+        padding: 14px;
+    }
+
+    .bios-nagovestaj {
+        display: none;
+    }
+}
+
+
+@media (max-width: 520px) {
+    body {
+        font-size: 14px;
+    }
+
+    .form-red {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-dugme {
+        padding: 6px 11px;
+        font-size: 0.72rem;
+    }
+
+    .beleske-mreza {
+        grid-template-columns: 1fr;
+    }
+
+    .kalendar-dan {
+        min-height: 34px;
+        font-size: 0.78rem;
+    }
+
+    .toast {
+        padding: 10px 16px;
+        font-size: 0.8rem;
+    }
+
+    .podnozje-sadrzaj {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .modal {
+        padding: 12px;
+    }
+
+    .modal-telo {
+        padding: 2px 14px 6px;
+    }
+
+    .modal-zaglavlje {
+        padding: 14px 14px 10px;
+    }
+
+    .modal-footer {
+        padding: 12px 14px 14px;
+    }
+}
+@media (max-width: 640px) {
+    .kp-overlay { padding-top: clamp(14px, 9vh, 70px); }
+    .kp-lista { max-height: 52vh; }
+    .kp-stavka-kat { display: none; }
+    .kp-footer-levo { display: none; }
+    .kp-footer-desno { width: 100%; justify-content: center; }
+}

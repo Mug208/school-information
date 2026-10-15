@@ -1,0 +1,201 @@
+@media (max-width: 1100px) {
+    .bios-telo:has(.bios-side:not([hidden])) .bios-info {
+        display: none;
+    }
+
+    .bios-side {
+        width: 320px;
+    }
+}
+
+
+
+
+.gx-paletta {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    vertical-align: middle;
+    padding: 2px 0;
+}
+
+.gx-sw {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    padding: 0;
+    border: 1px solid rgba(232, 232, 255, .55);
+    border-radius: 2px;
+    cursor: pointer;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .45);
+    transition: transform .12s ease, filter .12s ease, box-shadow .12s ease;
+}
+
+.bios-red:hover .gx-sw {
+    border-color: rgba(232, 232, 255, .85);
+}
+
+.gx-sw:hover {
+    transform: translateY(-2px) scale(1.18);
+    filter: brightness(1.3) saturate(1.15);
+    position: relative;
+    z-index: 2;
+}
+
+.gx-sw:focus-visible {
+    outline: 2px solid var(--bios-zuti);
+    outline-offset: 2px;
+}
+
+
+.gx-sw.aktivna {
+    box-shadow:
+        inset 0 0 0 1px rgba(0, 0, 0, .5),
+        0 0 0 2px var(--bios-zuti),
+        0 0 8px rgba(255, 212, 0, .55);
+}
+
+
+.bios-red.izabrano .gx-sw.aktivna {
+    box-shadow:
+        inset 0 0 0 1px rgba(0, 0, 0, .5),
+        0 0 0 2px var(--bios-crveni),
+        0 0 8px rgba(255, 92, 92, .45);
+}
+
+
+.gx-sw-prilagodjena {
+    position: relative;
+    background-image:
+        linear-gradient(45deg, transparent 45%, rgba(0, 0, 0, .5) 45% 55%, transparent 55%),
+        linear-gradient(-45deg, transparent 45%, rgba(0, 0, 0, .5) 45% 55%, transparent 55%);
+}
+
+.gx-sw-prilagodjena::after {
+    content: '+';
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-shadow: 0 0 3px rgba(0, 0, 0, .95), 0 0 3px rgba(0, 0, 0, .95);
+}
+
+
+.bios-red.iskljucen .gx-sw {
+    pointer-events: none;
+    filter: saturate(.3);
+}
+
+
+
+.bios-pomoc {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.bios-pomoc li kbd {
+    margin-right: 6px;
+}
+
+
+
+.bios-redovi,
+.bios-info,
+.bios-nav {
+    scrollbar-width: thin;
+    scrollbar-color: var(--bios-panel-ivica) rgba(0, 0, 0, .3);
+}
+
+.bios-redovi::-webkit-scrollbar,
+.bios-info::-webkit-scrollbar,
+.bios-nav::-webkit-scrollbar {
+    width: 8px;
+    height: 6px;
+}
+
+.bios-redovi::-webkit-scrollbar-track,
+.bios-info::-webkit-scrollbar-track,
+.bios-nav::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, .3);
+}
+
+.bios-redovi::-webkit-scrollbar-thumb,
+.bios-info::-webkit-scrollbar-thumb,
+.bios-nav::-webkit-scrollbar-thumb {
+    background: var(--bios-panel-ivica);
+}
+
+
+
+.bios-overlay :focus-visible {
+    outline: 2px solid var(--bios-zuti);
+    outline-offset: 1px;
+}
+
+.bios-red:focus-visible {
+    outline-offset: -2px;
+}
+
+.bios-header,
+.bios-nav,
+.bios-footer,
+.bios-kategorija-naslov,
+.bios-dialog-naslov {
+    user-select: none;
+}
+
+.bios-dialog-sadrzaj,
+.bios-unos {
+    user-select: text;
+}
+
+
+
+
+@keyframes bios-red-pojavljivanje {
+    from {
+        opacity: 0;
+        filter: brightness(2.4);
+    }
+    to {
+        opacity: 1;
+        filter: brightness(1);
+    }
+}
+
+
+@keyframes bios-treperenje {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+
+@keyframes bios-ui-pojavljivanje {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+
+@keyframes bios-treska {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-3px); }
+    40% { transform: translateX(3px); }
+    60% { transform: translateX(-2px); }
+    80% { transform: translateX(2px); }
+}
+
+.bios-red.bios-treska {
+    animation: bios-treska .25s ease-in-out;
+}
+
+
+

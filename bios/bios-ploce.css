@@ -1,0 +1,361 @@
+.bios-telo {
+    display: flex;
+    gap: 14px;
+    flex: 1;
+    min-height: 0;
+}
+
+.bios-panel {
+    flex: 1;
+    min-width: 0;
+    background: var(--bios-panel);
+    border: 3px double var(--bios-panel-ivica);
+    border-radius: 2px;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.bios-kategorija-naslov {
+    color: var(--bios-zuti);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 2px;
+    padding: 10px 12px 8px;
+    border-bottom: 1px solid rgba(155, 173, 255, .4);
+    user-select: none;
+}
+
+.bios-kategorija-naslov::before {
+    content: '▸ ';
+}
+
+.bios-redovi {
+    flex: 1;
+    overflow-y: auto;
+    padding: 6px;
+    min-height: 0;
+}
+
+
+
+.bios-red {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 7px 12px;
+    font-size: 13.5px;
+    cursor: default;
+    user-select: none;
+}
+
+.bios-red:not(.bios-sekcija):not(.iskljucen):hover {
+    background: rgba(255, 255, 255, .08);
+}
+
+.bios-red-label {
+    color: var(--bios-tekst);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+    flex-shrink: 1;
+}
+
+.bios-red-vrednost {
+    color: var(--bios-zuti);
+    text-align: right;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+
+.bios-red.izabrano {
+    background: var(--bios-izabrano-bg) !important;
+    box-shadow: inset 3px 0 0 var(--bios-crveni);
+}
+
+.bios-red.izabrano .bios-red-label,
+.bios-red.izabrano .bios-red-vrednost {
+    color: var(--bios-izabrano-tekst);
+    font-weight: 700;
+}
+
+
+.bios-red.tip-info .bios-red-vrednost {
+    color: var(--bios-tekst-siv);
+}
+
+
+.bios-red.iskljucen {
+    opacity: .45;
+    cursor: not-allowed;
+}
+
+.bios-red.iskljucen .bios-red-vrednost {
+    color: var(--bios-tekst-siv);
+}
+
+
+.bios-red.tip-opasno .bios-red-vrednost,
+.bios-red.tip-opasno:hover .bios-red-vrednost {
+    color: var(--bios-crveni);
+}
+
+.bios-red.tip-opasno.izabrano .bios-red-vrednost {
+    color: var(--bios-izabrano-tekst);
+}
+
+
+.bios-red.tip-glavni .bios-red-vrednost {
+    color: var(--bios-zeleni);
+}
+
+.bios-red.tip-glavni.izabrano .bios-red-vrednost {
+    color: var(--bios-izabrano-tekst);
+}
+
+
+.bios-red.tip-zakljucano .bios-red-vrednost {
+    color: var(--bios-tekst-siv);
+    letter-spacing: 2px;
+}
+
+
+.bios-red.bios-sekcija {
+    display: block;
+    text-align: left;
+    background: rgba(255, 255, 255, .09);
+    color: var(--bios-tekst-siv);
+    font-size: 11px;
+    letter-spacing: 2px;
+    padding: 5px 12px;
+    margin: 8px 0 2px;
+    cursor: default;
+}
+
+
+.bios-red.bios-predmet .bios-red-nastavnik {
+    color: var(--bios-tekst-siv);
+    font-size: 11.5px;
+    font-weight: 400;
+}
+
+.bios-red.izabrano.bios-predmet .bios-red-nastavnik {
+    color: var(--bios-izabrano-tekst);
+    opacity: .75;
+}
+
+
+.bios-boja-uzorak {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: 1px solid rgba(255, 255, 255, .5);
+    vertical-align: -1px;
+    margin-right: 6px;
+}
+
+
+
+.bios-info {
+    width: 280px;
+    flex: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-height: 0;
+    overflow-y: auto;
+}
+
+.bios-info-kutija {
+    background: var(--bios-panel);
+    border: 3px double var(--bios-panel-ivica);
+    border-radius: 2px;
+    padding: 12px 14px;
+}
+
+.bios-info-naslov {
+    color: var(--bios-zuti);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin: 0 0 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(155, 173, 255, .4);
+}
+
+#biosInfoSistem {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 4px 10px;
+    margin: 0;
+}
+
+#biosInfoSistem dt {
+    color: var(--bios-tekst-siv);
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+#biosInfoSistem dd {
+    margin: 0;
+    color: var(--bios-tekst);
+    font-size: 11.5px;
+    text-align: right;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-variant-numeric: tabular-nums;
+}
+
+#biosInfoTasteri {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#biosInfoTasteri li {
+    font-size: 11px;
+    color: var(--bios-tekst-siv);
+}
+
+
+.bios-overlay kbd {
+    display: inline-block;
+    border: 1px solid var(--bios-panel-ivica);
+    background: rgba(0, 0, 0, .35);
+    padding: 1px 5px;
+    border-radius: 2px;
+    color: var(--bios-zuti);
+    font: inherit;
+    font-size: 10.5px;
+    line-height: 1.4;
+}
+
+
+
+.bios-footer {
+    border-top: 3px double var(--bios-panel-ivica);
+    padding: 8px 4px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 14px;
+    font-size: 11px;
+    color: var(--bios-tekst-siv);
+    user-select: none;
+}
+
+.bios-footer-desno {
+    margin-left: auto;
+}
+
+.bios-footer-mobilno {
+    display: none;
+}
+
+
+
+.bios-unos {
+
+    background: var(--bios-bg-tamno);
+    color: var(--bios-zuti);
+    border: 1px solid var(--bios-panel-ivica);
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .25);
+    font: inherit;
+    font-size: 13px;
+    padding: 3px 8px;
+    width: min(220px, 40vw);
+    text-align: right;
+    outline: none;
+}
+
+.bios-unos:focus {
+    border-color: var(--bios-zuti);
+    box-shadow: 0 0 0 1px rgba(255, 212, 0, .35);
+}
+
+
+.bios-unos[type='number'] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.bios-unos[type='number']::-webkit-inner-spin-button,
+.bios-unos[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+.bios-red-vrednost .bios-unos-red {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+    width: auto;
+    min-width: 4ch;
+    max-width: 30ch;
+    height: auto;
+    color: inherit;
+    font: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    text-align: left;
+    caret-color: transparent;
+    border-radius: 0;
+    vertical-align: baseline;
+}
+
+.bios-red-vrednost .bios-unos-red:focus {
+    border-color: transparent;
+    box-shadow: none;
+    outline: none;
+}
+
+
+.bios-kurzor {
+    display: inline-block;
+    margin-left: 1px;
+    line-height: 1;
+    animation: bios-kurzor-treperei 1.06s steps(1) infinite;
+}
+
+@keyframes bios-kurzor-treperei {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+}
+
+
+.bios-unos-pak {
+    position: relative;
+    display: inline-flex;
+    vertical-align: baseline;
+}
+
+
+.bios-kurzor-sloj {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    white-space: pre;
+    overflow: hidden;
+    text-align: left;
+}
+
+.bios-kurzor-sloj .bk-ogledalo {
+    color: transparent;
+}
+
+.bios-kurzor-sloj .bios-kurzor {
+    margin-left: 0;
+}
+
+
+

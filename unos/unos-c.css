@@ -1,0 +1,146 @@
+body.code-tema select,
+body.code-tema input,
+body.code-tema textarea {
+    background: var(--gx-bg-unos);
+    border: 1px solid var(--ivica);
+    color: var(--tekst-primarni);
+    border-radius: 3px;
+}
+
+body.code-tema input[type="date"] {
+    color-scheme: dark;
+}
+
+body.code-tema select:focus,
+body.code-tema input:focus,
+body.code-tema textarea:focus {
+    border-color: var(--primarna);
+    box-shadow: 0 0 0 1px var(--primarna), 0 0 16px rgba(var(--gx-rgb), 0.25);
+    outline: none;
+}
+
+body.code-tema .form-grupa label {
+    color: var(--tekst-sekundarni);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+body.code-tema a {
+    color: var(--sekundarna);
+}
+
+body.code-tema a:hover {
+    color: var(--primarna);
+}
+
+body.code-tema .info-slota {
+    background: rgba(var(--gx-rgb), 0.06);
+    border: 1px solid rgba(var(--gx-rgb), 0.35);
+    border-radius: 3px;
+}
+
+body.code-tema .is-cip {
+    font-family: var(--font-mono);
+    background: rgba(var(--gx-rgb), 0.09);
+    color: var(--tekst-primarni);
+    border-radius: 2px;
+    letter-spacing: 0.08em;
+}
+
+body.code-tema .is-cip.is-dan {
+    background: var(--primarna);
+    color: var(--primarna-tekst);
+    text-shadow: 0 0 8px rgba(var(--gx-rgb), 0.55);
+}
+
+body.code-tema .is-cip.is-smena {
+    border: 1px dashed rgba(var(--gx-rgb), 0.4);
+    background: transparent;
+    color: var(--tekst-sekundarni);
+}
+
+body.code-tema .bp-pretraga input {
+    font-family: var(--font-mono);
+    border-radius: 3px;
+}
+
+body.code-tema .bp-pretraga input::placeholder {
+    color: var(--tekst-muted);
+}
+
+body.code-tema .bp-pretraga .ik {
+    color: var(--primarna);
+    text-shadow: 0 0 8px rgba(var(--gx-rgb), 0.6);
+}
+
+body.code-tema .birac-predmeta {
+    scrollbar-color: rgba(var(--gx-rgb), 0.35) transparent;
+    border-radius: 3px;
+}
+
+body.code-tema .birac-predmeta::-webkit-scrollbar-thumb {
+    background: rgba(var(--gx-rgb), 0.35);
+}
+
+body.code-tema .bp-predmet {
+    font-family: var(--font-mono);
+    border-radius: 3px;
+    background: rgba(var(--gx-rgb), 0.04);
+}
+
+body.code-tema .bp-predmet:hover {
+    box-shadow: 0 0 12px rgba(var(--gx-rgb), 0.2);
+}
+
+body.code-tema .bp-predmet:focus-visible {
+    outline-color: var(--primarna);
+}
+
+body.code-tema .bp-predmet.izabran {
+    background: rgba(var(--gx-rgb), 0.1);
+    box-shadow: inset 0 0 0 1px var(--pb, var(--primarna)),
+        0 0 14px rgba(var(--gx-rgb), 0.22);
+}
+
+
+body.code-tema .bp-cip {
+    border-radius: 2px;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18),
+        0 0 8px rgba(var(--gx-rgb), 0.25);
+}
+
+body.code-tema .bp-naziv {
+    letter-spacing: 0.01em;
+    text-shadow: 0 0 8px rgba(var(--gx-rgb), 0.25);
+}
+
+body.code-tema .bp-meta {
+    color: var(--tekst-sekundarni);
+}
+
+body.code-tema .bp-cek {
+    border-radius: 2px;
+    box-shadow: 0 0 10px rgba(var(--gx-rgb), 0.4);
+}
+
+body.code-tema .bp-prazno {
+    font-family: var(--font-mono);
+    border-color: rgba(var(--gx-rgb), 0.3);
+    border-radius: 3px;
+}
+
+body.code-tema .bp-prazno-naslov::before {
+    content: '// ';
+    color: var(--primarna);
+}
+
+body.code-tema .kuca-izbor-kvadratic {
+    background: rgba(var(--gx-rgb), 0.04);
+    border-color: var(--ivica);
+}
+
+body.code-tema .kuca-izbor input:checked + .kuca-izbor-kvadratic {
+    background: var(--primarna);
+    box-shadow: 0 0 12px rgba(var(--gx-rgb), 0.4);
+}

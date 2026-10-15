@@ -1,0 +1,194 @@
+@media (max-width: 1024px) {
+    .bios-info {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .bios-ui {
+        padding: 10px;
+        gap: 8px;
+    }
+
+    .bios-header {
+        flex-wrap: wrap;
+        padding: 8px 10px;
+    }
+
+    .bios-podnaziv,
+    .bios-mem {
+        display: none;
+    }
+
+
+    .bios-nav {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-snap-type: x proximity;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .bios-nav-dugme {
+        flex: 0 0 auto;
+        scroll-snap-align: start;
+        padding: 7px 12px;
+    }
+
+    .bios-telo {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+
+    .bios-side {
+        order: -1;
+        width: auto;
+        max-height: 62vh;
+        animation: bios-side-ulaz-mobilni .16s ease-out;
+    }
+
+    @keyframes bios-side-ulaz-mobilni {
+        from { opacity: 0; transform: translateY(18px); }
+        to   { opacity: 1; transform: none; }
+    }
+
+    .sp-boje {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+    }
+
+    .sp-sw {
+        height: 36px;
+    }
+
+
+    .gxb-sv {
+        height: 120px;
+    }
+
+    .gxb-krug {
+        width: 26px;
+        height: 26px;
+    }
+
+    .gxb-hue {
+        height: 20px;
+    }
+
+
+    .sp-boje,
+    .sp-pregled {
+        flex: none;
+    }
+
+    .bios-red {
+        font-size: 13px;
+        gap: 10px;
+        padding: 7px 10px;
+    }
+
+    .bios-red-vrednost {
+        max-width: 45vw;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+
+    .bios-red[data-id="ef_gx_presets"] .bios-red-vrednost {
+        max-width: 52vw;
+        overflow: visible;
+    }
+
+    .gx-paletta {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        max-width: 52vw;
+    }
+
+    .gx-sw {
+        width: 20px;
+        height: 20px;
+    }
+
+    .gx-sw-prilagodjena::after {
+        font-size: 14px;
+    }
+
+
+    .bios-footer > span:not(.bios-footer-mobilno) {
+        display: none;
+    }
+
+    .bios-footer-mobilno {
+        display: block;
+    }
+}
+
+@media (max-width: 480px) {
+    .bios-ui {
+        padding: 8px;
+        gap: 6px;
+    }
+
+    .bios-header {
+        padding: 7px 8px;
+    }
+
+    .bios-naziv {
+        font-size: 14px;
+    }
+
+    .bios-red {
+        padding: 6px 8px;
+    }
+
+    .bios-boot {
+        padding: 5vh 6vw;
+    }
+
+    .bios-boot-log {
+        font-size: 11px;
+    }
+
+    .bios-boot-logo {
+        letter-spacing: 5px;
+    }
+
+    .bios-dialog {
+        padding: 10px;
+    }
+
+    .bios-dialog-kutija {
+        min-width: 0;
+        width: 100%;
+    }
+
+    .bios-dialog-dugmad {
+        justify-content: stretch;
+    }
+
+    .bios-dialog-dugmad .bios-dugme {
+        flex: 1;
+    }
+}
+
+
+
+@media (prefers-reduced-motion: reduce) {
+    .bios-boot-red,
+    .bios-boot-skip,
+    .bios-ui,
+    .bios-side,
+    .bios-red.bios-treska {
+        animation: none !important;
+    }
+
+    .bios-kurzor {
+        animation: none !important;
+        opacity: 1;
+    }
+
+    .gx-sw {
+        transition: none !important;
+    }
+}

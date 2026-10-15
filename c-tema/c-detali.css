@@ -1,0 +1,85 @@
+
+body.code-tema ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+body.code-tema ::-webkit-scrollbar-track {
+    background: var(--bg-glavni);
+}
+
+body.code-tema ::-webkit-scrollbar-thumb {
+    background: rgba(var(--gx-rgb), 0.28);
+    border: 2px solid var(--bg-glavni);
+    border-radius: 0;
+}
+
+body.code-tema ::-webkit-scrollbar-thumb:hover {
+    background: rgba(var(--gx-rgb), 0.5);
+}
+
+body.code-tema ::selection {
+    background: var(--primarna);
+    color: var(--primarna-tekst);
+}
+
+body.code-tema :focus-visible {
+    outline: 1px solid var(--primarna);
+    outline-offset: 2px;
+}
+
+body.code-tema .ik::before {
+    color: var(--primarna);
+    text-shadow: 0 0 7px rgba(var(--gx-rgb), 0.45);
+    letter-spacing: 0.04em;
+}
+
+body.code-tema .filter-dugme .ik::before {
+    text-shadow: none;
+}
+
+
+body.code-tema .nav-ikona .ik::before {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    letter-spacing: 0.02em;
+}
+
+body.code-tema .kp-stavka-ikona {
+    width: auto;
+    min-width: 30px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+}
+
+body.code-tema .kp-stavka-ikona .ik::before {
+    color: var(--primarna);
+}
+
+body.code-tema .logo-ikona .ik::before {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 1rem;
+    text-shadow: 0 0 10px rgba(var(--gx-rgb), 0.6);
+}
+
+body.code-tema .ikona-zvono .ik::before,
+body.code-tema .zaglavlje-akcije .ik::before {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+}
+
+body.code-tema .beleska-kartica-datum .ik::before,
+body.code-tema .kabinet .ik::before {
+    font-size: 0.7rem;
+}
+
+body.code-tema .stavka-rasporeda-izmeni .ik::before {
+    font-family: var(--font-mono);
+    font-weight: 700;
+}
+
+body.code-tema .prazno-stanje-ikona .ik::before {
+    font-family: var(--font-mono);
+    font-size: 1.6rem;
+}

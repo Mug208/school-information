@@ -1,0 +1,76 @@
+body.vt-zaraza,
+body.vt-zaraza *,
+body.vt-zaraza *::before,
+body.vt-zaraza *::after {
+    transition:
+        background-color .55s ease,
+        background .55s ease,
+        color .55s ease,
+        border-color .55s ease,
+        opacity .18s ease !important;
+}
+
+body.vt-ozivljava,
+body.vt-ozivljava *,
+body.vt-ozivljava *::before,
+body.vt-ozivljava *::after {
+    transition:
+        background-color 1.5s ease,
+        background 1.5s ease,
+        color 1.5s ease,
+        border-color 1.5s ease,
+        opacity .18s ease !important;
+}
+
+body.vt-zaraza #codeRain,
+body.vt-ozivljava #codeRain,
+body.vt-zaraza .bios-ui,
+body.vt-ozivljava .bios-ui,
+body.vt-zaraza .bios-dialog,
+body.vt-ozivljava .bios-dialog {
+    transition: none !important;
+}
+
+body.vt-zaraza #vt-atmos,
+body.vt-ozivljava #vt-atmos {
+    transition: transform .95s cubic-bezier(.6, .05, .7, .2) !important;
+}
+
+body.vt-zaraza #vt-atmos.vt-tihan,
+body.vt-ozivljava #vt-atmos.vt-tihan {
+    transition:
+        transform .95s cubic-bezier(.6, .05, .7, .2),
+        opacity .9s ease !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .vt-inficira,
+    #vt-blesk.vt-talas,
+    #vt-svetlost.vt-dise {
+        animation: none;
+    }
+
+    .vt-spore,
+    .vt-spore.heal {
+        animation-duration: .3s;
+    }
+
+    .dom-tag {
+        transition-duration: .1s;
+    }
+
+    #vt-atmos {
+        transition-duration: .35s;
+    }
+
+    body.vt-zaraza,
+    body.vt-zaraza *,
+    body.vt-zaraza *::before,
+    body.vt-zaraza *::after,
+    body.vt-ozivljava,
+    body.vt-ozivljava *,
+    body.vt-ozivljava *::before,
+    body.vt-ozivljava *::after {
+        transition-duration: .3s !important;
+    }
+}

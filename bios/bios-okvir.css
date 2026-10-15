@@ -1,0 +1,265 @@
+
+
+
+
+.bios-overlay {
+
+    --bios-bg: #0000aa;
+    --bios-bg-tamno: #000077;
+    --bios-panel: #0000cc;
+    --bios-panel-ivica: #9badff;
+    --bios-tekst: #e8e8ff;
+    --bios-tekst-siv: #9aa5c9;
+    --bios-zuti: #ffd400;
+    --bios-izabrano-bg: #dfe6ff;
+    --bios-izabrano-tekst: #00006e;
+    --bios-crveni: #ff5c5c;
+    --bios-zeleni: #7dff8a;
+
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: var(--bios-bg);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--bios-tekst);
+
+
+    box-shadow: inset 0 0 140px rgba(0, 0, 0, .38);
+}
+
+
+.bios-overlay[hidden],
+.bios-boot[hidden],
+.bios-ui[hidden],
+.bios-dialog[hidden],
+.bios-side[hidden] {
+    display: none !important;
+}
+
+
+.bios-overlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+        rgba(0, 0, 0, .25) 0,
+        rgba(0, 0, 0, .25) 1px,
+        transparent 1px,
+        transparent 3px
+    );
+}
+
+
+.bios-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 6;
+    pointer-events: none;
+    background: radial-gradient(ellipse at center, transparent 58%, rgba(0, 0, 0, .32) 100%);
+}
+
+
+body.bios-otvoren {
+    overflow: hidden;
+}
+
+
+.bios-overlay ::selection {
+    background: var(--bios-zuti);
+    color: #00006e;
+}
+
+
+
+.bios-boot {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 7vh 8vw;
+    color: var(--bios-tekst);
+}
+
+.bios-boot-logo {
+    font-size: clamp(22px, 4vw, 36px);
+    font-weight: 700;
+    letter-spacing: 8px;
+    color: #fff6cf;
+    text-shadow: 0 0 14px rgba(255, 212, 0, .55);
+    margin-bottom: 28px;
+    white-space: nowrap;
+}
+
+.bios-boot-log {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 14px;
+    white-space: pre;
+    overflow: hidden;
+}
+
+.bios-boot-red {
+    color: var(--bios-tekst);
+    animation: bios-red-pojavljivanje .3s ease-out;
+}
+
+.bios-boot-red.bios-ok,
+.bios-boot-red .bios-ok {
+    color: var(--bios-zeleni);
+}
+
+.bios-mem-broj {
+    color: var(--bios-tekst);
+    font-variant-numeric: tabular-nums;
+}
+
+.bios-status-spreman {
+    color: var(--bios-zuti);
+}
+
+.bios-status-zakljucano {
+    color: var(--bios-tekst-siv);
+}
+
+.bios-boot-prazno {
+    min-height: 1em;
+}
+
+.bios-boot-skip {
+    margin-top: auto;
+    color: var(--bios-tekst-siv);
+    font-size: 12px;
+    letter-spacing: 1px;
+    animation: bios-treperenje 1.1s steps(2, start) infinite;
+}
+
+
+
+.bios-ui {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 16px 18px 14px;
+    gap: 12px;
+    background: var(--bios-bg);
+    border-radius: 8px;
+    animation: bios-ui-pojavljivanje .45s ease-out;
+    min-height: 0;
+}
+
+
+
+.bios-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+
+    background: var(--bios-bg-tamno);
+    border-bottom: 3px double var(--bios-panel-ivica);
+    user-select: none;
+}
+
+.bios-header-levo {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.bios-naziv {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #ffffff;
+    white-space: nowrap;
+
+    text-shadow: none;
+}
+
+.bios-verzija {
+    color: var(--bios-zuti);
+    font-weight: 500;
+    font-size: 13px;
+    margin-left: 6px;
+}
+
+.bios-podnaziv {
+    display: block;
+    font-size: 11px;
+    color: var(--bios-tekst-siv);
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.bios-header-desno {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.bios-mem {
+    color: var(--bios-tekst-siv);
+    letter-spacing: .5px;
+}
+
+.bios-sat {
+    color: var(--bios-zuti);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 1px;
+    font-weight: 500;
+}
+
+
+
+.bios-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    user-select: none;
+}
+
+.bios-nav-dugme {
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--bios-tekst);
+    font: inherit;
+    font-size: 13px;
+    padding: 7px 14px;
+    cursor: pointer;
+    letter-spacing: .5px;
+    white-space: nowrap;
+}
+
+.bios-nav-dugme:hover {
+    color: var(--bios-zuti);
+}
+
+.bios-nav-dugme.aktivan {
+    background: var(--bios-izabrano-bg);
+    color: var(--bios-izabrano-tekst);
+    font-weight: 700;
+    border-color: var(--bios-panel-ivica);
+}
+
+
+

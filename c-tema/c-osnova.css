@@ -1,0 +1,116 @@
+#codeRain {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    display: none;
+    opacity: calc(0.25 + var(--code-jacina, 0.5) * 0.35);
+}
+
+
+body.code-tema[data-code-kisa="1"] #codeRain {
+    display: block;
+}
+
+
+
+body.code-tema {
+    --gx-rgb: 0, 255, 156;
+    --primarna: #00ff9c;
+    --primarna-hover: #4dffbe;
+    --primarna-tekst: #02120b;
+    --sekundarna: #22d3ee;
+    --opasna: #ff3860;
+    --opasna-hover: #ff5c7a;
+    --uspesna: var(--primarna);
+    --bg-glavni: #030906;
+    --bg-kartica: rgba(4, 16, 12, 0.94);
+    --bg-zaglavlje: rgba(2, 10, 7, 0.95);
+    --bg-muted: rgba(var(--gx-rgb), 0.07);
+    --tekst-primarni: #d6ffe9;
+    --tekst-sekundarni: #7fd6ab;
+    --tekst-muted: #3f8f66;
+    --ivica: rgba(var(--gx-rgb), 0.28);
+    --ivica-svetla: rgba(var(--gx-rgb), 0.12);
+    --gx-bg-unos: rgba(2, 12, 8, 0.9);
+    --gx-bg-prekrivac: rgba(1, 5, 3, 0.82);
+    --gx-bg-podnozje: rgba(2, 10, 7, 0.95);
+    --gx-bios-bg: #020a06;
+    --gx-bios-bg-tamno: #010503;
+    --gx-bios-panel: #03150d;
+    --gx-bios-tekst: #c9ffe6;
+    --gx-bios-tekst-siv: #4e8a6b;
+    --gx-bios-zuti: #7dffb4;
+
+
+    background-color: var(--bg-glavni);
+    background-image: none;
+    color: var(--tekst-primarni);
+    accent-color: var(--primarna);
+    scrollbar-color: rgba(var(--gx-rgb), 0.35) var(--bg-glavni);
+}
+
+
+body.code-tema h1,
+body.code-tema h2,
+body.code-tema h3,
+body.code-tema .logo-naslov,
+body.code-tema .logo-tekst p,
+body.code-tema .desktop-nav,
+body.code-tema .mobilni-meni,
+body.code-tema .statusna-traka,
+body.code-tema .podnozje,
+body.code-tema .dugme,
+body.code-tema .filter-dugme,
+body.code-tema .celija-vremena,
+body.code-tema .toast,
+body.code-tema .oznaka,
+body.code-tema select,
+body.code-tema input,
+body.code-tema textarea,
+body.code-tema label {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+
+body.code-tema #appKoren {
+    position: relative;
+    background: transparent;
+}
+
+
+
+body.code-tema::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 400;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.22) 0 1px,
+        transparent 1px 3px
+    );
+    opacity: calc(0.35 + var(--code-jacina, 0.5) * 0.4);
+}
+
+body.code-tema[data-code-sken="0"]::before {
+    display: none;
+}
+
+
+body.code-tema::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 401;
+    pointer-events: none;
+    background: radial-gradient(
+        ellipse at center,
+        transparent 52%,
+        rgba(0, 0, 0, 0.28) 78%,
+        rgba(0, 0, 0, 0.5) 100%
+    );
+}

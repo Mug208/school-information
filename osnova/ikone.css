@@ -1,0 +1,17 @@
+.ik::before {
+    content: attr(data-e);
+}
+
+body.code-tema .ik::before {
+    content: attr(data-a);
+    font-family: var(--font-mono);
+    letter-spacing: 0.02em;
+}
+
+.ik:empty::before {
+
+}
+
+body.code-tema .ik[data-a=""]::before {
+    content: '';
+}

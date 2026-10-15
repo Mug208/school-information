@@ -1,0 +1,121 @@
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s;
+}
+
+.modal.prikazi {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-prekrivac {
+    position: absolute;
+    inset: 0;
+    background: rgb(13 22 26 / 0.48);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+}
+
+.modal-kartica {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    max-height: calc(100vh - 40px);
+    max-height: calc(100dvh - 40px);
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-kartica);
+    border: 1px solid var(--ivica);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--senka-lg);
+    transform: translateY(14px) scale(0.98);
+    transition: transform 0.22s cubic-bezier(0.34, 1.4, 0.64, 1);
+    overflow: hidden;
+}
+
+.modal.prikazi .modal-kartica {
+    transform: none;
+}
+
+.modal-mali {
+    max-width: 400px;
+}
+
+.modal-zaglavlje {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 16px 20px 12px;
+}
+
+.modal-zaglavlje h3 {
+    font-size: 1.02rem;
+    font-weight: 700;
+}
+
+.modal-zatvori {
+    width: 30px;
+    height: 30px;
+    flex: none;
+    border-radius: var(--radius-sm);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--tekst-sekundarni);
+    font-size: 0.9rem;
+    transition: var(--tranzicija);
+}
+
+.modal-zatvori:hover {
+    background: var(--bg-muted);
+    color: var(--opasna);
+}
+
+.modal-telo {
+    padding: 4px 20px 10px;
+    overflow-y: auto;
+}
+
+.modal-footer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 20px 18px;
+    border-top: 1px solid var(--ivica-svetla);
+}
+
+.modal-footer-desno {
+    display: flex;
+    gap: 8px;
+    margin-left: auto;
+}
+
+
+
+.gi-polje {
+    margin-top: 9px;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    transition: opacity 0.15s ease, filter 0.15s ease;
+}
+
+.gi-polje.gi-onemoguceno {
+    opacity: 0.45;
+    filter: saturate(0.5);
+    pointer-events: none;
+}
+
+.gi-napomena {
+    font-size: 0.72rem;
+    color: var(--tekst-sekundarni);
+}

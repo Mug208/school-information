@@ -1,0 +1,13 @@
+body.code-tema .bios-overlay {
+    --bios-bg: var(--gx-bios-bg);
+    --bios-bg-tamno: var(--gx-bios-bg-tamno);
+    --bios-panel: var(--gx-bios-panel);
+    --bios-panel-ivica: rgba(var(--gx-rgb), 0.4);
+    --bios-tekst: var(--gx-bios-tekst);
+    --bios-tekst-siv: var(--gx-bios-tekst-siv);
+    --bios-zuti: var(--gx-bios-zuti);
+    --bios-izabrano-bg: var(--primarna);
+    --bios-izabrano-tekst: var(--primarna-tekst);
+    --bios-crveni: #ff3860;
+    --bios-zeleni: var(--primarna);
+}

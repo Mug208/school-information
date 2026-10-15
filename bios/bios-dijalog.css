@@ -1,0 +1,418 @@
+.bios-dialog {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    background: rgba(0, 0, 20, .6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.bios-dialog-kutija {
+    background: var(--bios-panel);
+    border: 3px double var(--bios-panel-ivica);
+    border-radius: 2px;
+    min-width: 300px;
+    max-width: min(560px, 92vw);
+    box-shadow: 0 0 40px rgba(0, 0, 0, .6);
+}
+
+.bios-dialog-naslov {
+
+    background: var(--bios-bg-tamno);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 2px;
+    padding: 9px 16px;
+    border-bottom: 3px double var(--bios-panel-ivica);
+    user-select: none;
+}
+
+.bios-dialog-sadrzaj {
+    padding: 18px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--bios-tekst);
+}
+
+.bios-dialog-sadrzaj b {
+    color: var(--bios-zuti);
+}
+
+.bios-dialog-napomena {
+    display: block;
+    margin-top: 6px;
+    color: var(--bios-tekst-siv);
+    font-size: 11.5px;
+}
+
+.bios-dialog-dugmad {
+    padding: 0 18px 18px;
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+
+
+.bios-dugme {
+    background: rgba(255, 255, 255, .1);
+    color: var(--bios-tekst);
+    border: 1px solid var(--bios-panel-ivica);
+    padding: 6px 16px;
+    font: inherit;
+    font-size: 12.5px;
+    letter-spacing: .5px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.bios-dugme:hover {
+    background: rgba(255, 255, 255, .2);
+}
+
+.bios-dugme-glavni {
+    background: var(--bios-izabrano-bg);
+    color: var(--bios-izabrano-tekst);
+    font-weight: 700;
+}
+
+.bios-dugme-glavni:hover {
+    background: #ffffff;
+}
+
+.bios-dugme-opasno {
+    background: var(--bios-crveni);
+    color: #220000;
+    font-weight: 700;
+}
+
+.bios-dugme-opasno:hover {
+    background: #ff7d7d;
+}
+
+
+
+
+.bios-side {
+    width: 360px;
+    flex: none;
+    background: var(--bios-panel);
+    border: 3px double var(--bios-panel-ivica);
+    border-radius: 2px;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    animation: bios-side-ulaz .16s ease-out;
+}
+
+@keyframes bios-side-ulaz {
+    from { opacity: 0; transform: translateX(26px); }
+    to   { opacity: 1; transform: none; }
+}
+
+.bios-side-naslov {
+    color: var(--bios-zuti);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 2px;
+    padding: 10px 12px 8px;
+    border-bottom: 1px solid rgba(155, 173, 255, .4);
+    user-select: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.bios-side-naslov::before {
+    content: '▸ ';
+}
+
+.bios-side-sadrzaj {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.bios-side-footer {
+    border-top: 1px solid rgba(155, 173, 255, .4);
+    padding: 9px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 8px;
+    user-select: none;
+}
+
+.bios-side-footer .bios-side-hint {
+    margin-right: auto;
+    font-size: 10.5px;
+    color: var(--bios-tekst-siv);
+    letter-spacing: .5px;
+}
+
+
+
+.sp-sekcija {
+    color: var(--bios-tekst-siv);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    border-bottom: 1px solid rgba(155, 173, 255, .28);
+    padding-bottom: 4px;
+    user-select: none;
+}
+
+.sp-naslov {
+    display: block;
+    color: var(--bios-tekst-siv);
+    font-size: 11px;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+    user-select: none;
+}
+
+.sp-unos {
+    width: 100%;
+    text-align: left;
+    box-sizing: border-box;
+}
+
+
+
+.sp-boje {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 7px;
+}
+
+.sp-sw {
+    height: 40px;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, .45);
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .45);
+    cursor: pointer;
+    position: relative;
+}
+
+.sp-sw:hover {
+    border-color: #ffffff;
+    filter: brightness(1.12);
+}
+
+.sp-sw:focus-visible {
+    outline: 2px solid var(--bios-zuti);
+    outline-offset: 2px;
+}
+
+
+.sp-sw.aktivan {
+    outline: 2px solid var(--bios-zuti);
+    outline-offset: 1px;
+}
+
+.sp-sw.aktivan::after {
+    content: '✓';
+    position: absolute;
+    right: 3px;
+    bottom: 1px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-shadow: 0 0 3px rgba(0, 0, 0, .95), 0 0 3px rgba(0, 0, 0, .95);
+}
+
+.sp-sw-naziv {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 3px;
+    text-align: center;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    color: #fff;
+    text-shadow: 0 0 2px rgba(0, 0, 0, .95), 0 0 2px rgba(0, 0, 0, .95), 0 0 2px rgba(0, 0, 0, .95);
+    pointer-events: none;
+}
+
+
+
+.gxb-sv {
+    position: relative;
+    height: 148px;
+    flex: none;
+    border: 3px double var(--bios-panel-ivica);
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .45);
+    cursor: crosshair;
+    touch-action: none;
+    outline: none;
+    user-select: none;
+    -webkit-user-select: none;
+
+}
+
+.gxb-sv:focus-visible {
+    border-color: var(--bios-zuti);
+    outline: 1px solid var(--bios-zuti);
+    outline-offset: 2px;
+}
+
+.gxb-hue-red {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: none;
+}
+
+
+.gxb-krug {
+    width: 30px;
+    height: 30px;
+    flex: none;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, .75);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, .6), inset 0 0 0 1px rgba(0, 0, 0, .35);
+    background: #888;
+}
+
+
+.gxb-hue {
+    position: relative;
+    flex: 1;
+    height: 22px;
+    border: 1px solid var(--bios-panel-ivica);
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .4);
+    background: linear-gradient(to right,
+        #ff0000, #ffff00, #00ff00, #00ffff,
+        #0000ff, #ff00ff, #ff0000);
+    cursor: ew-resize;
+    touch-action: none;
+    outline: none;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.gxb-hue:focus-visible {
+    border-color: var(--bios-zuti);
+    outline: 1px solid var(--bios-zuti);
+    outline-offset: 2px;
+}
+
+
+.gxb-kursor {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, .75), inset 0 0 0 1px rgba(0, 0, 0, .35);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    top: 50%;
+}
+
+
+.gxb-rgb {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    flex: none;
+}
+
+.gxb-polje {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    min-width: 0;
+}
+
+.gxb-broj {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 7px 4px;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--bios-zuti);
+    background: var(--bios-bg-tamno);
+    border: 1px solid var(--bios-panel-ivica);
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.gxb-broj::-webkit-outer-spin-button,
+.gxb-broj::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.gxb-broj:focus {
+    outline: none;
+    border-color: var(--bios-zuti);
+}
+
+.gxb-polje-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--bios-tekst-siv);
+    user-select: none;
+}
+
+
+
+.sp-pregled {
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+}
+
+.sp-pregled-uzorak {
+    flex: 1;
+    min-height: 38px;
+    border: 1px solid rgba(255, 255, 255, .5);
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-shadow: 0 0 3px rgba(0, 0, 0, .8), 0 0 3px rgba(0, 0, 0, .8);
+    color: #fff;
+    user-select: none;
+}
+
+.sp-hex {
+    flex: none;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    border: 1px solid var(--bios-panel-ivica);
+    background: var(--bios-bg-tamno);
+    color: var(--bios-zuti);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 1px;
+    user-select: none;
+}
+
+
+
+.bios-side-footer .bios-dugme {
+    font-size: 12px;
+    padding: 6px 14px;
+}
+
+

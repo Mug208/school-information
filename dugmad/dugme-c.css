@@ -1,0 +1,55 @@
+body.code-tema .dugme-nav-dana {
+    color: var(--primarna);
+    background: transparent;
+    border: 1px solid var(--ivica-svetla);
+    border-radius: 3px;
+}
+
+body.code-tema .dugme-nav-dana:hover {
+    border-color: var(--ivica);
+    box-shadow: 0 0 12px rgba(var(--gx-rgb), 0.2);
+}
+
+body.code-tema .dugme {
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    border-radius: 3px;
+}
+
+body.code-tema .dugme-glavno {
+    background: var(--primarna);
+    color: var(--primarna-tekst);
+    border: 1px solid var(--primarna);
+    box-shadow: 0 0 18px rgba(var(--gx-rgb), 0.28);
+}
+
+body.code-tema .dugme-glavno:hover {
+    background: var(--primarna-hover);
+    box-shadow: 0 0 26px rgba(var(--gx-rgb), 0.5);
+    filter: brightness(1.08);
+}
+
+body.code-tema .dugme-sekundarno {
+    background: transparent;
+    color: var(--primarna);
+    border: 1px solid var(--ivica);
+}
+
+body.code-tema .dugme-sekundarno:hover {
+    background: var(--bg-muted);
+    border-color: var(--primarna);
+    box-shadow: 0 0 16px rgba(var(--gx-rgb), 0.25);
+}
+
+body.code-tema .dugme-opasno {
+    background: transparent;
+    color: var(--opasna);
+    border: 1px solid rgba(255, 56, 96, 0.4);
+}
+
+body.code-tema .dugme-opasno:hover {
+    background: rgba(255, 56, 96, 0.12);
+    border-color: var(--opasna);
+    color: var(--opasna-hover);
+    box-shadow: 0 0 18px rgba(255, 56, 96, 0.35);
+}

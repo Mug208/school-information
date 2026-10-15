@@ -1,0 +1,11 @@
+@media (prefers-reduced-motion: reduce) {
+    body.code-tema,
+    body.code-tema::before,
+    body.code-tema::after,
+    body.code-tema *,
+    body.code-tema *::before,
+    body.code-tema *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}

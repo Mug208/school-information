@@ -1,0 +1,442 @@
+'use strict';
+let tajnaBrojac = 0;
+let tajnaVreme = 0;
+const TAJNA_SEKVENC = ['c', 'o', 'd', 'e', 's'];
+let tajnaIndeks = 0;
+
+function inicijalizujTajnuAktivaciju() {
+
+    const tajnaRec = document.getElementById('tajnaRec1');
+    if (tajnaRec) {
+        tajnaRec.addEventListener('click', () => {
+            const sad = Date.now();
+            if (sad - tajnaVreme < 2000) {
+                tajnaBrojac++;
+            } else {
+                tajnaBrojac = 1;
+            }
+            tajnaVreme = sad;
+
+            if (tajnaBrojac >= 5) {
+                tajnaBrojac = 0;
+                aktivirajCodeTemu();
+            } else if (tajnaBrojac >= 3) {
+                prikaziToast(`Još ${5 - tajnaBrojac} klik(a) do tajne... >_`, 'info');
+            }
+        });
+    }
+
+        document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey || e.metaKey || e.altKey) return;
+        const t = e.target;
+        if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT' || t.isContentEditable)) return;
+        if (window.BIOS && typeof window.BIOS.otvoren === 'function' && window.BIOS.otvoren()) return;
+
+        const k = (e.key || '').toLowerCase();
+        if (k === TAJNA_SEKVENC[tajnaIndeks]) {
+            tajnaIndeks++;
+            if (tajnaIndeks >= TAJNA_SEKVENC.length) {
+                tajnaIndeks = 0;
+
+                if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+                aktivirajCodeTemu();
+            }
+        } else if (k.length === 1) {
+            tajnaIndeks = (k === TAJNA_SEKVENC[0]) ? 1 : 0;
+        }
+    });
+
+        const logoIkona = document.getElementById('logoIkona');
+    if (logoIkona) {
+        logoIkona.addEventListener('dblclick', () => aktivirajCodeTemu());
+    }
+
+        const nagovestaj = document.getElementById('tajnaNagovestaj');
+    if (nagovestaj) {
+        nagovestaj.addEventListener('click', () => {
+            if (podaciAplikacije.settings.codeUnlocked) {
+                prikaziToast('>_ CODE modul je već otključan...', 'info');
+            } else {
+                prikaziToast('ERR_NADJEN: nešto se kuca samo od sebe...\nPokušajte otkucati: C-O-D-E-S', 'info');
+            }
+        });
+    }
+}
+
+function aktivirajCodeTemu() {
+    const s = podaciAplikacije.settings;
+
+    if (!s.codeUnlocked) {
+
+        s.codeUnlocked = true;
+        s.codeTheme = true;
+        s.efektiNapomena = true;
+        sacuvajPodatke();
+        primeniTemu();
+
+        if (window.codeEngine) {
+            try {
+                window.codeEngine.okiniPrasak(true);
+                window.codeEngine.okiniInverziju(300);
+            } catch (e) {  }
+        }
+
+        prikaziToast('⚡ CODE TEMA AKTIVIRANA ⚡\nBoja teme: BIOS → Efekti → „Boja teme"', 'uspeh');
+
+        prikaziEfektiUvod(2600);
+        return;
+    }
+
+        s.codeTheme = !s.codeTheme;
+    sacuvajPodatke();
+    primeniTemu();
+    prikaziToast(s.codeTheme ? '⚡ CODE tema uključena' : 'CODE tema isključena', 'uspeh');
+
+    if (s.codeTheme && !s.efektiNapomena) {
+        s.efektiNapomena = true;
+        sacuvajPodatke();
+        prikaziEfektiUvod(1600);
+    }
+}
+
+function prikaziEfektiUvod(kasnjenje) {
+    setTimeout(() => {
+        if (window.VirusTema && typeof window.VirusTema.efektiPanel === 'function') {
+            window.VirusTema.efektiPanel();
+        }
+    }, kasnjenje == null ? 1200 : kasnjenje);
+}
+const code_BOJE = [
+    { id: 'zelena',  naziv: 'Zelena',  hex: '#00ff9c' },
+    { id: 'plava',   naziv: 'Plava',   hex: '#3aa0ff' },
+    { id: 'cijan',   naziv: 'Cijan',   hex: '#22d3ee' },
+    { id: 'zuta',    naziv: 'Žuta',    hex: '#ffd60a' },
+    { id: 'crvena',  naziv: 'Crvena',  hex: '#ff3860' },
+    { id: 'magenta', naziv: 'Magenta', hex: '#e879f9' },
+    { id: 'bela',    naziv: 'Bela',    hex: '#e8f4ec' }
+];
+const code_BOJA_PODRAZUMEVANA = '#00ff9c';
+
+const code_VARIJABLE = [
+    '--gx-rgb', '--primarna', '--primarna-hover', '--primarna-tekst', '--uspesna',
+    '--bg-glavni', '--bg-kartica', '--bg-zaglavlje', '--bg-muted',
+    '--tekst-primarni', '--tekst-sekundarni', '--tekst-muted',
+    '--ivica', '--ivica-svetla',
+    '--gx-bg-unos', '--gx-bg-prekrivac', '--gx-bg-podnozje',
+    '--gx-bios-bg', '--gx-bios-bg-tamno', '--gx-bios-panel',
+    '--gx-bios-tekst', '--gx-bios-tekst-siv', '--gx-bios-zuti'
+];
+
+function hexZacodeBoju(bojaId, prilagodjeniHex) {
+    if (bojaId === 'prilagodjeno') {
+        return /^#[0-9a-fA-F]{6}$/.test(String(prilagodjeniHex || ''))
+            ? String(prilagodjeniHex).toLowerCase()
+            : code_BOJA_PODRAZUMEVANA;
+    }
+    const preset = code_BOJE.find(b => b.id === bojaId);
+    return preset ? preset.hex : code_BOJA_PODRAZUMEVANA;
+}
+
+function generisicodePaletu(boja) {
+    const hex = /^#[0-9a-fA-F]{6}$/.test(String(boja || ''))
+        ? String(boja).toLowerCase()
+        : code_BOJA_PODRAZUMEVANA;
+    const rgb = hexToRgb(hex);
+    const { h, s, l } = hexToHsl(hex);
+    const H = (lz, sz) => hslToHex(h, sz, lz);
+    const sat = faktor => Math.round(s * faktor);
+
+    return {
+        '--gx-rgb': `${rgb.r}, ${rgb.g}, ${rgb.b}`,
+        '--primarna': hex,
+        '--primarna-hover': H(Math.min(l + 16, 68), s),
+
+        '--primarna-tekst': getContrastText(hex),
+        '--uspesna': hex,
+        '--bg-glavni': H(2.5, sat(0.5)),
+        '--bg-kartica': H(4, sat(0.6)) + 'ef',
+        '--bg-zaglavlje': H(3, sat(0.65)) + 'f5',
+        '--bg-muted': `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.07)`,
+        '--tekst-primarni': H(91, Math.min(s, 90)),
+        '--tekst-sekundarni': H(67, sat(0.5)),
+        '--tekst-muted': H(40, sat(0.4)),
+        '--ivica': `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.28)`,
+        '--ivica-svetla': `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.12)`,
+        '--gx-bg-unos': H(3, sat(0.65)) + 'e6',
+        '--gx-bg-prekrivac': H(1.6, sat(0.8)) + 'ea',
+        '--gx-bg-podnozje': H(3, sat(0.65)) + 'f2',
+        '--gx-bios-bg': H(2, sat(0.8)),
+        '--gx-bios-bg-tamno': H(1, sat(0.8)),
+        '--gx-bios-panel': H(5, sat(0.75)),
+        '--gx-bios-tekst': H(89, Math.min(s, 80)),
+        '--gx-bios-tekst-siv': H(42, sat(0.28)),
+        '--gx-bios-zuti': H(75, s)
+    };
+}
+
+function primenicodeBoju(bojaHex) {
+    const telo = document.body;
+    if (!telo) return;
+    ocisticodeBoje();
+
+    const efekti = podaciAplikacije.settings.effects || {};
+    const idBoje = efekti.color || 'zelena';
+    const hex = (typeof bojaHex === 'string' && /^#[0-9a-fA-F]{6}$/.test(bojaHex))
+        ? bojaHex.toLowerCase()
+        : hexZacodeBoju(idBoje, efekti.customColor);
+
+    telo.setAttribute('data-gx-boja', idBoje);
+    try {
+        const paleta = generisicodePaletu(hex);
+        Object.entries(paleta).forEach(([ime, vrednost]) => {
+            telo.style.setProperty(ime, vrednost);
+        });
+    } catch (e) {  }
+
+        if (window.codeEngine && typeof window.codeEngine.osveziBoje === 'function') {
+        try { window.codeEngine.osveziBoje(); } catch (e) {  }
+    }
+}
+
+function ocisticodeBoje() {
+    const telo = document.body;
+    if (!telo) return;
+    code_VARIJABLE.forEach(ime => telo.style.removeProperty(ime));
+    telo.removeAttribute('data-gx-boja');
+}
+
+function hexToHsl(hex) {
+    hex = String(hex || '').replace(/^#/, '');
+    if (hex.length !== 6) return { h: 174, s: 42, l: 32 };
+
+    const r = parseInt(hex.substring(0, 2), 16) / 255;
+    const g = parseInt(hex.substring(2, 4), 16) / 255;
+    const b = parseInt(hex.substring(4, 6), 16) / 255;
+
+    const max = Math.max(r, g, b);
+    const min = Math.min(r, g, b);
+    let h, s, l = (max + min) / 2;
+
+    if (max === min) {
+        h = s = 0;
+    } else {
+        const d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch (max) {
+            case r: h = ((g - b) / d + (g < b ? 6 : 0)) / 6; break;
+            case g: h = ((b - r) / d + 2) / 6; break;
+            case b: h = ((r - g) / d + 4) / 6; break;
+        }
+    }
+
+    return { h: Math.round(h * 360), s: Math.round(s * 100), l: Math.round(l * 100) };
+}
+
+function hslToHex(h, s, l) {
+    s /= 100;
+    l /= 100;
+
+    const c = (1 - Math.abs(2 * l - 1)) * s;
+    const x = c * (1 - Math.abs((h / 60) % 2 - 1));
+    const m = l - c / 2;
+    let r, g, b;
+
+    if (h < 60) { r = c; g = x; b = 0; }
+    else if (h < 120) { r = x; g = c; b = 0; }
+    else if (h < 180) { r = 0; g = c; b = x; }
+    else if (h < 240) { r = 0; g = x; b = c; }
+    else if (h < 300) { r = x; g = 0; b = c; }
+    else { r = c; g = 0; b = x; }
+
+    r = Math.round((r + m) * 255);
+    g = Math.round((g + m) * 255);
+    b = Math.round((b + m) * 255);
+
+    return '#' + [r, g, b].map(v => v.toString(16).padStart(2, '0')).join('');
+}
+
+function hexToRgb(hex) {
+    hex = String(hex || '').replace(/^#/, '');
+    return {
+        r: parseInt(hex.substring(0, 2), 16),
+        g: parseInt(hex.substring(2, 4), 16),
+        b: parseInt(hex.substring(4, 6), 16)
+    };
+}
+
+function getLuminance(rgb) {
+    const { r, g, b } = rgb;
+    const [rs, gs, bs] = [r, g, b].map(c => {
+        c = c / 255;
+        return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+    });
+    return 0.2126 * rs + 0.7152 * gs + 0.0722 * bs;
+}
+
+function getContrastText(bgColor) {
+    try {
+        return getLuminance(hexToRgb(bgColor)) > 0.179 ? '#000000' : '#ffffff';
+    } catch (e) {
+        return '#ffffff';
+    }
+}
+
+function generateThemeColors(primaryColor, themeMode) {
+    const hsl = hexToHsl(primaryColor);
+    const isDark = themeMode === 'dark';
+
+    const adj = { ...hsl };
+    if (isDark) {
+        adj.l = Math.min(hsl.l + 15, 60);
+        adj.s = Math.max(hsl.s - 5, 45);
+    } else {
+        adj.l = Math.max(hsl.l - 5, 35);
+    }
+
+    const primary = hslToHex(adj.h, adj.s, adj.l);
+    const primaryHover = hslToHex(adj.h, adj.s, isDark ? Math.min(adj.l + 10, 75) : Math.max(adj.l - 10, 25));
+
+    let bgMain, bgCard, bgHeader, bgMuted;
+    let textPrimary, textSecondary, textMuted;
+    let border, borderLight;
+
+    if (isDark) {
+        bgMain = hslToHex(adj.h, Math.max(adj.s - 30, 25), 10);
+        bgCard = hslToHex(adj.h, Math.max(adj.s - 25, 30), 14);
+        bgHeader = hslToHex(adj.h, Math.max(adj.s - 30, 25), 12) + 'f2';
+        bgMuted = hslToHex(adj.h, Math.max(adj.s - 20, 35), 20);
+
+        textPrimary = '#f8fafc';
+        textSecondary = '#cbd5e1';
+        textMuted = '#94a3b8';
+
+        border = hslToHex(adj.h, Math.max(adj.s - 15, 40), 25);
+        borderLight = hslToHex(adj.h, Math.max(adj.s - 25, 30), 16);
+    } else {
+        bgMain = hslToHex(adj.h, Math.max(adj.s - 55, 15), 96);
+        bgCard = hslToHex(adj.h, Math.max(adj.s - 60, 10), 99);
+        bgHeader = hslToHex(adj.h, Math.max(adj.s - 55, 15), 97) + 'f2';
+        bgMuted = hslToHex(adj.h, Math.max(adj.s - 50, 20), 92);
+
+        textPrimary = '#1e293b';
+        textSecondary = '#64748b';
+        textMuted = '#94a3b8';
+
+        border = hslToHex(adj.h, Math.max(adj.s - 45, 25), 85);
+        borderLight = hslToHex(adj.h, Math.max(adj.s - 55, 15), 94);
+    }
+
+    return {
+        '--primarna': primary,
+        '--primarna-hover': primaryHover,
+        '--primarna-tekst': getContrastText(primary),
+        '--sekundarna': isDark ? hslToHex(adj.h, 30, 50) : hslToHex(adj.h, 20, 45),
+        '--opasna': '#ef4444',
+        '--opasna-hover': '#dc2626',
+        '--uspesna': '#22c55e',
+        '--bg-glavni': bgMain,
+        '--bg-kartica': bgCard,
+        '--bg-zaglavlje': bgHeader,
+        '--bg-muted': bgMuted,
+        '--tekst-primarni': textPrimary,
+        '--tekst-sekundarni': textSecondary,
+        '--tekst-muted': textMuted,
+        '--ivica': border,
+        '--ivica-svetla': borderLight,
+        '--primarna-10': primary + '1a',
+        '--primarna-20': primary + '33',
+        '--primarna-30': primary + '4d',
+        '--primarna-40': primary + '66',
+        '--primarna-50': primary + '80'
+    };
+}
+
+function applyCustomTheme() {
+
+    if (podaciAplikacije.settings.codeTheme) return;
+
+    const customTheme = podaciAplikacije.settings.customTheme;
+    const themeMode = podaciAplikacije.settings.theme;
+
+    if (!customTheme || !customTheme.enabled) return;
+
+    const colors = generateThemeColors(customTheme.primaryColor, themeMode);
+    const root = document.documentElement;
+    Object.entries(colors).forEach(([key, value]) => {
+        root.style.setProperty(key, value);
+    });
+}
+function promeniTemu() {
+    const s = podaciAplikacije.settings;
+
+        if (s.codeTheme) {
+        s.codeTheme = false;
+        sacuvajPodatke();
+        primeniTemu();
+        prikaziToast('CODE tema isključena', 'uspeh');
+        return;
+    }
+
+    s.theme = s.theme === 'dark' ? 'light' : 'dark';
+    sacuvajPodatke();
+    primeniTemu();
+}
+
+function primeniTemu() {
+    const s = podaciAplikacije.settings;
+    const jeTamna = s.theme === 'dark';
+    const jecode = !!s.codeTheme;
+
+    if (window.VirusTema && typeof window.VirusTema.animacija === 'function') {
+        window.VirusTema.animacija(s.animTema !== false);
+    }
+
+    if (window.VirusTema && VirusTema.tranzicija(jecode, primeniTemuStvarno)) return;
+
+    primeniTemuStvarno();
+
+    function primeniTemuStvarno() {
+
+        document.documentElement.removeAttribute('style');
+
+        document.body.classList.toggle('tamna', jeTamna && !jecode);
+        document.body.classList.toggle('code-tema', jecode);
+
+        if (!jecode) {
+            applyCustomTheme();
+            ocisticodeBoje();
+        } else {
+
+            primenicodeBoju();
+        }
+
+        if (window.codeEngine && typeof window.codeEngine.primeni === 'function') {
+            try {
+                window.codeEngine.primeni({
+                    omogucen: jecode,
+                    intenzitet: (s.effects && s.effects.intensity) || 5,
+                    inverzija: !!(s.effects && s.effects.invert),
+                    kisa: !!(s.effects && s.effects.rain),
+                    skenLinije: !!(s.effects && s.effects.scanlines),
+                    treperenje: !!(s.effects && s.effects.flicker),
+                    korupcija: !!(s.effects && s.effects.corruption)
+                });
+                if (jecode && typeof window.codeEngine.pokreni === 'function') {
+                    window.codeEngine.pokreni();
+                }
+            } catch (e) {  }
+        }
+
+        const ikonaTema = document.getElementById('ikonaTema');
+        if (ikonaTema) {
+            postaviIkonu(ikonaTema,
+                jecode ? '⚡' : (jeTamna ? '☀️' : '🌙'),
+                jecode ? '[G]' : (jeTamna ? '[L]' : '[D]'));
+        }
+
+        const logoIkona = document.getElementById('logoIkona');
+        if (logoIkona) {
+            postaviIkonu(logoIkona, jecode ? '⚡' : '🎓', '>_');
+        }
+    }
+}

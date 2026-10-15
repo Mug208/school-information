@@ -1,0 +1,40 @@
+body.code-tema .modal-prekrivac {
+    background: var(--gx-bg-prekrivac);
+}
+
+body.code-tema .modal-kartica {
+    background: var(--bg-zaglavlje);
+    border: 1px solid var(--primarna);
+    border-radius: 4px;
+    box-shadow: 0 0 40px rgba(var(--gx-rgb), 0.18), 0 30px 80px rgba(0, 0, 0, 0.7);
+}
+
+body.code-tema .modal-zaglavlje {
+    border-bottom: 1px solid var(--ivica);
+}
+
+body.code-tema .modal-zaglavlje h3 {
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--tekst-primarni);
+}
+
+body.code-tema .modal-zaglavlje h3::before {
+    content: '// ';
+    color: var(--primarna);
+}
+
+body.code-tema .modal-zatvori {
+    color: var(--tekst-sekundarni);
+    border: 1px solid var(--ivica-svetla);
+    border-radius: 3px;
+}
+
+body.code-tema .modal-zatvori:hover {
+    color: var(--opasna);
+    border-color: rgba(255, 56, 96, 0.4);
+}
+
+body.code-tema .modal-footer {
+    border-top: 1px solid var(--ivica-svetla);
+}
