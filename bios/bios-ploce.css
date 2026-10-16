@@ -227,11 +227,11 @@
 
 .bios-overlay kbd {
     display: inline-block;
-    border: 1px solid var(--bios-panel-ivica);
-    background: rgba(0, 0, 0, .35);
+    border: 1px solid var(--bios-kbd-ivica);
+    background: var(--bios-kbd-bg);
     padding: 1px 5px;
     border-radius: 2px;
-    color: var(--bios-zuti);
+    color: var(--bios-kbd-tekst);
     font: inherit;
     font-size: 10.5px;
     line-height: 1.4;

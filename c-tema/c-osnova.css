@@ -43,6 +43,14 @@ body.code-tema {
     --gx-bios-tekst: #c9ffe6;
     --gx-bios-tekst-siv: #4e8a6b;
     --gx-bios-zuti: #7dffb4;
+    --gx-bios-naziv: #eafff5;
+    --gx-bios-kbd-bg: rgba(0, 0, 0, 0.35);
+    --gx-bios-kbd-tekst: #7dffb4;
+    --gx-bios-kbd-ivica: rgba(0, 255, 156, 0.4);
+    --gx-boot-tekst: #c9ffe6;
+    --gx-boot-tekst-siv: #90d5cd;
+    --gx-boot-zuti: #7dffb4;
+    --gx-boot-zeleni: #00ff9c;
 
 
     background-color: var(--bg-glavni);

@@ -64,7 +64,7 @@ function prikazicodeBoju() {
     if (!radna || !radna.codeTheme) return;
     try {
         if (window.App && typeof window.App.primenicodeBoju === 'function') {
-            window.App.primenicodeBoju(hexGxBoje());
+            window.App.primenicodeBoju(hexGxBoje(), radna.codeLight === true);
         }
     } catch (e) {}
 }

@@ -30,6 +30,10 @@ function ucitajPodatke() {
 
         if (s.codeUnlocked === undefined) s.codeUnlocked = false;
         if (s.codeTheme === undefined) s.codeTheme = false;
+        if (s.autoTheme === undefined) s.autoTheme = false;
+        if (s.codeLight === undefined) s.codeLight = false;
+        if (!/^\d{2}:\d{2}$/.test(String(s.autoThemeDayStart || ''))) s.autoThemeDayStart = '07:00';
+        if (!/^\d{2}:\d{2}$/.test(String(s.autoThemeNightStart || ''))) s.autoThemeNightStart = '18:00';
 
         if (typeof s.animTema !== 'boolean') {
             s.animTema = localStorage.getItem('vt-anim') !== '0';
@@ -96,6 +100,7 @@ function uveziPodatkeIzFajla(fajl, spojiBeleske) {
                     ucitajPodatkeStrukturu();
                     sacuvajPodatke();
                     primeniTemu();
+                    azurirajAutoTemu(true, true);
                     prikaziSve();
                     prikaziToast('Podaci uspešno učitani!', 'uspeh');
                 }
@@ -122,6 +127,10 @@ function ucitajPodatkeStrukturu() {
     }
     if (s.codeUnlocked === undefined) s.codeUnlocked = false;
     if (s.codeTheme === undefined) s.codeTheme = false;
+    if (s.autoTheme === undefined) s.autoTheme = false;
+    if (s.codeLight === undefined) s.codeLight = false;
+    if (!/^\d{2}:\d{2}$/.test(String(s.autoThemeDayStart || ''))) s.autoThemeDayStart = '07:00';
+    if (!/^\d{2}:\d{2}$/.test(String(s.autoThemeNightStart || ''))) s.autoThemeNightStart = '18:00';
 
     normalizujRezimSmene(s);
 
@@ -167,6 +176,7 @@ function sacuvajPodesavanja(novi) {
 
     sacuvajPodatke();
     primeniTemu();
+    azurirajAutoTemu(true, true);
     prikaziSve();
 
     azurirajAutoSmenu();

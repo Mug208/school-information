@@ -52,8 +52,8 @@ function rProvera(id, label, uzmi, postavi, iskljucenFn) {
     };
 }
 
-function rVreme(id, label, uzmi, postavi) {
-    return { id: id, label: label, vrsta: 'time', izbor: true, get: uzmi, set: postavi };
+function rVreme(id, label, uzmi, postavi, iskljucenFn) {
+    return { id: id, label: label, vrsta: 'time', izbor: true, get: uzmi, set: postavi, iskljucenFn: iskljucenFn || null };
 }
 
 function rDatum(id, label, uzmi, postavi, iskljucenFn) {
@@ -542,9 +542,67 @@ function redoviSmene() {
     return redovi;
 }
 
+function autoTemaPeriodSvetao(danStr, nocStr) {
+    var p = /^(\d{1,2}):(\d{2})$/.exec(String(danStr || ''));
+    var q = /^(\d{1,2}):(\d{2})$/.exec(String(nocStr || ''));
+    var dan = p ? parseInt(p[1], 10) * 60 + parseInt(p[2], 10) : 7 * 60;
+    var noc = q ? parseInt(q[1], 10) * 60 + parseInt(q[2], 10) : 18 * 60;
+    if (dan === noc) { dan = 7 * 60; noc = 18 * 60; }
+    var s = new Date();
+    var sad = s.getHours() * 60 + s.getMinutes();
+    if (dan < noc) return sad >= dan && sad < noc;
+    return sad >= dan || sad < noc;
+}
+
+function autoTemaStatusTekst() {
+    if (!radna) return '/';
+    if (radna.autoTheme !== true) return 'Isključeno (ručna promena)';
+    var svetlo = autoTemaPeriodSvetao(radna.autoThemeDayStart, radna.autoThemeNightStart);
+    var period = svetlo ? 'Svetli period' : 'Tamni period';
+    if (radna.codeTheme) return period + ' → CODE ' + (svetlo ? 'svetla' : 'tamna') + ' varijanta';
+    return period + ' → ' + (svetlo ? 'svetla tema' : 'tamna tema');
+}
+
 function redoviEfekti() {
     var redovi = [
         rSekcija('sek_tema', 'TEMA'),
+        rProvera(
+            'ef_auto_tema',
+            'Automatski po vremenu',
+            function () {
+                return radna.autoTheme === true;
+            },
+            function (v) {
+                radna.autoTheme = v;
+            }
+        ),
+        rVreme(
+            'ef_auto_dan',
+            'Svetla tema od',
+            function () {
+                return radna.autoThemeDayStart || '07:00';
+            },
+            function (v) {
+                radna.autoThemeDayStart = v;
+            },
+            function () {
+                return radna.autoTheme !== true;
+            }
+        ),
+        rVreme(
+            'ef_auto_noc',
+            'Tamna tema od',
+            function () {
+                return radna.autoThemeNightStart || '18:00';
+            },
+            function (v) {
+                radna.autoThemeNightStart = v;
+            },
+            function () {
+                return radna.autoTheme !== true;
+            }
+        ),
+        rInfo('ef_auto_status', 'Trenutno po vremenu', autoTemaStatusTekst),
         rIzbor(
             'ef_tema',
             'Tema aplikacije',
@@ -557,7 +615,10 @@ function redoviEfekti() {
             [
                 { v: 'light', l: 'Svetla' },
                 { v: 'dark', l: 'Tamna' }
-            ]
+            ],
+            function () {
+                return radna.autoTheme === true;
+            }
         ),
         rBoja(
             'ef_akcenat',
@@ -600,6 +661,22 @@ function redoviEfekti() {
                     if (window.VirusTema && typeof window.VirusTema.animacija === 'function') {
                         window.VirusTema.animacija(v);
                     }
+                }
+            )
+        );
+        redovi.push(
+            rProvera(
+                'ef_code_svetla',
+                'Svetla varijanta CODE teme',
+                function () {
+                    return radna.codeLight === true;
+                },
+                function (v) {
+                    radna.codeLight = v;
+                    prikazicodeBoju();
+                },
+                function () {
+                    return radna.autoTheme === true;
                 }
             )
         );

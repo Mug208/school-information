@@ -11,6 +11,10 @@
     --bios-tekst: #e8e8ff;
     --bios-tekst-siv: #9aa5c9;
     --bios-zuti: #ffd400;
+    --bios-naziv: #ffffff;
+    --bios-kbd-bg: rgba(0, 0, 0, .35);
+    --bios-kbd-tekst: #ffd400;
+    --bios-kbd-ivica: #9badff;
     --bios-izabrano-bg: #dfe6ff;
     --bios-izabrano-tekst: #00006e;
     --bios-crveni: #ff5c5c;
@@ -75,12 +79,18 @@ body.bios-otvoren {
 
 .bios-overlay ::selection {
     background: var(--bios-zuti);
-    color: #00006e;
+    color: var(--bios-izabrano-tekst);
 }
 
 
 
 .bios-boot {
+
+    --bios-tekst: var(--gx-boot-tekst, #e8e8ff);
+    --bios-tekst-siv: var(--gx-boot-tekst-siv, #9aa5c9);
+    --bios-zuti: var(--gx-boot-zuti, #ffd400);
+    --bios-zeleni: var(--gx-boot-zeleni, #7dff8a);
+
     position: absolute;
     inset: 0;
     z-index: 4;
@@ -186,7 +196,7 @@ body.bios-otvoren {
     font-size: 16px;
     font-weight: 700;
     letter-spacing: 1.5px;
-    color: #ffffff;
+    color: var(--bios-naziv);
     white-space: nowrap;
 
     text-shadow: none;

@@ -365,6 +365,8 @@ document.addEventListener('DOMContentLoaded', () => {
     pokreniSat();
     azurirajAutoSmenu();
     setInterval(azurirajAutoSmenu, 60000);
+    azurirajAutoTemu(true);
+    setInterval(() => azurirajAutoTemu(false), 60000);
 
     if (window.codeEngine && typeof window.codeEngine.init === 'function') {
         try { window.codeEngine.init(); } catch (e) {  }

@@ -21,7 +21,7 @@
 .bios-dialog-naslov {
 
     background: var(--bios-bg-tamno);
-    color: #ffffff;
+    color: var(--bios-naziv);
     font-weight: 700;
     font-size: 13px;
     letter-spacing: 2px;
@@ -81,7 +81,7 @@
 }
 
 .bios-dugme-glavni:hover {
-    background: #ffffff;
+    background: var(--bios-naziv);
 }
 
 .bios-dugme-opasno {

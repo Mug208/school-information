@@ -122,7 +122,8 @@
             kisaBoje.pozadina = 'rgb(' + br + ',' + bgg + ',' + bb + ')';
             kisaBoje.pozadinaAlfa = 'rgba(' + br + ',' + bgg + ',' + bb + ',0.08)';
 
-            var mesaj = function (c) { return Math.round(c + (255 - c) * 0.65); };
+            var svetlaVarijanta = !!(document.body && document.body.classList.contains('code-svetla'));
+            var mesaj = function (c) { return svetlaVarijanta ? Math.round(c * 0.42) : Math.round(c + (255 - c) * 0.65); };
             kisaBoje.svetla = 'rgb(' + mesaj(r) + ',' + mesaj(g) + ',' + mesaj(b) + ')';
         } catch (e) {
 

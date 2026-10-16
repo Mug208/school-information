@@ -4,6 +4,57 @@ let tajnaVreme = 0;
 const TAJNA_SEKVENC = ['c', 'o', 'd', 'e', 's'];
 let tajnaIndeks = 0;
 
+function temaVremeUMinute(v) {
+    const m = /^(\d{1,2}):(\d{2})$/.exec(String(v || ''));
+    if (!m) return null;
+    const h = parseInt(m[1], 10);
+    const mi = parseInt(m[2], 10);
+    if (h > 23 || mi > 59) return null;
+    return h * 60 + mi;
+}
+
+function temaPeriodTekuci() {
+    const s = podaciAplikacije.settings;
+    let dan = temaVremeUMinute(s.autoThemeDayStart);
+    let noc = temaVremeUMinute(s.autoThemeNightStart);
+    if (dan === null) dan = 7 * 60;
+    if (noc === null) noc = 18 * 60;
+    if (dan === noc) { dan = 7 * 60; noc = 18 * 60; }
+    const sad = new Date();
+    const minuti = sad.getHours() * 60 + sad.getMinutes();
+    if (dan < noc) return (minuti >= dan && minuti < noc) ? 'light' : 'dark';
+    return (minuti >= dan || minuti < noc) ? 'light' : 'dark';
+}
+
+function azurirajAutoTemu(tiho, forsirano) {
+    const s = podaciAplikacije.settings;
+    if (!s.autoTheme) return;
+    if (!forsirano && window.BIOS && typeof window.BIOS.otvoren === 'function' && window.BIOS.otvoren()) return;
+    const period = temaPeriodTekuci();
+
+    if (s.codeTheme) {
+        const svetla = period === 'light';
+        if (s.codeLight !== svetla) {
+            s.codeLight = svetla;
+            sacuvajPodatke();
+            primeniTemu();
+            if (!tiho) {
+                prikaziToast(svetla ? '⚡ CODE tema: svetla varijanta (dnevni period)' : '⚡ CODE tema: tamna varijanta (noćni period)', 'info');
+            }
+        }
+        return;
+    }
+
+    if (s.theme !== period) {
+        s.theme = period;
+        sacuvajPodatke();
+        primeniTemu();
+        if (!tiho) {
+            prikaziToast(period === 'light' ? '☀️ Automatska tema: svetla' : '🌙 Automatska tema: tamna', 'info');
+        }
+    }
+}
+
 function inicijalizujTajnuAktivaciju() {
 
     const tajnaRec = document.getElementById('tajnaRec1');
@@ -124,7 +175,10 @@ const code_VARIJABLE = [
     '--ivica', '--ivica-svetla',
     '--gx-bg-unos', '--gx-bg-prekrivac', '--gx-bg-podnozje',
     '--gx-bios-bg', '--gx-bios-bg-tamno', '--gx-bios-panel',
-    '--gx-bios-tekst', '--gx-bios-tekst-siv', '--gx-bios-zuti'
+    '--gx-bios-tekst', '--gx-bios-tekst-siv', '--gx-bios-zuti',
+    '--gx-bios-naziv', '--gx-bios-kbd-bg', '--gx-bios-kbd-tekst', '--gx-bios-kbd-ivica',
+    '--gx-boot-tekst', '--gx-boot-tekst-siv', '--gx-boot-zuti', '--gx-boot-zeleni',
+    '--gx-xray-bg', '--gx-xray-tekst', '--gx-xray-ivica', '--gx-xray-senka', '--gx-xray-okvir'
 ];
 
 function hexZacodeBoju(bojaId, prilagodjeniHex) {
@@ -170,11 +224,77 @@ function generisicodePaletu(boja) {
         '--gx-bios-panel': H(5, sat(0.75)),
         '--gx-bios-tekst': H(89, Math.min(s, 80)),
         '--gx-bios-tekst-siv': H(42, sat(0.28)),
-        '--gx-bios-zuti': H(75, s)
+        '--gx-bios-zuti': H(75, s),
+        '--gx-bios-naziv': H(93, Math.min(s, 40)),
+        '--gx-bios-kbd-bg': 'rgba(0, 0, 0, 0.35)',
+        '--gx-bios-kbd-tekst': H(75, s),
+        '--gx-bios-kbd-ivica': `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.4)`,
+        '--gx-boot-tekst': H(89, Math.min(s, 80)),
+        '--gx-boot-tekst-siv': H(70, sat(0.45)),
+        '--gx-boot-zuti': H(80, Math.min(s, 95)),
+        '--gx-boot-zeleni': hex,
+        '--gx-xray-bg': H(3, sat(0.8)) + 'f0',
+        '--gx-xray-tekst': hex,
+        '--gx-xray-ivica': `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.6)`,
+        '--gx-xray-senka': `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.55)`,
+        '--gx-xray-okvir': `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.75)`
     };
 }
 
-function primenicodeBoju(bojaHex) {
+function generisicodePaletuSvetlu(boja) {
+    const hex = /^#[0-9a-fA-F]{6}$/.test(String(boja || ''))
+        ? String(boja).toLowerCase()
+        : code_BOJA_PODRAZUMEVANA;
+    const rgb = hexToRgb(hex);
+    const { h, s, l } = hexToHsl(hex);
+    const H = (lz, sz) => hslToHex(h, sz, lz);
+    const sat = faktor => Math.round(s * faktor);
+
+    const tamni = hexToRgb(H(Math.max(l - 22, 26), Math.min(s + 8, 96)));
+    const t = tamni;
+    const akcenat = hexToRgb(H(Math.min(Math.max(l - 30, 18), 30), Math.min(s + 12, 96)));
+
+    return {
+        '--gx-rgb': `${t.r}, ${t.g}, ${t.b}`,
+        '--primarna': H(Math.max(l - 22, 26), Math.min(s + 8, 96)),
+        '--primarna-hover': H(Math.max(l - 30, 18), Math.min(s + 8, 96)),
+        '--primarna-tekst': '#ffffff',
+        '--uspesna': H(Math.max(l - 18, 30), s),
+        '--bg-glavni': H(97, sat(0.3)),
+        '--bg-kartica': H(99, sat(0.4)) + 'f5',
+        '--bg-zaglavlje': H(98, sat(0.35)) + 'f2',
+        '--bg-muted': `rgba(${t.r}, ${t.g}, ${t.b}, 0.08)`,
+        '--tekst-primarni': H(14, sat(0.55)),
+        '--tekst-sekundarni': H(30, sat(0.5)),
+        '--tekst-muted': H(45, sat(0.4)),
+        '--ivica': `rgba(${t.r}, ${t.g}, ${t.b}, 0.4)`,
+        '--ivica-svetla': `rgba(${t.r}, ${t.g}, ${t.b}, 0.18)`,
+        '--gx-bg-unos': H(100, sat(0.25)) + 'e6',
+        '--gx-bg-prekrivac': H(96, sat(0.4)) + 'ea',
+        '--gx-bg-podnozje': H(97, sat(0.35)) + 'f2',
+        '--gx-bios-bg': H(96, sat(0.35)),
+        '--gx-bios-bg-tamno': H(93, sat(0.35)),
+        '--gx-bios-panel': H(98, sat(0.3)),
+        '--gx-bios-tekst': H(16, sat(0.55)),
+        '--gx-bios-tekst-siv': H(42, sat(0.35)),
+        '--gx-bios-zuti': H(28, s),
+        '--gx-bios-naziv': H(14, sat(0.6)),
+        '--gx-bios-kbd-bg': H(99, sat(0.2)),
+        '--gx-bios-kbd-tekst': H(Math.min(Math.max(l - 30, 18), 30), Math.min(s + 12, 96)),
+        '--gx-bios-kbd-ivica': `rgba(${t.r}, ${t.g}, ${t.b}, 0.45)`,
+        '--gx-boot-tekst': H(89, Math.min(s, 80)),
+        '--gx-boot-tekst-siv': H(70, sat(0.45)),
+        '--gx-boot-zuti': H(80, Math.min(s, 95)),
+        '--gx-boot-zeleni': hex,
+        '--gx-xray-bg': H(99, sat(0.2)) + 'f2',
+        '--gx-xray-tekst': H(Math.min(Math.max(l - 30, 18), 30), Math.min(s + 12, 96)),
+        '--gx-xray-ivica': `rgba(${akcenat.r}, ${akcenat.g}, ${akcenat.b}, 0.55)`,
+        '--gx-xray-senka': `rgba(${akcenat.r}, ${akcenat.g}, ${akcenat.b}, 0.22)`,
+        '--gx-xray-okvir': `rgba(${akcenat.r}, ${akcenat.g}, ${akcenat.b}, 0.9)`
+    };
+}
+
+function primenicodeBoju(bojaHex, svetlaOverride) {
     const telo = document.body;
     if (!telo) return;
     ocisticodeBoje();
@@ -184,10 +304,14 @@ function primenicodeBoju(bojaHex) {
     const hex = (typeof bojaHex === 'string' && /^#[0-9a-fA-F]{6}$/.test(bojaHex))
         ? bojaHex.toLowerCase()
         : hexZacodeBoju(idBoje, efekti.customColor);
+    const svetla = typeof svetlaOverride === 'boolean'
+        ? svetlaOverride
+        : !!(podaciAplikacije.settings.codeLight);
 
     telo.setAttribute('data-gx-boja', idBoje);
+    telo.classList.toggle('code-svetla', svetla);
     try {
-        const paleta = generisicodePaletu(hex);
+        const paleta = svetla ? generisicodePaletuSvetlu(hex) : generisicodePaletu(hex);
         Object.entries(paleta).forEach(([ime, vrednost]) => {
             telo.style.setProperty(ime, vrednost);
         });
@@ -203,6 +327,7 @@ function ocisticodeBoje() {
     if (!telo) return;
     code_VARIJABLE.forEach(ime => telo.style.removeProperty(ime));
     telo.removeAttribute('data-gx-boja');
+    telo.classList.remove('code-svetla');
 }
 
 function hexToHsl(hex) {
@@ -368,6 +493,13 @@ function applyCustomTheme() {
 }
 function promeniTemu() {
     const s = podaciAplikacije.settings;
+
+    if (s.autoTheme) {
+        s.autoTheme = false;
+        if (s.codeTheme) s.theme = temaPeriodTekuci();
+        sacuvajPodatke();
+        prikaziToast('Automatska tema isključena', 'info');
+    }
 
         if (s.codeTheme) {
         s.codeTheme = false;

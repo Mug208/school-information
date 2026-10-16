@@ -1,0 +1,79 @@
+body.code-tema.code-svetla::before {
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.055) 0 1px,
+        transparent 1px 3px
+    );
+}
+
+body.code-tema.code-svetla::after {
+    background: radial-gradient(
+        ellipse at center,
+        transparent 58%,
+        rgba(178, 197, 188, 0.22) 80%,
+        rgba(158, 182, 170, 0.4) 100%
+    );
+}
+
+body.code-tema.code-svetla .kartica,
+body.code-tema.code-svetla .raspored-kontejner {
+    box-shadow: inset 0 0 24px rgba(var(--gx-rgb), 0.04), 0 8px 32px rgba(15, 45, 32, 0.13);
+}
+
+body.code-tema.code-svetla .logo-naslov::before {
+    color: #00877e;
+    text-shadow: 0 0 12px rgba(0, 135, 126, 0.28);
+}
+
+body.code-tema.code-svetla .logo-naslov::after {
+    color: #c81e48;
+    text-shadow: 0 0 12px rgba(200, 30, 72, 0.24);
+}
+
+body.code-tema.code-svetla .code-korumpiran {
+    text-shadow: 1px 0 rgba(178, 20, 58, 0.5), -1px 0 rgba(0, 110, 120, 0.4), 0 0 8px rgba(178, 20, 58, 0.35);
+}
+
+body.code-tema.code-svetla .code-pucket {
+    animation-name: pucket-anim-svetla;
+}
+
+@keyframes pucket-anim-svetla {
+    0%   { text-shadow: none; transform: translate(0, 0); }
+    20%  { text-shadow: 2px 0 #b0143a, -2px 0 #00707a; transform: translate(2px, -1px); }
+    45%  { text-shadow: -2px 0 #b0143a, 2px 0 #00707a; transform: translate(-2px, 1px); }
+    70%  { text-shadow: 1px 0 #b0143a, -1px 0 #00707a; transform: translate(1px, 0); }
+    100% { text-shadow: none; transform: translate(0, 0); }
+}
+
+body.code-tema.code-svetla .toast,
+body.code-tema.code-svetla .toast.uspeh,
+body.code-tema.code-svetla .toast.greska {
+    box-shadow: 0 8px 30px rgba(15, 45, 32, 0.18), 0 0 18px rgba(var(--gx-rgb), 0.12);
+}
+
+body.code-tema.code-svetla .modal-kartica {
+    box-shadow: 0 0 40px rgba(var(--gx-rgb), 0.12), 0 30px 80px rgba(15, 45, 32, 0.22);
+}
+
+body.code-tema.code-svetla .kp-panel {
+    box-shadow: 0 0 0 1px rgba(var(--gx-rgb), 0.14), 0 24px 64px rgba(15, 45, 32, 0.2), 0 0 42px rgba(var(--gx-rgb), 0.1);
+}
+
+body.code-tema.code-svetla .obavestenje-dropdown {
+    box-shadow: 0 12px 40px rgba(15, 45, 32, 0.18), 0 0 20px rgba(var(--gx-rgb), 0.08);
+}
+
+body.code-tema.code-svetla .kartica-zaglavlje h3::before,
+body.code-tema.code-svetla .raspored-zaglavlje h2::before,
+body.code-tema.code-svetla .beleske-zaglavlje h2::before {
+    text-shadow: 0 0 8px rgba(var(--gx-rgb), 0.3);
+}
+
+body.code-tema.code-svetla .kp-prompt {
+    text-shadow: 0 0 10px rgba(var(--gx-rgb), 0.35);
+}
+
+body.code-tema.code-svetla .dom-tag {
+    box-shadow: 0 6px 20px rgba(15, 45, 32, 0.16), 0 0 14px rgba(var(--gx-rgb), 0.1);
+}

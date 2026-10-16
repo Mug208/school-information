@@ -139,6 +139,10 @@ function normalizuj(p) {
     n.customTheme.enabled = n.customTheme.enabled !== false;
     n.codeUnlocked = !!n.codeUnlocked;
     n.codeTheme = !!n.codeTheme;
+    n.codeLight = n.codeLight === true;
+    n.autoTheme = n.autoTheme === true;
+    n.autoThemeDayStart = /^\d{2}:\d{2}$/.test(String(n.autoThemeDayStart)) ? n.autoThemeDayStart : '07:00';
+    n.autoThemeNightStart = /^\d{2}:\d{2}$/.test(String(n.autoThemeNightStart)) ? n.autoThemeNightStart : '18:00';
     n.animTema = n.animTema !== false;
     if (!n.effects || typeof n.effects !== 'object') n.effects = {};
     n.effects = {
@@ -172,6 +176,11 @@ function validiraj() {
     radna.effects.customColor = bezbednaBojaGx(radna.effects.customColor);
     radna.shifts.jutarnja.bigBreakAfterPeriod = broj(radna.shifts.jutarnja.bigBreakAfterPeriod, 2, 1, 4);
     radna.shifts.popodnevna.bigBreakAfterPeriod = broj(radna.shifts.popodnevna.bigBreakAfterPeriod, 2, 1, 4);
+
+    radna.codeLight = radna.codeLight === true;
+    radna.autoTheme = radna.autoTheme === true;
+    if (!/^\d{2}:\d{2}$/.test(String(radna.autoThemeDayStart || ''))) radna.autoThemeDayStart = '07:00';
+    if (!/^\d{2}:\d{2}$/.test(String(radna.autoThemeNightStart || ''))) radna.autoThemeNightStart = '18:00';
 
     if (['rucno', 'sat', 'rotacija'].indexOf(radna.shiftMode) < 0) radna.shiftMode = 'sat';
     if (['nedelja', 'mesec', 'polugodiste', 'godina'].indexOf(radna.shiftRotation) < 0) radna.shiftRotation = 'nedelja';

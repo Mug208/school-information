@@ -77,6 +77,9 @@ const PODESAVANJA_PODRAZUMEVANA = {
     schoolName: 'Smart Gimnazija',
     className: 'III-3',
     theme: 'light',
+    autoTheme: false,
+    autoThemeDayStart: '07:00',
+    autoThemeNightStart: '18:00',
     periodsCount: 7,
     subjects: PREDMETI_PODRAZUMEVANI,
     currentShift: 'jutarnja',
@@ -108,6 +111,7 @@ const PODESAVANJA_PODRAZUMEVANA = {
     },
     codeUnlocked: false,
     codeTheme: false,
+    codeLight: false,
     animTema: true,
     effects: {
         intensity: 5,
