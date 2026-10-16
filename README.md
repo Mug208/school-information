@@ -54,8 +54,9 @@ Projekat je napisan samo u HTML, CSS i JavaScriptu, bez ikakvih frameworka, bund
 
 Ne postoji proces instalacije ni build korak.
 
-1. Raspakujte arhivu u proizvoljan folder.
-2. Otvorite `index.html` duplim klikom u pregledaču.
+1. Preuzmite .zip fajla celog ove web aplikacije.
+2. Raspakujte i otvorite folder "skolski-sistem V2.01"
+3. Otvorite fajl `index.html` duplim klikom, i volia, web aplikacija se otvario.
 
 Internet veza je potrebna samo za učitavanje Google fontova (Inter i JetBrains Mono). Bez interneta aplikacija normalno radi, uz sistemske rezervne fontove, pa internet nije neophodno u ovoj web aplikaciji.
 
