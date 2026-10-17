@@ -1,0 +1,131 @@
+.kk-kocka {
+    position: absolute;
+    z-index: 8;
+    box-sizing: border-box;
+    width: 14px;
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: 9px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--tekst-muted);
+    background: var(--bg-muted);
+    border: 1px solid var(--ivica);
+    border-radius: 3px;
+    opacity: 0.5;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.kk-kocka::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
+}
+
+.bios-overlay .kk-kocka {
+    color: var(--bios-tekst-siv, #9aa5c9);
+    background: transparent;
+    border-color: var(--bios-tekst-siv, #9aa5c9);
+    border-radius: 0;
+}
+
+.kk-kocka.kk-pogodak {
+    opacity: 1;
+    color: #00ff9c;
+    background: rgba(0, 255, 156, 0.12);
+    border-color: #00ff9c;
+    text-shadow: 0 0 5px rgba(0, 255, 156, 0.8);
+    animation: kk-trzaj 0.5s steps(2, end) forwards;
+}
+
+.kk-fx {
+    position: fixed;
+    inset: 0;
+    z-index: 5000;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.kk-prsten {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    margin: -7px 0 0 -7px;
+    box-sizing: border-box;
+    border: 1px solid #00ff9c;
+    border-radius: 50%;
+    opacity: 0;
+    animation: kk-prsten 0.6s ease-out forwards;
+}
+
+.kk-linija {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #00ff9c, transparent);
+    opacity: 0;
+    animation: kk-linija 0.5s ease-out forwards;
+}
+
+.kk-znak {
+    position: absolute;
+    margin: -6px 0 0 -4px;
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
+    color: #00ff9c;
+    text-shadow: 0 0 6px rgba(0, 255, 156, 0.7);
+    opacity: 0;
+    animation: kk-znak 0.7s ease-out forwards;
+}
+
+@keyframes kk-trzaj {
+    0% { transform: translate(0, 0); }
+    20% { transform: translate(-2px, 1px); }
+    40% { transform: translate(2px, -1px); }
+    60% { transform: translate(-1px, -1px); }
+    80% { transform: translate(1px, 1px); }
+    100% { transform: translate(0, 0); opacity: 0; }
+}
+
+@keyframes kk-prsten {
+    0% { opacity: 0.9; transform: scale(0.6); }
+    100% { opacity: 0; transform: scale(5); }
+}
+
+@keyframes kk-linija {
+    0% { opacity: 0.8; transform: scaleX(0.1); }
+    100% { opacity: 0; transform: scaleX(1); }
+}
+
+@keyframes kk-znak {
+    0% { opacity: 1; transform: translate(0, 0); }
+    100% { opacity: 0; transform: translate(var(--kk-dx, 0), var(--kk-dy, 0)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .kk-prsten,
+    .kk-linija,
+    .kk-znak {
+        display: none;
+    }
+
+    .kk-kocka.kk-pogodak {
+        animation: none;
+    }
+}
+
+@media print {
+    .kk-kocka,
+    .kk-fx {
+        display: none !important;
+    }
+}

@@ -83,13 +83,9 @@ Unutar BIOS-a koriste se sopstvene prečice: Gore/Dole za izbor stavke, Levo/Des
 
 Spoiler:
 
-Aplikacija sadrži namerno skriven CODE modul koji otključava terminalski izgled u stilu starih monohromatskih monitora. Na tri načina se aktivira:
+Aplikacija sadrži namerno skriven CODE modul koji otključava terminalski izgled u stilu starih monohromatskih monitora. Otključava se pronalaženjem pet malih kockica sa slovima C, O, D, E i S, strogo tim redosledom. Sledeća kockica se ne prikazuje dok se prethodna ne pronađe. Svaka kockica nalazi se u drugoj kategoriji aplikacije (raspored, kalendar, BIOS, beleške i modal), a raspored kategorija i tačna mesta nasumično se određuju pri prvom pokretanju i trajno čuvaju u localStorage pod ključem `skolski-info-kocke`. Klik na kockicu pokreće kratku CODE animaciju, a nakon petog slova tema se aktivira.
 
-1. Otkucajte sekventu `codes` bilo gde u aplikaciji (van polja za unos).
-2. Kliknite pet puta na prvu reč naziva škole u zaglavlju (nakon trećeg klika aplikacija daje odbrojavanje).
-3. Dupli klik na ikonicu kape za maturu pored naziva škole.
-
-Nakon otključavanja, CODE tema se uključuje i isključuje istim putanjama, komandom u komandnoj paleti ili tasterom T. U BIOS-u, kategorija Efekti nudi izbor boje fosfora (zelena, plava, cijan, žuta, crvena, magenta, bela ili prilagođeni heks kod), jačinu efekata od 1 do 10 i pojedinačne efekte: kišu znakova, sken linije, treperenje, korupciju i invertovanje ekrana. Tranzicija između normalne i CODE teme praćena je animacijom zaraze i oporavka ekrana.
+Nakon otključavanja, CODE tema se uključuje i isključuje otkucavanjem sekvence `codes` bilo gde u aplikaciji (van polja za unos), komandom u komandnoj paleti ili u BIOS-u. Dugme za promenu teme (i taster T) u CODE temi ne vraća običnu temu, već kruži kroz tri CODE varijante: `[D]` tamna, `[S]` svetla i `[A]` automatska. U BIOS-u, kategorija Efekti nudi izbor boje fosfora (zelena, plava, cijan, žuta, crvena, magenta, bela ili prilagođeni heks kod), jačinu efekata od 1 do 10 i pojedinačne efekte: kišu znakova, sken linije, treperenje, korupciju i invertovanje ekrana. Tranzicija između normalne i CODE teme praćena je animacijom zaraze i 
 
 ## Podaci i privatnost
 

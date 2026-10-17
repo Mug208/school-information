@@ -43,8 +43,8 @@
               '<div class="eo-telo">' +
                 '<p class="eo-intro">CODE mod je aktivan. Sve dodatno se podešava u <b>BIOS → Efekti</b>:</p>' +
                 '<ul class="eo-lista">' +
-                  '<li><b>CODE tema</b><span>uključi / isključi (tajni kod: otkucaj code, ili dvoklik na logotip)</span></li>' +
-                  '<li><b>Animacija promene teme</b><span>trenutno: ' + (anim ? 'UKLJUČENA' : 'ISKLJUČENA') + ' / isključena menja temu trenutno, bez ceremonije</span></li>' +
+                  '<li><b>CODE tema</b><span>uključi / isključi (prečica: CODES)</span></li>' +
+                  '<li><b>Animacija promene teme</b><span>trenutno: ' + (anim ? 'UKLJUČENA' : 'ISKLJUČENA') + ' / isključena menja temu trenutno, bez animacije</span></li>' +
                   '<li><b>Intenzitet efekata</b><span>trenutno: ' + intenzitet + '/10 / koliko jako efekti utiču na stranicu</span></li>' +
                   '<li><b>Boja teme (fosfor) + preseti</b><span>zelena · plava · cijan · žuta · crvena · magenta · bela</span></li>' +
                   '<li><b>5 CODE efekata</b><span>Sken linije (CRT) · CRT treperenje · Invertovanje boja (kratko) · Digitalna kiša (matrix) · Korupcija teksta / trenutno: ' + efektiTekst + '</span></li>' +

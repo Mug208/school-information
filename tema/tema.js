@@ -1,8 +1,7 @@
 'use strict';
-let tajnaBrojac = 0;
-let tajnaVreme = 0;
 const TAJNA_SEKVENC = ['c', 'o', 'd', 'e', 's'];
 let tajnaIndeks = 0;
+let tajnaPoslednji = 0;
 
 function temaVremeUMinute(v) {
     const m = /^(\d{1,2}):(\d{2})$/.exec(String(v || ''));
@@ -56,62 +55,34 @@ function azurirajAutoTemu(tiho, forsirano) {
 }
 
 function inicijalizujTajnuAktivaciju() {
-
-    const tajnaRec = document.getElementById('tajnaRec1');
-    if (tajnaRec) {
-        tajnaRec.addEventListener('click', () => {
-            const sad = Date.now();
-            if (sad - tajnaVreme < 2000) {
-                tajnaBrojac++;
-            } else {
-                tajnaBrojac = 1;
-            }
-            tajnaVreme = sad;
-
-            if (tajnaBrojac >= 5) {
-                tajnaBrojac = 0;
-                aktivirajCodeTemu();
-            } else if (tajnaBrojac >= 3) {
-                prikaziToast(`Još ${5 - tajnaBrojac} klik(a) do tajne... >_`, 'info');
-            }
-        });
-    }
-
-        document.addEventListener('keydown', (e) => {
+    document.addEventListener('keydown', (e) => {
+        if (!podaciAplikacije.settings.codeUnlocked) {
+            tajnaIndeks = 0;
+            return;
+        }
         if (e.ctrlKey || e.metaKey || e.altKey) return;
         const t = e.target;
         if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT' || t.isContentEditable)) return;
         if (window.BIOS && typeof window.BIOS.otvoren === 'function' && window.BIOS.otvoren()) return;
 
         const k = (e.key || '').toLowerCase();
+        if (k.length !== 1) return;
+
+        const sad = Date.now();
+        if (sad - tajnaPoslednji > 2000) tajnaIndeks = 0;
+        tajnaPoslednji = sad;
+
         if (k === TAJNA_SEKVENC[tajnaIndeks]) {
             tajnaIndeks++;
             if (tajnaIndeks >= TAJNA_SEKVENC.length) {
                 tajnaIndeks = 0;
-
                 if (e.stopImmediatePropagation) e.stopImmediatePropagation();
                 aktivirajCodeTemu();
             }
-        } else if (k.length === 1) {
+        } else {
             tajnaIndeks = (k === TAJNA_SEKVENC[0]) ? 1 : 0;
         }
     });
-
-        const logoIkona = document.getElementById('logoIkona');
-    if (logoIkona) {
-        logoIkona.addEventListener('dblclick', () => aktivirajCodeTemu());
-    }
-
-        const nagovestaj = document.getElementById('tajnaNagovestaj');
-    if (nagovestaj) {
-        nagovestaj.addEventListener('click', () => {
-            if (podaciAplikacije.settings.codeUnlocked) {
-                prikaziToast('>_ CODE modul je već otključan...', 'info');
-            } else {
-                prikaziToast('ERR_NADJEN: nešto se kuca samo od sebe...\nPokušajte otkucati: C-O-D-E-S', 'info');
-            }
-        });
-    }
 }
 
 function aktivirajCodeTemu() {
@@ -132,16 +103,17 @@ function aktivirajCodeTemu() {
             } catch (e) {  }
         }
 
-        prikaziToast('⚡ CODE TEMA AKTIVIRANA ⚡\nBoja teme: BIOS → Efekti → „Boja teme"', 'uspeh');
+        prikaziToast('CODE TEMA AKTIVIRANA\nPrečica za ulaz i izlaz: codes\nBoja teme: BIOS → Efekti → „Boja teme"', 'uspeh');
 
         prikaziEfektiUvod(2600);
         return;
     }
 
         s.codeTheme = !s.codeTheme;
+    if (s.codeTheme && s.autoTheme) s.codeLight = temaPeriodTekuci() === 'light';
     sacuvajPodatke();
     primeniTemu();
-    prikaziToast(s.codeTheme ? '⚡ CODE tema uključena' : 'CODE tema isključena', 'uspeh');
+    prikaziToast(s.codeTheme ? 'CODE tema uključena' : 'CODE tema isključena', 'uspeh');
 
     if (s.codeTheme && !s.efektiNapomena) {
         s.efektiNapomena = true;
@@ -491,22 +463,40 @@ function applyCustomTheme() {
         root.style.setProperty(key, value);
     });
 }
+function codeRezimOznaka() {
+    const s = podaciAplikacije.settings;
+    if (s.autoTheme) return 'A';
+    return s.codeLight ? 'S' : 'D';
+}
+
+function promeniCodeRezim() {
+    const s = podaciAplikacije.settings;
+    const sledeci = { D: 'S', S: 'A', A: 'D' }[codeRezimOznaka()];
+    const nazivi = { D: 'tamna', S: 'svetla', A: 'automatska' };
+
+    s.autoTheme = sledeci === 'A';
+    if (sledeci === 'A') {
+        s.codeLight = temaPeriodTekuci() === 'light';
+    } else {
+        s.codeLight = sledeci === 'S';
+    }
+    sacuvajPodatke();
+    primeniTemu();
+    prikaziToast('CODE tema [' + sledeci + ']: ' + nazivi[sledeci] + ' varijanta', 'info');
+}
+
 function promeniTemu() {
     const s = podaciAplikacije.settings;
 
-    if (s.autoTheme) {
-        s.autoTheme = false;
-        if (s.codeTheme) s.theme = temaPeriodTekuci();
-        sacuvajPodatke();
-        prikaziToast('Automatska tema isključena', 'info');
+    if (s.codeTheme) {
+        promeniCodeRezim();
+        return;
     }
 
-        if (s.codeTheme) {
-        s.codeTheme = false;
+    if (s.autoTheme) {
+        s.autoTheme = false;
         sacuvajPodatke();
-        primeniTemu();
-        prikaziToast('CODE tema isključena', 'uspeh');
-        return;
+        prikaziToast('Automatska tema isključena', 'info');
     }
 
     s.theme = s.theme === 'dark' ? 'light' : 'dark';
@@ -560,10 +550,21 @@ function primeniTemu() {
         }
 
         const ikonaTema = document.getElementById('ikonaTema');
+        const codeOznaka = '[' + codeRezimOznaka() + ']';
         if (ikonaTema) {
             postaviIkonu(ikonaTema,
-                jecode ? '⚡' : (jeTamna ? '☀️' : '🌙'),
-                jecode ? '[G]' : (jeTamna ? '[L]' : '[D]'));
+                jecode ? codeOznaka : (jeTamna ? '☀️' : '🌙'),
+                jecode ? codeOznaka : (jeTamna ? '[L]' : '[D]'));
+        }
+
+        const dugmeTema = document.getElementById('dugmeTema');
+        if (dugmeTema) {
+            if (jecode) {
+                const nazivi = { D: 'tamna', S: 'svetla', A: 'automatska' };
+                dugmeTema.title = 'CODE varijanta: ' + nazivi[codeRezimOznaka()] + ' (T za promenu)';
+            } else {
+                dugmeTema.removeAttribute('title');
+            }
         }
 
         const logoIkona = document.getElementById('logoIkona');

@@ -19,11 +19,3 @@ body.code-tema .podnozje-tacka {
     color: var(--primarna);
     opacity: 0.6;
 }
-
-
-body.code-tema .tajna-nagovestaj {
-    color: var(--primarna);
-    font-family: 'JetBrains Mono', 'Courier New', monospace;
-    text-shadow: 0 0 14px rgba(var(--gx-rgb), 0.7);
-    border: 1px solid rgba(var(--gx-rgb), 0.3);
-}

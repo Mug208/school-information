@@ -48,7 +48,7 @@ function kpRegistar() {
             }
         },
         { ikona: '📤', ikonaA: 'EXP', naziv: 'Izvoz podataka (JSON)', kat: 'PODACI', kw: 'backup sacuvaj json', akcija: izveziPodatke },
-        { ikona: '🎨', ikonaA: '[T]', naziv: 'Promeni temu', kat: 'IZGLED', taster: 'T', kw: 'tema boja izgled svetla tamna', akcija: promeniTemu }
+        { ikona: '🎨', ikonaA: '[T]', naziv: s.codeTheme ? 'Promeni CODE varijantu (D / S / A)' : 'Promeni temu', kat: 'IZGLED', taster: 'T', kw: 'tema boja izgled svetla tamna automatska', akcija: promeniTemu }
     );
 
     if (stanje.pretraga) {
@@ -65,7 +65,7 @@ function kpRegistar() {
             ikona: '⚡', ikonaA: 'GX',
             naziv: s.codeTheme ? 'CODE tema / isključi' : 'CODE tema / uključi',
             kat: 'IZGLED',
-            kw: 'code matrix fosfor hacker',
+            kw: 'code codes matrix fosfor hacker',
             akcija: aktivirajCodeTemu
         });
     }
