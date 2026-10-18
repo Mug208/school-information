@@ -227,7 +227,7 @@ function renderInfo() {
     var dl = dom('biosInfoSistem');
     if (!dl) return;
     var st = statistike();
-    var verzija = window.App && window.App.verzija ? window.App.verzija : '2.0';
+    var verzija = window.App && window.App.verzija ? window.App.verzija : '2.01';
     var redovi = [
         ['Verzija', 'v' + verzija, null],
         ['Datum', trenutniDatum(), 'datum'],
