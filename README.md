@@ -1,4 +1,4 @@
-# Školski sistem (Školska Informacija v2.0)
+# Školski sistem (Školska Informacija v2.01)
 
 Školski Informacija je potpuno samostalan Informacioni sistem namenjeno za učenike(poput mene): raspored časova, kalendar sa događajima i beleške, sve u jednom preglednom interfejsu. Aplikacija radi u bilo kom modernom pregledaču, ne zahteva instalaciju, server ni bazu podataka, a svi podaci ostaju lokalno na vašem računaru.
 
