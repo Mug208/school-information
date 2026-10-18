@@ -2,7 +2,7 @@
 
 Školski Informacija je potpuno samostalan Informacioni sistem namenjeno za učenike(poput mene): raspored časova, kalendar sa događajima i beleške, sve u jednom preglednom interfejsu. Aplikacija radi u bilo kom modernom pregledaču, ne zahteva instalaciju, server ni bazu podataka, a svi podaci ostaju lokalno na vašem računaru.
 
-Projekat je napisan samo u HTML, CSS i JavaScriptu, bez ikakvih frameworka, bundlera ili npm zavisnosti. Dovoljno je otvoriti `index.html` i sistem radi.
+Projekat je napisan samo u HTML, CSS i JavaScriptu, bez ikakvih frameworka, bundlera ili npm zavisnosti. Dovoljno je otvoriti `index.html` ili preko linka "https://mug208.github.io/skolski-sistem/".
 
 ## Funkcionalnosti
 
