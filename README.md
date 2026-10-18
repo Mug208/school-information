@@ -16,11 +16,17 @@ Projekat je napisan samo u HTML, CSS i JavaScriptu, bez ikakvih frameworka, bund
 - Štampa cele nedelje preko dugmeta za štampu, sa zaglavljem koje sadrži naziv škole i razred.
 - Na mobilnim uređajima tabelu zamenjuje pregled jednog dana sa biračem dana i strelicama za kretanje.
 
+<img width="806" height="703" alt="image" src="https://github.com/user-attachments/assets/11561cf2-9227-4356-9ccd-ae4c323fb47e" />
+
+
 ### Kalendar
 - Mesečni kalendar u kome svaki datum sa beleškama nose vizuelnu oznaku.
 - Klik na datum otvara bočni panel sa beleškama za taj dan i dugmetom za dodavanje nove.
 - Kartica sa nadolazećim događajima i obaveštenja u obliku zvona sa brojačem u zaglavlju.
 - Prečica za skok na tekući datum dostupna iz komandne palete.
+
+<img width="777" height="711" alt="image" src="https://github.com/user-attachments/assets/dc2b2e1c-6f2a-4e5f-933f-1db4a1b8078d" />
+
 
 ### Beleške
 - Šest tipova beleški: kontrolni, pismeni, blic, prezentacija, domaći i ostalo, svaki sa svojom bojom.
@@ -28,15 +34,31 @@ Projekat je napisan samo u HTML, CSS i JavaScriptu, bez ikakvih frameworka, bund
 - Zakačivanje (pin) važnih beleški, označavanje kao završeno i traka napretka.
 - Svaka beleška može biti vezana za predmet i datum.
 
+<img width="779" height="703" alt="image" src="https://github.com/user-attachments/assets/1e1d52db-3bf1-42fa-8db9-051391aed5ee" />
+
+
 ### BIOS podešavanja
 - Namerno retro, terminalski stilizovan utility za sva podešavanja sistema, otvara se tasterom DEL.
 - Šest kategorija: Glavno, Predmeti, Smene, Efekti, Podaci i Izlaz.
 - Kompletna kontrola sa tastature, animacija pri pokretanju (boot sekvenca) i upozorenje ako pokušate da izađete sa nesačuvanim izmenama.
 - Fabrička podešavanja se mogu vratiti bez brisanja rasporeda, beleški i predmeta.
 
+<img width="1333" height="707" alt="image" src="https://github.com/user-attachments/assets/41c8b678-c40c-4c78-af97-0b186eeda1db" />
+
+<img width="1332" height="692" alt="image" src="https://github.com/user-attachments/assets/6648cd29-20da-4744-b31c-690a5f5841d2" />
+
+<img width="1335" height="706" alt="image" src="https://github.com/user-attachments/assets/9595ec89-d7e4-4019-b7e5-9d4df1ebef04" />
+
+<img width="1331" height="707" alt="image" src="https://github.com/user-attachments/assets/8c8b5277-3730-4032-9251-7d50559d23f7" />
+
+<img width="1337" height="695" alt="image" src="https://github.com/user-attachments/assets/d37cc119-3254-4bec-b01b-2513f285fd93" />
+
+
 ### Komandna paleta
 - Otvara se sa Ctrl+K i nudi sve akcije aplikacije na jednom mestu: navigaciju, dane nedelje, beleške, alate, izvoz podataka i temu.
 - Pretraga radi po nazivu, kategoriji i ključnim rečima, strelicama se bira komanda, Enter izvršava.
+
+<img width="914" height="660" alt="image" src="https://github.com/user-attachments/assets/5f5b83de-7843-48ce-986f-f1e65511ada2" />
 
 ### Smene
 - Dve smene sa podesivim vremenima početka (podrazumevano jutarnja u 07:15 i popodnevna u 14:00).
@@ -44,15 +66,22 @@ Projekat je napisan samo u HTML, CSS i JavaScriptu, bez ikakvih frameworka, bund
 - Rotacija može biti nedeljna, mesečna, polugodišnja ili godišnja, sa podesivim datumom sidra, danom promene i početnom smenom.
 - Statusna traka u zaglavlju uživo prikazuje tekuću smenu, da li je čas u toku, datum i sat.
 
+<img width="1333" height="703" alt="image" src="https://github.com/user-attachments/assets/6076c435-8912-47d6-8488-67d10f737533" />
+
 ### Teme
 - Svetla i tamna tema sa prečicom T i animiranom tranzicijom između njih.
 - Automatska tema koja menja svetlu i tamnu varijantu prema dobu dana (podesivi satovi).
 - Prilagodljiva boja akcenta aplikacije.
-- Posebna ____ tema (SPOILER: opisana niže u sekciji o tajnama) sa CRT efektima: kiša, sken linije, treperenje, korupcija ekrana i invertovanje.
+- Posebna code tema (SPOILER: opisana niže u sekciji o tajnama) sa CRT efektima: kiša, sken linije, treperenje, korupcija ekrana i invertovanje.
+
+<img width="1332" height="696" alt="image" src="https://github.com/user-attachments/assets/16655ad6-00e2-4522-a8b1-2ef65df993fd" />
+
 
 ## Pokretanje
 
 Ne postoji proces instalacije ni build korak.
+
+Može pokrenuti preko linka "https://mug208.github.io/skolski-sistem/" ili preko fajlova:
 
 1. Preuzmite .zip fajla celog ove web aplikacije.
 2. Raspakujte i otvorite folder "skolski-sistem V2.01"
@@ -79,6 +108,9 @@ Internet veza je potrebna samo za učitavanje Google fontova (Inter i JetBrains 
 
 Unutar BIOS-a koriste se sopstvene prečice: Gore/Dole za izbor stavke, Levo/Desno za promenu kategorije, Plus/Minus za promenu vrednosti, Enter za izmenu, F1 za pomoć, F9 za podrazumevane vrednosti i F10 za čuvanje i izlaz.
 
+<img width="241" height="280" alt="image" src="https://github.com/user-attachments/assets/b402a25e-daa5-408f-98d3-e910b2cf031e" />
+
+
 ## Tajne i CODE tema
 
 Spoiler:
@@ -86,6 +118,11 @@ Spoiler:
 Aplikacija sadrži namerno skriven CODE modul koji otključava terminalski izgled u stilu starih monohromatskih monitora. Otključava se pronalaženjem pet malih kockica sa slovima C, O, D, E i S, strogo tim redosledom. Sledeća kockica se ne prikazuje dok se prethodna ne pronađe. Svaka kockica nalazi se u drugoj kategoriji aplikacije (raspored, kalendar, BIOS, beleške i modal), a raspored kategorija i tačna mesta nasumično se određuju pri prvom pokretanju i trajno čuvaju u localStorage pod ključem `skolski-info-kocke`. Klik na kockicu pokreće kratku CODE animaciju, a nakon petog slova tema se aktivira.
 
 Nakon otključavanja, CODE tema se uključuje i isključuje otkucavanjem sekvence `codes` bilo gde u aplikaciji (van polja za unos), komandom u komandnoj paleti ili u BIOS-u. Dugme za promenu teme (i taster T) u CODE temi ne vraća običnu temu, već kruži kroz tri CODE varijante: `[D]` tamna, `[S]` svetla i `[A]` automatska. U BIOS-u, kategorija Efekti nudi izbor boje fosfora (zelena, plava, cijan, žuta, crvena, magenta, bela ili prilagođeni heks kod), jačinu efekata od 1 do 10 i pojedinačne efekte: kišu znakova, sken linije, treperenje, korupciju i invertovanje ekrana. Tranzicija između normalne i CODE teme praćena je animacijom zaraze i 
+
+<img width="955" height="715" alt="image" src="https://github.com/user-attachments/assets/c9b9dbfa-f352-4b56-8ec7-557057feeb1f" />
+
+<img width="858" height="714" alt="image" src="https://github.com/user-attachments/assets/e7ca0e98-ff2d-49d7-b28f-4c4b3a097074" />
+
 
 ## Podaci i privatnost
 
@@ -97,8 +134,8 @@ Struktura sačuvanog JSON dokumenta:
 {
   "settings": {
     "schoolName": "Smart Gimnazija",
-    "className": "III-3",
-    "theme": "light",
+    "className": "IV-3",
+    "theme": "dark",
     "periodsCount": 7,
     "periodDuration": 45,
     "subjects": [{ "id": "1", "name": "Srpski jezik", "color": "#ef4444", "teacher": "" }],
@@ -120,6 +157,8 @@ Polje `day` koristi vrednosti 0 do 4 za ponedeljak do petka, `period` je redni b
 
 BIOS kategorija Podaci nudi izvoz u JSON fajl (naziv u formatu `skolska-informacija-DD-MM-YYYY.json`), uvoz iz fajla u dva režima: potpuna zamena podataka ili spajanje samo novih beleški bez duplikata, kao i reset svih podataka. Isti alati dostupni su i kroz komandnu paletu. Uz to, BIOS prikazuje statistiku: broj predmeta, beleški, stavki rasporeda i veličinu zauzeća u kilobajtima.
 
+<img width="592" height="18" alt="image" src="https://github.com/user-attachments/assets/59139d6d-0a80-4261-a488-96e01dda67b8" />
+
 Pošto localStorage pripada pregledaču i profilu, redovno izvozite backup, posebno pre čišćenja istorije pregledača ili prelaska na drugi računar.
 
 ## Struktura projekta
@@ -129,6 +168,7 @@ skolski-sistem/
 ├── index.html          # Jedina HTML stranica, učitava sve module
 ├── osnova/             # Jezgro: podaci, stanje, pomoćne funkcije, skladište, App API
 ├── zaglavlje/          # Zaglavlje sa navigacijom, zvonom i statusnom trakom
+├── kocke               # Za pronalaženje tajne teme
 ├── raspored/           # Tab rasporeda (desktop tabela i mobilni pregled)
 ├── kalendar/           # Tab kalendara
 ├── beleske/            # Tab beleški sa filterima
