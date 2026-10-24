@@ -1,4 +1,4 @@
-# Školski sistem (Školska Informacija v2.01)
+# Školski sistem (Školska Informacija v2.02)
 
 Školski Informacija je potpuno samostalan Informacioni sistem namenjeno za učenike(poput mene): raspored časova, kalendar sa događajima i beleške, sve u jednom preglednom interfejsu. Aplikacija radi u bilo kom modernom pregledaču, ne zahteva instalaciju, server ni bazu podataka, a svi podaci ostaju lokalno na vašem računaru.
 
@@ -16,8 +16,7 @@ Projekat je napisan samo u HTML, CSS i JavaScriptu, bez ikakvih frameworka, bund
 - Štampa cele nedelje preko dugmeta za štampu, sa zaglavljem koje sadrži naziv škole i razred.
 - Na mobilnim uređajima tabelu zamenjuje pregled jednog dana sa biračem dana i strelicama za kretanje.
 
-<img width="806" height="703" alt="image" src="https://github.com/user-attachments/assets/11561cf2-9227-4356-9ccd-ae4c323fb47e" />
-
+<img width="1305" height="1004" alt="{9CEB3EEC-35AC-47C4-918B-6AE69938DFEE}" src="https://github.com/user-attachments/assets/7eb02b8d-fbc4-4883-a957-0c0acb17bbce" />
 
 ### Kalendar
 - Mesečni kalendar u kome svaki datum sa beleškama nose vizuelnu oznaku.
@@ -25,8 +24,7 @@ Projekat je napisan samo u HTML, CSS i JavaScriptu, bez ikakvih frameworka, bund
 - Kartica sa nadolazećim događajima i obaveštenja u obliku zvona sa brojačem u zaglavlju.
 - Prečica za skok na tekući datum dostupna iz komandne palete.
 
-<img width="777" height="711" alt="image" src="https://github.com/user-attachments/assets/dc2b2e1c-6f2a-4e5f-933f-1db4a1b8078d" />
-
+<img width="1300" height="1014" alt="{0F4DA9EA-A05C-40E1-9E3F-3F9907F70352}" src="https://github.com/user-attachments/assets/dd4a7804-463e-493b-b2d1-b7f9ff1a6744" />
 
 ### Beleške
 - Šest tipova beleški: kontrolni, pismeni, blic, prezentacija, domaći i ostalo, svaki sa svojom bojom.
@@ -34,8 +32,7 @@ Projekat je napisan samo u HTML, CSS i JavaScriptu, bez ikakvih frameworka, bund
 - Zakačivanje (pin) važnih beleški, označavanje kao završeno i traka napretka.
 - Svaka beleška može biti vezana za predmet i datum.
 
-<img width="779" height="703" alt="image" src="https://github.com/user-attachments/assets/1e1d52db-3bf1-42fa-8db9-051391aed5ee" />
-
+<img width="1322" height="1031" alt="{6F66A719-C2FB-4AB1-8219-17C4CAA42047}" src="https://github.com/user-attachments/assets/ec29a5a2-9e29-4acb-ad1d-35694f5d89af" />
 
 ### BIOS podešavanja
 - Namerno retro, terminalski stilizovan utility za sva podešavanja sistema, otvara se tasterom DEL.
@@ -47,7 +44,7 @@ Projekat je napisan samo u HTML, CSS i JavaScriptu, bez ikakvih frameworka, bund
 
 <img width="1332" height="692" alt="image" src="https://github.com/user-attachments/assets/6648cd29-20da-4744-b31c-690a5f5841d2" />
 
-<img width="1335" height="706" alt="image" src="https://github.com/user-attachments/assets/9595ec89-d7e4-4019-b7e5-9d4df1ebef04" />
+<img width="1868" height="1032" alt="{65487719-D0AE-417F-97BB-86A356E47F10}" src="https://github.com/user-attachments/assets/9542eecf-bf41-42e2-b056-83c0cc8e7178" />
 
 <img width="1331" height="707" alt="image" src="https://github.com/user-attachments/assets/8c8b5277-3730-4032-9251-7d50559d23f7" />
 
@@ -58,7 +55,7 @@ Projekat je napisan samo u HTML, CSS i JavaScriptu, bez ikakvih frameworka, bund
 - Otvara se sa Ctrl+K i nudi sve akcije aplikacije na jednom mestu: navigaciju, dane nedelje, beleške, alate, izvoz podataka i temu.
 - Pretraga radi po nazivu, kategoriji i ključnim rečima, strelicama se bira komanda, Enter izvršava.
 
-<img width="914" height="660" alt="image" src="https://github.com/user-attachments/assets/5f5b83de-7843-48ce-986f-f1e65511ada2" />
+<img width="1318" height="884" alt="{0DAB8585-E23A-4DDC-B9BE-080D49A660D1}" src="https://github.com/user-attachments/assets/0e03186d-7606-4f93-8166-6d839a828144" />
 
 ### Smene
 - Dve smene sa podesivim vremenima početka (podrazumevano jutarnja u 07:15 i popodnevna u 14:00).
@@ -75,6 +72,14 @@ Projekat je napisan samo u HTML, CSS i JavaScriptu, bez ikakvih frameworka, bund
 - Posebna code tema (SPOILER: opisana niže u sekciji o tajnama) sa CRT efektima: kiša, sken linije, treperenje, korupcija ekrana i invertovanje.
 
 <img width="1332" height="696" alt="image" src="https://github.com/user-attachments/assets/16655ad6-00e2-4522-a8b1-2ef65df993fd" />
+
+### Šta je novo
+- Pri prvom otvaranju aplikacije iskače prozor sa pregledom izmena u tekućoj verziji.
+- Prozor se prikazuje samo jednom po verziji: kada ga zatvorite, ista poruka se više ne pojavljuje.
+- Kada stigne nova verzija (nov sadržaj), prozor se vraća svima koji tu verziju još nisu videli.
+- Ručno ga uvek možete otvoriti iz komandne palete (Ctrl+K → „Šta je novo u ovoj verziji”).
+- Sadržaj se menja na jednom mestu, u `novine/novine.js`.
+<img width="1221" height="890" alt="image" src="https://github.com/user-attachments/assets/d957bf6b-0836-4514-adcc-cebd8124e854" />
 
 
 ## Pokretanje
@@ -166,7 +171,7 @@ Pošto localStorage pripada pregledaču i profilu, redovno izvozite backup, pose
 ```text
 skolski-sistem/
 ├── index.html          # Jedina HTML stranica, učitava sve module
-├── osnova/             # Jezgro: podaci, stanje, pomoćne funkcije, skladište, App API
+├── osnova/             # Jezgro: podaci, stanje, pomoćne funkcije, ikonice, skladište, App API
 ├── zaglavlje/          # Zaglavlje sa navigacijom, zvonom i statusnom trakom
 ├── kocke               # Za pronalaženje tajne teme
 ├── raspored/           # Tab rasporeda (desktop tabela i mobilni pregled)
@@ -174,8 +179,10 @@ skolski-sistem/
 ├── beleske/            # Tab beleški sa filterima
 ├── unos/               # Biraci predmeta sa pretragom (za modale)
 ├── modal/              # Modalni dijalozi: čas, grupna izmena, beleška, predmet
+├── novine/             # Prozor „Šta je novo” i zapamćena viđena verzija
 ├── toast/              # Sistemska obaveštenja u uglu ekrana
 ├── komande/            # Komandna paleta (Ctrl+K)
+├── novine/            # Za prikaz "Šta je novo" modal kada se ažurira web aplikacija
 ├── podnozje/           # Podnožje sa prečicama i statusom
 ├── responsivno/        # Preklopcima usmerena responzivna pravila
 ├── tema/               # Logika svetle i tamne teme i aktivacija tajni
@@ -192,6 +199,7 @@ Konvencija imenovanja: svaki folder je samostalan modul sa svojim JS i CSS fajlo
 - `window.App`: pristup podacima, podešavanjima, temi, izvozu i statistici.
 - `window.BIOS`: otvaranje i stanje BIOS utilityja.
 - `window.KomandnaPaleta`: otvaranje i zatvaranje komandne palete.
+- `window.Novine`: otvaranje prozora „Šta je novo” (`otvori`, `zatvori`, `zaboravi`).
 - `window.VTema` i `window.codeEngine`: motori animacija i efekata.
 
 ## Tehničke napomene
@@ -199,7 +207,7 @@ Konvencija imenovanja: svaki folder je samostalan modul sa svojim JS i CSS fajlo
 - Ukupno oko 15 400 linija koda u 19 modula, bez ijedne spoljne JavaScript biblioteke.
 - Jedina spoljna zavisnost su Google fontovi Inter i JetBrains Mono, učitani sa CDN-a uz rezervne sistemske fontove radi efikasnosti.
 - Interfejs je prilagođen ekranima svih veličina: tabela na desktopu, pregled po danu na mobilnom, posebno mobilni meni i biraci, ukratko dodato je responsivnost za sve ekrane.
-- Ikonice po principu emoji ili ASCII zamene, tako da su u stripujućim režimima čitke, bez slika ~i bez mučenja~.
+- Sopstveni set ikonica umesto emoji: crteži na mreži 24 x 24 u `osnova/ikone.js`, ugrađeni u dokument kao SVG simboli, pa rade i offline i pri otvaranju preko `file://`. Boju uzimaju iz `currentColor`, pa sami prate svetlu/tamnu temu i izabranu boju akcenta. U CODE temi se crteži sklanjaju i prikazuje se ASCII zamena iz `data-a`, tako da terminal ostaje čitak bez slika ~i bez mučenja~.
 - Sadržaj prati "Accessible Rich Internet Applications" uloge i oznake za čitače ekrana (dialog, listbox, search, progressbar).
 - Postoji poseban stil za štampu koji priprema celu nedelju, ili izabrani dan na jednom listu.
 - Podaci se serializuju u JSON pri svakoj izmeni, sa zaštitom od oštećenog sadržaja: aplikacija uvek pada na podrazumevane vrednosti umesto da se sruši.
@@ -213,5 +221,7 @@ Projekat je namerno držan u vanilin JavaScriptu da ostane čitljiv i modifikova
 - Trajanje časova i odmora podešavaju se u BIOS-u pod Glavno.
 - Vremena automatske teme i sati promene smena menjaju se isto tamo.
 - Za nove komande u paleti dodajte objekat u funkciju `kpRegistar` u `komande/komande.js`.
+- Za novu verziju prozora „Šta je novo” izmene `NOVINE_VERZIJA` i `NOVINE_STAVKE` u `novine/novine.js` i prozor će se sam prikazati svima koji tu verziju nisu videli.
+- Za nove ikonice dodato crtež u `IKONE` u `osnova/ikone.js`, pa je pozivan sa `ikonica('naziv', 'ASCII zamena')`.
 
 Ako menjate strukturu podataka, obavezno ažurirajte normalizaciju u `osnova/skladiste.js`, jer ona garantuje da stari sačuvani podaci ostanu kompatibilni sa novom verzijom.

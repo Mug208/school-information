@@ -38,7 +38,7 @@
             '<div class="eo-prozor" role="dialog" aria-modal="true" aria-labelledby="vt-eo-naslov">' +
               '<div class="eo-zaglavlje">' +
                 '<span class="eo-naslov" id="vt-eo-naslov">&gt;_ CODE / DODATNA PODEŠAVANJA</span>' +
-                '<button type="button" class="eo-zatvori" id="vt-eo-zatvori" aria-label="Zatvori obaveštenje">✕</button>' +
+                '<button type="button" class="eo-zatvori" id="vt-eo-zatvori" aria-label="Zatvori obaveštenje">' + ikonica('zatvori', 'X') + '</button>' +
               '</div>' +
               '<div class="eo-telo">' +
                 '<p class="eo-intro">CODE mod je aktivan. Sve dodatno se podešava u <b>BIOS → Efekti</b>:</p>' +
@@ -49,7 +49,7 @@
                   '<li><b>Boja teme (fosfor) + preseti</b><span>zelena · plava · cijan · žuta · crvena · magenta · bela</span></li>' +
                   '<li><b>5 CODE efekata</b><span>Sken linije (CRT) · CRT treperenje · Invertovanje boja (kratko) · Digitalna kiša (matrix) · Korupcija teksta / trenutno: ' + efektiTekst + '</span></li>' +
                 '</ul>' +
-                '<p class="eo-upozorenje">⚠ Pažnja: uključeni efekti mogu uticati na performanse (naročito na slabijim računarima) / zato su podrazumevano isključeni.</p>' +
+                '<p class="eo-upozorenje">' + ikonica('upozorenje', '[!]') + ' Pažnja: uključeni efekti mogu uticati na performanse (naročito na slabijim računarima) / zato su podrazumevano isključeni.</p>' +
                 '<p class="eo-xray">Bonus: u ovoj temi pređite mišem preko dugmadi, tabova, tabele rasporeda ili logotipa / iznad elementa se pojavljuje oznaka sa njegovim <b>#id</b> / <b>.klasama</b> (DOM x-ray inspekcija).</p>' +
               '</div>' +
               '<div class="eo-footer">' +

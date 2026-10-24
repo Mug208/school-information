@@ -1,17 +1,109 @@
-.ik::before {
-    content: attr(data-e);
+.ikone-sprite {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.ik {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    line-height: 1;
+    vertical-align: -0.125em;
+}
+
+.ik-svg {
+    display: block;
+    width: 1em;
+    height: 1em;
+    pointer-events: none;
+}
+
+body.code-tema .ik-svg {
+    display: none;
 }
 
 body.code-tema .ik::before {
     content: attr(data-a);
     font-family: var(--font-mono);
+    font-weight: 700;
     letter-spacing: 0.02em;
+    line-height: 1;
 }
 
-.ik:empty::before {
-
+body.code-tema .ik-tekst::before {
+    content: none;
 }
 
-body.code-tema .ik[data-a=""]::before {
-    content: '';
+.logo-ikona .ik,
+.ikonica-dugme .ik,
+.nav-ikona .ik,
+.ms-ikona .ik,
+.pp-ikona .ik,
+.kp-stavka-ikona .ik {
+    font-size: 1.08em;
+}
+
+.dugme-ikona .ik,
+.dugme-nav-dana .ik,
+.kalendar-nav-dugme .ik {
+    font-size: 1.35em;
+}
+
+.ikona-smene .ik {
+    font-size: 1.35em;
+}
+
+.dugme-glavno .ik,
+.dugme-sekundarno .ik,
+.ms-traka .ik,
+.kuca-izbor .ik {
+    font-size: 1.2em;
+}
+
+.kalendar-danas-dugme .ik {
+    font-size: 1.05em;
+}
+
+.filter-dugme .ik {
+    font-size: 1.15em;
+}
+
+.filter-dugme[data-filter="kontrolni"] .ik { color: #ef4444; }
+.filter-dugme[data-filter="pismeni"] .ik { color: #8b5cf6; }
+.filter-dugme[data-filter="blic"] .ik { color: #f59e0b; }
+.filter-dugme[data-filter="prezentacija"] .ik { color: #14b8a6; }
+.filter-dugme[data-filter="domaci"] .ik { color: #3b82f6; }
+.filter-dugme[data-filter="ostalo"] .ik { color: #6b7280; }
+
+.beleska-kartica-datum .ik,
+.kabinet .ik {
+    font-size: 1.15em;
+}
+
+.beleska-zakac-traka .ik {
+    font-size: 1.1em;
+}
+
+.ikona-odmora .ik {
+    font-size: 1.1em;
+}
+
+.ms-kucica .ik {
+    font-size: 0.82em;
+}
+
+.stavka-rasporeda-izmeni .ik {
+    font-size: 1.05em;
+}
+
+.prazno-stanje-ikona .ik {
+    font-size: 1em;
+}
+
+.tacka-ikonica {
+    color: var(--primarna);
 }

@@ -4,56 +4,56 @@ const kpStanje = { otvorena: false, filtrirane: [], indeks: 0 };
 function kpRegistar() {
     const s = podaciAplikacije.settings;
     const komande = [
-        { ikona: '🕐', ikonaA: '[#]', naziv: 'Idi na Raspored', kat: 'NAVIGACIJA', taster: '1', kw: 'tab prikaz casovi', akcija: () => prebaciTab('raspored') },
-        { ikona: '📅', ikonaA: '[D]', naziv: 'Idi na Kalendar', kat: 'NAVIGACIJA', taster: '2', kw: 'tab prikaz mesec', akcija: () => prebaciTab('kalendar') },
-        { ikona: '📝', ikonaA: '[N]', naziv: 'Idi na Beleške', kat: 'NAVIGACIJA', taster: '3', kw: 'tab prikaz', akcija: () => prebaciTab('beleske') },
-        { ikona: '🎯', ikonaA: '[*]', naziv: 'Kalendar / vrati na danas', kat: 'KALENDAR', kw: 'danas mesec skok', akcija: kalendarNaDanas }
+        { ikona: 'sat', ikonaA: '[#]', naziv: 'Idi na Raspored', kat: 'NAVIGACIJA', taster: '1', kw: 'tab prikaz casovi', akcija: () => prebaciTab('raspored') },
+        { ikona: 'kalendar', ikonaA: '[D]', naziv: 'Idi na Kalendar', kat: 'NAVIGACIJA', taster: '2', kw: 'tab prikaz mesec', akcija: () => prebaciTab('kalendar') },
+        { ikona: 'beleske', ikonaA: '[N]', naziv: 'Idi na Beleške', kat: 'NAVIGACIJA', taster: '3', kw: 'tab prikaz', akcija: () => prebaciTab('beleske') },
+        { ikona: 'danas', ikonaA: '[*]', naziv: 'Kalendar / vrati na danas', kat: 'KALENDAR', kw: 'danas mesec skok', akcija: kalendarNaDanas }
     ];
 
     for (let d = 0; d < 5; d++) {
         komande.push({
-            ikona: '📆', ikonaA: '>>', naziv: 'Raspored / ' + DANI_LAT[d], kat: 'NEDELJA', kw: 'nedelja dan kolona',
+            ikona: 'kalendar_nedelja', ikonaA: '>>', naziv: 'Raspored / ' + DANI_LAT[d], kat: 'NEDELJA', kw: 'nedelja dan kolona',
             akcija: () => { prebaciTab('raspored'); postaviKolonuDana(d); }
         });
     }
 
     komande.push(
-        { ikona: '➕', ikonaA: '[+]', naziv: 'Nova beleška', kat: 'BELEŠKE', taster: 'N', kw: 'dodaj napravi', akcija: () => { prebaciTab('beleske'); otvoriModalBeleska(); } },
+        { ikona: 'plus', ikonaA: '[+]', naziv: 'Nova beleška', kat: 'BELEŠKE', taster: 'N', kw: 'dodaj napravi', akcija: () => { prebaciTab('beleske'); otvoriModalBeleska(); } },
         {
-            ikona: '🔍', ikonaA: '[/]', naziv: 'Pretraga beleški', kat: 'BELEŠKE', taster: '/', kw: 'trazi nadji filter', akcija: () => {
+            ikona: 'lupa', ikonaA: '[/]', naziv: 'Pretraga beleški', kat: 'BELEŠKE', taster: '/', kw: 'trazi nadji filter', akcija: () => {
                 prebaciTab('beleske');
                 setTimeout(() => { const u = document.getElementById('pretragaBeleske'); if (u) u.focus(); }, 0);
             }
         },
         {
-            ikona: '🖨️', ikonaA: 'PRN', naziv: 'Odštampaj (raspored / cela nedelja / beleške)', kat: 'ALATI', kw: 'stampa pdf papir nedelja', akcija: () => {
+            ikona: 'stampac', ikonaA: 'PRN', naziv: 'Odštampaj (raspored / cela nedelja / beleške)', kat: 'ALATI', kw: 'stampa pdf papir nedelja', akcija: () => {
                 prikaziToast('Priprema za štampu… (cela nedelja)', 'info');
                 setTimeout(() => window.print(), 150);
             }
         },
         {
-            ikona: '🔍', ikonaA: '[>]', naziv: 'Pretraga predmeta (raspored)', kat: 'ALATI', taster: 'S', kw: 'predmet trazi nadji filter istakni zarez multi', akcija: () => {
+            ikona: 'lupa', ikonaA: '[>]', naziv: 'Pretraga predmeta (raspored)', kat: 'ALATI', taster: 'S', kw: 'predmet trazi nadji filter istakni zarez multi', akcija: () => {
                 prebaciTab('raspored');
                 otvoriPretraguPredmeta();
             }
         },
         {
-            ikona: '☑️', ikonaA: '[M]', naziv: 'Višestruki izbor časova (grupna izmena)', kat: 'ALATI', taster: 'M', kw: 'multi vise izbor grupna izmena brisanje casovi', akcija: () => {
+            ikona: 'kvacica_kvadrat', ikonaA: '[M]', naziv: 'Višestruki izbor časova (grupna izmena)', kat: 'ALATI', taster: 'M', kw: 'multi vise izbor grupna izmena brisanje casovi', akcija: () => {
                 otvoriMultiSelect();
             }
         },
         {
-            ikona: '🔄', ikonaA: '[R]', naziv: 'Režim smene / rotacija (BIOS → Smene)', kat: 'ALATI', kw: 'smena rotacija nedelja mesec polugodiste godina rezim', akcija: () => {
+            ikona: 'rotacija', ikonaA: '[R]', naziv: 'Režim smene / rotacija (BIOS → Smene)', kat: 'ALATI', kw: 'smena rotacija nedelja mesec polugodiste godina rezim', akcija: () => {
                 if (window.BIOS && typeof window.BIOS.otvori === 'function') window.BIOS.otvori('smene');
             }
         },
-        { ikona: '📤', ikonaA: 'EXP', naziv: 'Izvoz podataka (JSON)', kat: 'PODACI', kw: 'backup sacuvaj json', akcija: izveziPodatke },
-        { ikona: '🎨', ikonaA: '[T]', naziv: s.codeTheme ? 'Promeni CODE varijantu (D / S / A)' : 'Promeni temu', kat: 'IZGLED', taster: 'T', kw: 'tema boja izgled svetla tamna automatska', akcija: promeniTemu }
+        { ikona: 'izvoz', ikonaA: 'EXP', naziv: 'Izvoz podataka (JSON)', kat: 'PODACI', kw: 'backup sacuvaj json', akcija: izveziPodatke },
+        { ikona: 'paleta', ikonaA: '[T]', naziv: s.codeTheme ? 'Promeni CODE varijantu (D / S / A)' : 'Promeni temu', kat: 'IZGLED', taster: 'T', kw: 'tema boja izgled svetla tamna automatska', akcija: promeniTemu }
     );
 
     if (stanje.pretraga) {
         komande.push({
-            ikona: '✖️', ikonaA: '[X]', naziv: 'Očisti pretragu beleški', kat: 'BELEŠKE', kw: 'reset brisi', akcija: () => {
+            ikona: 'ocisti', ikonaA: '[X]', naziv: 'Očisti pretragu beleški', kat: 'BELEŠKE', kw: 'reset brisi', akcija: () => {
                 ocistiPretragu();
                 prikaziToast('Pretraga očišćena.', 'info');
             }
@@ -62,7 +62,7 @@ function kpRegistar() {
 
     if (s.codeUnlocked) {
         komande.push({
-            ikona: '⚡', ikonaA: 'GX',
+            ikona: 'munja', ikonaA: 'GX',
             naziv: s.codeTheme ? 'CODE tema / isključi' : 'CODE tema / uključi',
             kat: 'IZGLED',
             kw: 'code codes matrix fosfor hacker',
@@ -72,11 +72,16 @@ function kpRegistar() {
 
     komande.push(
         {
-            ikona: '⚙️', ikonaA: '[S]', naziv: 'BIOS podešavanja', kat: 'SISTEM', taster: 'DEL', kw: 'podesavanja settings konfiguracija', akcija: () => {
+            ikona: 'iskre', ikonaA: '[*]', naziv: 'Šta je novo u ovoj verziji', kat: 'SISTEM', kw: 'novo novine changelog verzija update izmene', akcija: () => {
+                if (window.Novine && typeof window.Novine.otvori === 'function') window.Novine.otvori();
+            }
+        },
+        {
+            ikona: 'podesavanja', ikonaA: '[S]', naziv: 'BIOS podešavanja', kat: 'SISTEM', taster: 'DEL', kw: 'podesavanja settings konfiguracija', akcija: () => {
                 if (window.BIOS && typeof window.BIOS.otvori === 'function') window.BIOS.otvori();
             }
         },
-        { ikona: '❓', ikonaA: '[?]', naziv: 'Spisak prečica (pomoć)', kat: 'SISTEM', taster: '?', kw: 'precice pomoc help tastatura', akcija: () => prikaziToast(TEKST_PRECICA, 'info') }
+        { ikona: 'pomoc', ikonaA: '[?]', naziv: 'Spisak prečica (pomoć)', kat: 'SISTEM', taster: '?', kw: 'precice pomoc help tastatura', akcija: () => prikaziToast(TEKST_PRECICA, 'info') }
     );
 
     return komande;

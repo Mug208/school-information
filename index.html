@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Školska Informacija v2.01</title>
+    <title>Školska Informacija <v2 class="02"></v2></title>
     <meta name="description" content="Školski informacioni sistem / raspored časova, kalendar i beleške.">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%2304120d'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='%2300ff9c' font-family='monospace' font-weight='700'>&gt;_</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="./beleske/beleske.css">
     <link rel="stylesheet" href="./unos/unos.css">
     <link rel="stylesheet" href="./modal/modal.css">
+    <link rel="stylesheet" href="./novine/novine.css">
     <link rel="stylesheet" href="./komande/komande.css">
     <link rel="stylesheet" href="./toast/toast.css">
     <link rel="stylesheet" href="./podnozje/podnozje.css">
@@ -34,6 +35,7 @@
     <link rel="stylesheet" href="./beleske/beleske-c.css">
     <link rel="stylesheet" href="./unos/unos-c.css">
     <link rel="stylesheet" href="./modal/modal-c.css">
+    <link rel="stylesheet" href="./novine/novine-c.css">
     <link rel="stylesheet" href="./komande/komande-c.css">
     <link rel="stylesheet" href="./toast/toast-c.css">
     <link rel="stylesheet" href="./podnozje/podnozje-c.css">
@@ -60,7 +62,7 @@
         <header class="zaglavlje">
             <div class="zaglavlje-sadrzaj">
                 <div class="logo">
-                    <span class="logo-ikona" id="logoIkona" title="Školska Informacija">🎓</span>
+                    <span class="logo-ikona" id="logoIkona" title="Školska Informacija"><span class="ik" data-ik="skola" data-a=">_" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-skola"></use></svg></span></span>
                     <div class="logo-tekst">
                         <h1 id="nazivSkole" class="logo-naslov" data-text="Smart Gimnazija"><span class="tajna-rec" id="tajnaRec1">Smart</span> <span id="nazivSkoleOstatak">Gimnazija</span></h1>
                         <p id="nazivRazreda">Razred: IV-3</p>
@@ -69,15 +71,15 @@
 
                 <nav class="desktop-nav" aria-label="Glavna navigacija">
                     <button class="nav-dugme aktivan" data-tab="raspored">
-                        <span class="nav-ikona" aria-hidden="true"><span class="ik" data-e="🕐" data-a="[#]"></span></span>
+                        <span class="nav-ikona" aria-hidden="true"><span class="ik" data-ik="sat" data-a="[#]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-sat"></use></svg></span></span>
                         <span>Raspored</span>
                     </button>
                     <button class="nav-dugme" data-tab="kalendar">
-                        <span class="nav-ikona" aria-hidden="true"><span class="ik" data-e="📅" data-a="[D]"></span></span>
+                        <span class="nav-ikona" aria-hidden="true"><span class="ik" data-ik="kalendar" data-a="[D]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-kalendar"></use></svg></span></span>
                         <span>Kalendar</span>
                     </button>
                     <button class="nav-dugme" data-tab="beleske">
-                        <span class="nav-ikona" aria-hidden="true"><span class="ik" data-e="📝" data-a="[N]"></span></span>
+                        <span class="nav-ikona" aria-hidden="true"><span class="ik" data-ik="beleske" data-a="[N]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-beleske"></use></svg></span></span>
                         <span>Beleške</span>
                     </button>
                 </nav>
@@ -85,7 +87,7 @@
                 <div class="zaglavlje-akcije">
                     <div class="obavestenje-wrapper">
                         <button class="ikonica-dugme" id="dugmeObavestenja" aria-label="Obaveštenja" aria-expanded="false">
-                            <span class="ikona-zvono" aria-hidden="true"><span class="ik" data-e="🔔" data-a="[!]"></span></span>
+                            <span class="ikona-zvono" aria-hidden="true"><span class="ik" data-ik="zvono" data-a="[!]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-zvono"></use></svg></span></span>
                             <span class="obavestenje-oznaka" id="brojObavestenja">0</span>
                         </button>
                         <div class="obavestenje-dropdown" id="dropdownObavestenja" role="menu">
@@ -100,23 +102,23 @@
                     </button>
 
                     <button class="ikonica-dugme" id="dugmeTema" aria-label="Promena teme">
-                        <span id="ikonaTema">🌙</span>
+                        <span id="ikonaTema"><span class="ik" data-ik="mesec" data-a="[D]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-mesec"></use></svg></span></span>
                     </button>
 
                     <button class="ikonica-dugme" id="dugmePodesavanja" aria-label="Podešavanja (BIOS)" title="Podešavanja / BIOS (DEL)">
-                        <span aria-hidden="true"><span class="ik" data-e="⚙️" data-a="[S]"></span></span>
+                        <span aria-hidden="true"><span class="ik" data-ik="podesavanja" data-a="[S]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-podesavanja"></use></svg></span></span>
                         <span class="bios-nagovestaj" aria-hidden="true">BIOS</span>
                     </button>
 
                     <button class="ikonica-dugme mobilno" id="dugmeMobilniMeni" aria-label="Meni">
-                        <span aria-hidden="true">☰</span>
+                        <span aria-hidden="true"><span class="ik" data-ik="meni" data-a="[=]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-meni"></use></svg></span></span>
                     </button>
                 </div>
             </div>
 
             <div class="statusna-traka">
                 <div class="status-levo">
-                    <span class="ikona-smene" id="ikonaSmene" aria-hidden="true">🌅</span>
+                    <span class="ikona-smene" id="ikonaSmene" aria-hidden="true"><span class="ik" data-ik="izlazak" data-a="[AM]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-izlazak"></use></svg></span></span>
                     <span id="nazivSmene">Jutarnja smena</span>
                     <span class="status-separator" aria-hidden="true">│</span>
                     <span id="statusTekst">Slobodno</span>
@@ -130,15 +132,15 @@
 
         <div class="mobilni-meni" id="mobilniMeni">
             <button class="mobilni-nav-dugme aktivan" data-tab="raspored">
-                <span class="nav-ikona" aria-hidden="true"><span class="ik" data-e="🕐" data-a="[#]"></span></span>
+                <span class="nav-ikona" aria-hidden="true"><span class="ik" data-ik="sat" data-a="[#]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-sat"></use></svg></span></span>
                 <span>Raspored časova</span>
             </button>
             <button class="mobilni-nav-dugme" data-tab="kalendar">
-                <span class="nav-ikona" aria-hidden="true"><span class="ik" data-e="📅" data-a="[D]"></span></span>
+                <span class="nav-ikona" aria-hidden="true"><span class="ik" data-ik="kalendar" data-a="[D]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-kalendar"></use></svg></span></span>
                 <span>Kalendar</span>
             </button>
             <button class="mobilni-nav-dugme" data-tab="beleske">
-                <span class="nav-ikona" aria-hidden="true"><span class="ik" data-e="📝" data-a="[N]"></span></span>
+                <span class="nav-ikona" aria-hidden="true"><span class="ik" data-ik="beleske" data-a="[N]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-beleske"></use></svg></span></span>
                 <span>Beleške</span>
             </button>
         </div>
@@ -148,7 +150,7 @@
                 <div class="print-zaglavlje" id="printZaglavlje" aria-hidden="true"></div>
 
                 <div class="mobilni-birac-dana">
-                    <button class="dugme-nav-dana" id="dugmePredhodniDan" aria-label="Prethodni dan">◀</button>
+                    <button class="dugme-nav-dana" id="dugmePredhodniDan" aria-label="Prethodni dan"><span class="ik" data-ik="strelica_levo" data-a="&lt;" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-strelica_levo"></use></svg></span></button>
                     <select id="selektorDana" aria-label="Dan u nedelji">
                         <option value="0">Ponedeljak</option>
                         <option value="1">Utorak</option>
@@ -156,18 +158,18 @@
                         <option value="3">Četvrtak</option>
                         <option value="4">Petak</option>
                     </select>
-                    <button class="dugme-nav-dana" id="dugmeSledeciDan" aria-label="Sledeći dan">▶</button>
+                    <button class="dugme-nav-dana" id="dugmeSledeciDan" aria-label="Sledeći dan"><span class="ik" data-ik="strelica_desno" data-a="&gt;" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-strelica_desno"></use></svg></span></button>
                 </div>
 
                 <div class="pretraga-predmeta" id="pretragaPredmetaBar" role="search" aria-label="Pretraga predmeta u rasporedu" hidden>
                     <div class="pp-red">
-                        <span class="pp-ikona" aria-hidden="true"><span class="ik" data-e="🔍" data-a="[>]"></span></span>
+                        <span class="pp-ikona" aria-hidden="true"><span class="ik" data-ik="lupa" data-a="[&gt;]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-lupa"></use></svg></span></span>
                         <input type="text" id="ppUnos" class="pp-unos" placeholder="Pretraži predmet…  ( , za još predmeta )"
                                autocomplete="off" spellcheck="false"
                                aria-label="Pretraga predmeta / zarez za više predmeta odjednom">
                         <span class="pp-broj" id="ppBroj" aria-live="polite"></span>
                         <button type="button" class="pp-zatvori" id="ppZatvori" title="Zatvori i poništi (ESC)" aria-label="Zatvori pretragu predmeta">
-                            <span class="ik" data-e="✕" data-a="X"></span>
+                            <span class="ik" data-ik="zatvori" data-a="X" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-zatvori"></use></svg></span>
                         </button>
                     </div>
                     <div class="pp-pogodci" id="ppPogodci" aria-label="Pronađeni predmeti"></div>
@@ -175,16 +177,16 @@
 
                 <div class="ms-traka" id="multiSelectBar" role="toolbar" aria-label="Višestruki izbor časova" hidden>
                     <div class="ms-red">
-                        <span class="ms-ikona" aria-hidden="true"><span class="ik" data-e="☑️" data-a="[M]"></span></span>
+                        <span class="ms-ikona" aria-hidden="true"><span class="ik" data-ik="kvacica_kvadrat" data-a="[M]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-kvacica_kvadrat"></use></svg></span></span>
                         <span class="ms-tekst">Izabrano: <span class="ms-broj" id="msBroj">0</span></span>
                         <span class="ms-cip is-smena" id="msSmena">JUTARNJA SMENA</span>
                         <span class="ms-akcije">
                             <button type="button" class="dugme dugme-ghost dugme-malo" id="msSve" title="Izaberi svih 5 dana">Sve</button>
                             <button type="button" class="dugme dugme-ghost dugme-malo" id="msNista" title="Poništi izbor">Ništa</button>
-                            <button type="button" class="dugme dugme-sekundarno dugme-malo" id="msObrisi" title="Obriši sve izabrane časove" disabled><span class="ik" data-e="🗑️" data-a="[x]"></span> Obriši</button>
-                            <button type="button" class="dugme dugme-glavno dugme-malo" id="msIzmeni" title="Izmeni sve izabrane časove odjednom" disabled><span class="ik" data-e="✏️" data-a="&gt;"></span> Izmeni</button>
+                            <button type="button" class="dugme dugme-sekundarno dugme-malo" id="msObrisi" title="Obriši sve izabrane časove" disabled><span class="ik" data-ik="kanta" data-a="[x]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-kanta"></use></svg></span> Obriši</button>
+                            <button type="button" class="dugme dugme-glavno dugme-malo" id="msIzmeni" title="Izmeni sve izabrane časove odjednom" disabled><span class="ik" data-ik="olovka" data-a="&gt;" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-olovka"></use></svg></span> Izmeni</button>
                             <button type="button" class="pp-zatvori" id="msZatvori" title="Izađi iz višestrukog izbora (ESC)" aria-label="Izađi iz višestrukog izbora">
-                                <span class="ik" data-e="✕" data-a="X"></span>
+                                <span class="ik" data-ik="zatvori" data-a="X" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-zatvori"></use></svg></span>
                             </button>
                         </span>
                     </div>
@@ -199,9 +201,9 @@
                                 <p>Kliknite na čas da biste ga izmenili · klik na dan u zaglavlju ističe celu kolonu · <strong>S</strong> / pretraga · <strong>M</strong> / višestruki izbor</p>
                             </div>
                             <div class="zaglavlje-akcije">
-                                <button class="dugme dugme-ghost dugme-ikona dugme-multi-select" id="dugmeMultiSelect" type="button" title="Višestruki izbor časova (M)" aria-label="Višestruki izbor časova (prečica M)" aria-pressed="false"><span class="ik" data-e="☑️" data-a="[M]"></span></button>
-                                <button class="dugme dugme-ghost dugme-ikona dugme-pretraga-predmeta" id="dugmePretragaPredmeta" type="button" title="Pretraga predmeta (S)" aria-label="Pretraga predmeta (prečica S)"><span class="ik" data-e="🔍" data-a="[S]"></span></button>
-                                <button class="dugme dugme-ghost dugme-ikona stampa-dugme" id="dugmeStampaj" type="button" title="Odštampaj celu nedelju" aria-label="Odštampaj celu nedelju"><span class="ik" data-e="🖨️" data-a="PRN"></span></button>
+                                <button class="dugme dugme-ghost dugme-ikona dugme-multi-select" id="dugmeMultiSelect" type="button" title="Višestruki izbor časova (M)" aria-label="Višestruki izbor časova (prečica M)" aria-pressed="false"><span class="ik" data-ik="kvacica_kvadrat" data-a="[M]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-kvacica_kvadrat"></use></svg></span></button>
+                                <button class="dugme dugme-ghost dugme-ikona dugme-pretraga-predmeta" id="dugmePretragaPredmeta" type="button" title="Pretraga predmeta (S)" aria-label="Pretraga predmeta (prečica S)"><span class="ik" data-ik="lupa" data-a="[S]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-lupa"></use></svg></span></button>
+                                <button class="dugme dugme-ghost dugme-ikona stampa-dugme" id="dugmeStampaj" type="button" title="Odštampaj celu nedelju" aria-label="Odštampaj celu nedelju"><span class="ik" data-ik="stampac" data-a="PRN" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-stampac"></use></svg></span></button>
                             </div>
                         </div>
                     </div>
@@ -217,9 +219,9 @@
                                 <p>Kliknite na čas da biste ga izmenili · <strong>S</strong> / pretraga · <strong>M</strong> / višestruki izbor</p>
                             </div>
                             <div class="zaglavlje-akcije">
-                                <button class="dugme dugme-ghost dugme-ikona dugme-multi-select dugmeMultiSelectMobilni" type="button" title="Višestruki izbor časova (M)" aria-label="Višestruki izbor časova (prečica M)" aria-pressed="false"><span class="ik" data-e="☑️" data-a="[M]"></span></button>
-                                <button class="dugme dugme-ghost dugme-ikona dugme-pretraga-predmeta dugmePretragaPredmetaMobilni" type="button" title="Pretraga predmeta (S)" aria-label="Pretraga predmeta (prečica S)"><span class="ik" data-e="🔍" data-a="[S]"></span></button>
-                                <button class="dugme dugme-ghost dugme-ikona stampa-dugme dugmeStampajMobilni" type="button" title="Odštampaj celu nedelju" aria-label="Odštampaj celu nedelju"><span class="ik" data-e="🖨️" data-a="PRN"></span></button>
+                                <button class="dugme dugme-ghost dugme-ikona dugme-multi-select dugmeMultiSelectMobilni" type="button" title="Višestruki izbor časova (M)" aria-label="Višestruki izbor časova (prečica M)" aria-pressed="false"><span class="ik" data-ik="kvacica_kvadrat" data-a="[M]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-kvacica_kvadrat"></use></svg></span></button>
+                                <button class="dugme dugme-ghost dugme-ikona dugme-pretraga-predmeta dugmePretragaPredmetaMobilni" type="button" title="Pretraga predmeta (S)" aria-label="Pretraga predmeta (prečica S)"><span class="ik" data-ik="lupa" data-a="[S]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-lupa"></use></svg></span></button>
+                                <button class="dugme dugme-ghost dugme-ikona stampa-dugme dugmeStampajMobilni" type="button" title="Odštampaj celu nedelju" aria-label="Odštampaj celu nedelju"><span class="ik" data-ik="stampac" data-a="PRN" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-stampac"></use></svg></span></button>
                             </div>
                         </div>
                     </div>
@@ -257,7 +259,7 @@
 
                         <div class="kartica" id="karticaNadolazeci">
                             <div class="kartica-zaglavlje">
-                                <h3><span class="ikona-zvono" aria-hidden="true"><span class="ik" data-e="🔔" data-a="[!]"></span></span> Nadolazeći događaji</h3>
+                                <h3><span class="ikona-zvono" aria-hidden="true"><span class="ik" data-ik="zvono" data-a="[!]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-zvono"></use></svg></span></span> Nadolazeći događaji</h3>
                             </div>
                             <div class="kartica-telo" id="nadolazeciDogadjaji">
                             </div>
@@ -284,12 +286,12 @@
 
                 <div class="filter-dugmad" role="toolbar" aria-label="Filter beleški">
                     <button class="filter-dugme aktivan" data-filter="sve">Sve (<span id="brojSve">0</span>)</button>
-                    <button class="filter-dugme" data-filter="kontrolni"><span class="ik" data-e="🔴" data-a="!!"></span> Kontrolni (<span id="brojKontrolni">0</span>)</button>
-                    <button class="filter-dugme" data-filter="pismeni"><span class="ik" data-e="🟣" data-a="[W]"></span> Pismeni (<span id="brojPismeni">0</span>)</button>
-                    <button class="filter-dugme" data-filter="blic"><span class="ik" data-e="🟡" data-a="[B]"></span> Blic (<span id="brojBlic">0</span>)</button>
-                    <button class="filter-dugme" data-filter="prezentacija"><span class="ik" data-e="🎤" data-a="[PR]"></span> Prezentacija (<span id="brojPrezentacija">0</span>)</button>
-                    <button class="filter-dugme" data-filter="domaci"><span class="ik" data-e="🔵" data-a="[HW]"></span> Domaći (<span id="brojDomaci">0</span>)</button>
-                    <button class="filter-dugme" data-filter="ostalo"><span class="ik" data-e="⚫" data-a="[O]"></span> Ostalo (<span id="brojOstalo">0</span>)</button>
+                    <button class="filter-dugme" data-filter="kontrolni"><span class="ik" data-ik="tacka" data-a="!!" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-tacka"></use></svg></span> Kontrolni (<span id="brojKontrolni">0</span>)</button>
+                    <button class="filter-dugme" data-filter="pismeni"><span class="ik" data-ik="tacka" data-a="[W]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-tacka"></use></svg></span> Pismeni (<span id="brojPismeni">0</span>)</button>
+                    <button class="filter-dugme" data-filter="blic"><span class="ik" data-ik="tacka" data-a="[B]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-tacka"></use></svg></span> Blic (<span id="brojBlic">0</span>)</button>
+                    <button class="filter-dugme" data-filter="prezentacija"><span class="ik" data-ik="tacka" data-a="[PR]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-tacka"></use></svg></span> Prezentacija (<span id="brojPrezentacija">0</span>)</button>
+                    <button class="filter-dugme" data-filter="domaci"><span class="ik" data-ik="tacka" data-a="[HW]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-tacka"></use></svg></span> Domaći (<span id="brojDomaci">0</span>)</button>
+                    <button class="filter-dugme" data-filter="ostalo"><span class="ik" data-ik="tacka" data-a="[O]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-tacka"></use></svg></span> Ostalo (<span id="brojOstalo">0</span>)</button>
                 </div>
 
                 <div class="pretraga-traka" role="search">
@@ -310,7 +312,7 @@
             <div class="podnozje-sadrzaj">
                 <div class="podnozje-levo">
                     <span class="podnozje-logo" aria-hidden="true">&gt;_</span>
-                    <span>Školska Informacija <strong>v2.01</strong></span>
+                    <span>Školska Informacija <strong>v2.02</strong></span>
                     <span class="podnozje-tacka" aria-hidden="true">•</span>
                     <span>Official version</span>
                 </div>
@@ -326,7 +328,7 @@
             <div class="modal-kartica">
                 <div class="modal-zaglavlje">
                     <h3 id="naslovModalRaspored">Dodaj čas</h3>
-                    <button class="modal-zatvori" id="zatvoriModalRaspored" aria-label="Zatvori">✕</button>
+                    <button class="modal-zatvori" id="zatvoriModalRaspored" aria-label="Zatvori"><span class="ik" data-ik="zatvori" data-a="X" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-zatvori"></use></svg></span></button>
                 </div>
                 <div class="modal-telo">
                     <div class="info-slota" id="infoSlota" aria-live="polite"></div>
@@ -350,7 +352,7 @@
                     <div class="form-grupa">
                         <label for="pretragaPredmeta">Predmet</label>
                         <div class="bp-pretraga">
-                            <span class="ik" data-e="🔍" data-a="[&gt;]" aria-hidden="true"></span>
+                            <span class="ik" data-ik="lupa" data-a="[&gt;]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-lupa"></use></svg></span>
                             <input type="text" id="pretragaPredmeta" placeholder="Traži predmet po nazivu ili nastavniku..." autocomplete="off" maxlength="60">
                         </div>
                         <div class="birac-predmeta" id="biracPredmeta" role="group" aria-label="Izbor predmeta">
@@ -375,8 +377,8 @@
             <div class="modal-prekrivac" data-zatvori="modalGrupnaIzmena"></div>
             <div class="modal-kartica">
                 <div class="modal-zaglavlje">
-                    <h3 id="naslovModalGrupnaIzmena"><span class="ik" data-e="☑️" data-a="[M]"></span> Grupna izmena časova</h3>
-                    <button class="modal-zatvori" id="zatvoriModalGrupnaIzmena" aria-label="Zatvori">✕</button>
+                    <h3 id="naslovModalGrupnaIzmena"><span class="ik" data-ik="kvacica_kvadrat" data-a="[M]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-kvacica_kvadrat"></use></svg></span> Grupna izmena časova</h3>
+                    <button class="modal-zatvori" id="zatvoriModalGrupnaIzmena" aria-label="Zatvori"><span class="ik" data-ik="zatvori" data-a="X" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-zatvori"></use></svg></span></button>
                 </div>
                 <div class="modal-telo">
                     <div class="info-slota" id="giInfo" aria-live="polite"></div>
@@ -384,11 +386,11 @@
                         <label class="kuca-izbor">
                             <input type="checkbox" id="giPromeniPredmet" checked>
                             <span class="kuca-izbor-kvadratic" aria-hidden="true"></span>
-                            <span><span class="ik" data-e="📚" data-a="[B]"></span> Promeni predmet</span>
+                            <span><span class="ik" data-ik="knjiga" data-a="[B]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-knjiga"></use></svg></span> Promeni predmet</span>
                         </label>
                         <div class="gi-polje" id="giPoljePredmet">
                             <div class="bp-pretraga">
-                                <span class="ik" data-e="🔍" data-a="[&gt;]" aria-hidden="true"></span>
+                                <span class="ik" data-ik="lupa" data-a="[&gt;]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-lupa"></use></svg></span>
                                 <input type="text" id="giPretraga" placeholder="Traži predmet po nazivu ili nastavniku..." autocomplete="off" maxlength="60" aria-label="Pretraga predmeta za grupnu izmenu">
                             </div>
                             <div class="birac-predmeta" id="biracGrupne" role="group" aria-label="Izbor predmeta za grupnu izmenu">
@@ -399,7 +401,7 @@
                         <label class="kuca-izbor">
                             <input type="checkbox" id="giPromeniKabinet">
                             <span class="kuca-izbor-kvadratic" aria-hidden="true"></span>
-                            <span><span class="ik" data-e="📍" data-a="@"></span> Promeni kabinet</span>
+                            <span><span class="ik" data-ik="lokacija" data-a="@" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-lokacija"></use></svg></span> Promeni kabinet</span>
                         </label>
                         <div class="gi-polje gi-onemoguceno" id="giPoljeKabinet">
                             <input type="text" id="giKabinet" placeholder="npr. Kabinet 5" maxlength="24">
@@ -421,7 +423,7 @@
             <div class="modal-kartica">
                 <div class="modal-zaglavlje">
                     <h3 id="naslovModalBeleska">Nova beleška</h3>
-                    <button class="modal-zatvori" id="zatvoriModalBeleska" aria-label="Zatvori">✕</button>
+                    <button class="modal-zatvori" id="zatvoriModalBeleska" aria-label="Zatvori"><span class="ik" data-ik="zatvori" data-a="X" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-zatvori"></use></svg></span></button>
                 </div>
                 <div class="modal-telo">
                     <div class="form-grupa">
@@ -459,7 +461,7 @@
                         <label class="kuca-izbor">
                             <input type="checkbox" id="beleskaZakaci">
                             <span class="kuca-izbor-kvadratic" aria-hidden="true"></span>
-                            <span><span class="ik" data-e="📌" data-a="*"></span> Zakači na vrh liste</span>
+                            <span><span class="ik" data-ik="cackalica" data-a="*" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-cackalica"></use></svg></span> Zakači na vrh liste</span>
                         </label>
                     </div>
                 </div>
@@ -478,7 +480,7 @@
             <div class="modal-kartica modal-mali">
                 <div class="modal-zaglavlje">
                     <h3 id="naslovModalPredmet">Dodaj predmet</h3>
-                    <button class="modal-zatvori" id="zatvoriModalPredmet" aria-label="Zatvori">✕</button>
+                    <button class="modal-zatvori" id="zatvoriModalPredmet" aria-label="Zatvori"><span class="ik" data-ik="zatvori" data-a="X" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-zatvori"></use></svg></span></button>
                 </div>
                 <div class="modal-telo">
                     <div class="form-grupa">
@@ -520,7 +522,7 @@
             <div class="modal-prekrivac" data-zatvori="modalPotvrda"></div>
             <div class="modal-kartica modal-mali">
                 <div class="modal-zaglavlje">
-                    <h3 id="naslovModalPotvrda"><span class="ik" data-e="⚠️" data-a="[!]"></span> Potvrda</h3>
+                    <h3 id="naslovModalPotvrda"><span class="ik" data-ik="upozorenje" data-a="[!]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-upozorenje"></use></svg></span> Potvrda</h3>
                 </div>
                 <div class="modal-telo">
                     <p id="tekstPotvrde">Da li ste sigurni?</p>
@@ -530,6 +532,28 @@
                         <button class="dugme dugme-sekundarno" id="dugmePotvrdaOtkazi">Otkaži</button>
                         <button class="dugme dugme-opasno" id="dugmePotvrdaOk">Potvrdi</button>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal novine" id="modalNovine" role="dialog" aria-modal="true" aria-labelledby="novineNaslov" aria-describedby="novinePodnaslov">
+            <div class="modal-prekrivac" data-zatvori="modalNovine"></div>
+            <div class="modal-kartica novine-kartica">
+                <div class="novine-zaglavlje">
+                    <span class="novine-znak" id="novineZnak" aria-hidden="true"><span class="ik" data-ik="iskre" data-a="[*]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-iskre"></use></svg></span></span>
+                    <div class="novine-naslovi">
+                        <span class="novine-verzija" id="novineVerzija">v2.02</span>
+                        <h3 class="novine-naslov" id="novineNaslov">Šta je novo</h3>
+                        <p class="novine-podnaslov" id="novinePodnaslov">Kratak pregled najvažnijih izmena u ovoj verziji.</p>
+                    </div>
+                    <button type="button" class="modal-zatvori" id="zatvoriNovine" aria-label="Zatvori"><span class="ik" data-ik="zatvori" data-a="X" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-zatvori"></use></svg></span></button>
+                </div>
+                <div class="modal-telo novine-telo">
+                    <ul class="novine-lista" id="novineLista"></ul>
+                </div>
+                <div class="modal-footer novine-podnozje">
+                    <span class="novine-napomena">Prikazuje se samo jednom, do sledeće verzije.</span>
+                    <button type="button" class="dugme dugme-glavno" id="dugmeNovineUredu">U redu</button>
                 </div>
             </div>
         </div>
@@ -546,7 +570,7 @@
                 </div>
                 <div class="kp-lista" id="kpLista" role="listbox" aria-label="Rezultati komandi"></div>
                 <div class="kp-footer">
-                    <span class="kp-footer-levo">ŠKOLSKI TERMINAL · v2.01</span>
+                    <span class="kp-footer-levo">ŠKOLSKI TERMINAL · v2.02</span>
                     <span class="kp-footer-desno"><kbd>↑</kbd><kbd>↓</kbd> izbor • <kbd>↵</kbd> izvrši • <kbd>esc</kbd> zatvori</span>
                 </div>
             </div>
@@ -565,7 +589,7 @@
         <div class="bios-ui" id="biosUI" hidden>
             <header class="bios-header">
                 <div class="bios-header-levo">
-                    <span class="bios-naziv">ŠKOLSKI BIOS <span class="bios-verzija">v2.01</span></span>
+                    <span class="bios-naziv">ŠKOLSKI BIOS <span class="bios-verzija">v2.02</span></span>
                     <span class="bios-podnaziv">Školska Informacija / Utility za podešavanja</span>
                 </div>
                 <div class="bios-header-desno">
@@ -633,6 +657,7 @@
     <script src="./osnova/podaci.js"></script>
     <script src="./osnova/stanje.js"></script>
     <script src="./osnova/pomocne.js"></script>
+    <script src="./osnova/ikone.js"></script>
     <script src="./osnova/skladiste.js"></script>
     <script src="./tema/tema.js"></script>
     <script src="./smene/smene.js"></script>
@@ -646,6 +671,7 @@
     <script src="./komande/komande.js"></script>
     <script src="./osnova/app.js"></script>
     <script src="./dogadjaji/dogadjaji.js"></script>
+    <script src="./novine/novine.js"></script>
     <script src="./kocke/kocke.js"></script>
     <script src="./c-tema/c-stanje.js"></script>
     <script src="./c-tema/c-kisa.js"></script>

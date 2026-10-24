@@ -284,7 +284,9 @@ function initDogadjaji() {
         if (e.key === 'Escape') {
             const otvorenModal = document.querySelector('.modal.prikazi');
             if (otvorenModal) {
-                if (otvorenModal.id === 'modalPotvrda') {
+                if (otvorenModal.id === 'modalNovine') {
+                    if (window.Novine) window.Novine.zatvori();
+                } else if (otvorenModal.id === 'modalPotvrda') {
                     const cb = stanje.confirmCallback;
                     zatvoriModalPotvrde();
                     if (cb) cb(false);

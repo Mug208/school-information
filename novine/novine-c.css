@@ -1,0 +1,48 @@
+body.code-tema .novine-kartica::before {
+    height: 1px;
+    background: var(--primarna);
+    box-shadow: 0 0 12px rgba(var(--gx-rgb), 0.6);
+}
+
+body.code-tema .novine-znak,
+body.code-tema .novine-ikona {
+    border-radius: 2px;
+    color: var(--primarna);
+    background: rgba(var(--gx-rgb), 0.1);
+    border: 1px solid rgba(var(--gx-rgb), 0.35);
+    text-shadow: 0 0 8px rgba(var(--gx-rgb), 0.5);
+}
+
+body.code-tema .novine-verzija {
+    border-radius: 2px;
+    letter-spacing: 0.12em;
+}
+
+body.code-tema .novine-naslov {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--primarna);
+    text-shadow: 0 0 8px rgba(var(--gx-rgb), 0.4);
+}
+
+body.code-tema .novine-naslov::before {
+    content: '// ';
+    color: var(--primarna);
+}
+
+body.code-tema .novine-podnaslov,
+body.code-tema .novine-opis {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+}
+
+body.code-tema .novine-stavka:hover {
+    background: rgba(var(--gx-rgb), 0.06);
+}
+
+body.code-tema .novine-napomena {
+    font-family: var(--font-mono);
+    letter-spacing: 0.03em;
+}

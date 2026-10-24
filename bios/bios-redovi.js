@@ -148,7 +148,7 @@ function redIskljucen(red) {
 
 function redoviGlavno() {
     return [
-        rInfo('gl_sistem', 'Sistem', 'Školska Informacija v2.01'),
+        rInfo('gl_sistem', 'Sistem', 'Školska Informacija v2.02'),
         rInfo('gl_datum', 'Datum', function () {
             return trenutniDatum();
         }),
@@ -750,7 +750,7 @@ function redoviEfekti() {
                         window.VirusTema.efektiPanel();
                     }
                 },
-                { vrednost: '[ ⚡ ]' }
+                { vrednost: '[ i ]' }
             )
         );
     }

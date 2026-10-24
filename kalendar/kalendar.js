@@ -15,10 +15,10 @@ function prikaziKalendar() {
     let html = `
         <div class="kalendar">
             <div class="kalendar-zaglavlje">
-                <button type="button" class="kalendar-nav-dugme" onclick="promeniMesec(-1)" aria-label="Prethodni mesec">◀</button>
+                <button type="button" class="kalendar-nav-dugme" onclick="promeniMesec(-1)" aria-label="Prethodni mesec">${ikonica('strelica_levo', '&lt;')}</button>
                 <span class="kalendar-naslov">${MESECI_LAT[mesec]} ${godina}</span>
-                <button type="button" class="kalendar-nav-dugme" onclick="promeniMesec(1)" aria-label="Sledeći mesec">▶</button>
-                <button type="button" class="kalendar-danas-dugme" onclick="kalendarNaDanas()" title="Tekući mesec / izaberi današnji datum">● Danas</button>
+                <button type="button" class="kalendar-nav-dugme" onclick="promeniMesec(1)" aria-label="Sledeći mesec">${ikonica('strelica_desno', '&gt;')}</button>
+                <button type="button" class="kalendar-danas-dugme" onclick="kalendarNaDanas()" title="Tekući mesec / izaberi današnji datum">${ikonica('danas', '[*]')} Danas</button>
             </div>
             <div class="kalendar-dani-u-nedelji">
                 ${DANI_KRATKO.map(d => `<div class="dan-u-nedelji">${d}</div>`).join('')}
@@ -101,7 +101,7 @@ function prikaziBeleskeIzabraniDatum() {
     if (beleske.length === 0) {
         kontejner.innerHTML = `
             <div class="prazno-stanje">
-                <div class="prazno-stanje-ikona" aria-hidden="true"><span class="ik" data-e="🗒️" data-a="[N]"></span></div>
+                <div class="prazno-stanje-ikona" aria-hidden="true">${ikonica('beleske', '[N]')}</div>
                 <p class="prazno-sadrzaj">Nema beleški za ovaj dan</p>
             </div>`;
         return;
@@ -127,9 +127,9 @@ function prikaziBeleskeIzabraniDatum() {
                         </div>
                     </div>
                     <div class="stavka-beleske-akcije">
-                        <button type="button" class="dugme dugme-ghost dugme-ikona" onclick="promeniStatusBeleske('${esc(beleska.id)}')" title="${beleska.completed ? 'Vrati u aktivne' : 'Označi kao završeno'}">${beleska.completed ? ikonica('↩️', '&lt;~') : ikonica('✅', '[v]')}</button>
-                        <button type="button" class="dugme dugme-ghost dugme-ikona" onclick="otvoriModalBeleska('${esc(beleska.id)}')" title="Izmeni">${ikonica('✏️', '&gt;')}</button>
-                        <button type="button" class="dugme dugme-ghost dugme-ikona" onclick="obrisiBelesku('${esc(beleska.id)}')" title="Obriši">${ikonica('🗑️', '[x]')}</button>
+                        <button type="button" class="dugme dugme-ghost dugme-ikona" onclick="promeniStatusBeleske('${esc(beleska.id)}')" title="${beleska.completed ? 'Vrati u aktivne' : 'Označi kao završeno'}">${beleska.completed ? ikonica('vrati', '&lt;~') : ikonica('cek_u_krugu', '[v]')}</button>
+                        <button type="button" class="dugme dugme-ghost dugme-ikona" onclick="otvoriModalBeleska('${esc(beleska.id)}')" title="Izmeni">${ikonica('olovka', '&gt;')}</button>
+                        <button type="button" class="dugme dugme-ghost dugme-ikona" onclick="obrisiBelesku('${esc(beleska.id)}')" title="Obriši">${ikonica('kanta', '[x]')}</button>
                     </div>
                 </div>
             </div>

@@ -9,9 +9,7 @@ function prikaziToast(poruka, tip = 'uspeh') {
     const klasa = tip === 'greska' ? 'toast-greska' : tip === 'info' ? 'toast-info' : 'toast-uspesno';
     el.className = 'toast ' + klasa;
 
-    el.textContent = document.body.classList.contains('code-tema')
-        ? tekstBezEmojija(poruka)
-        : poruka;
+    el.textContent = poruka;
     kont.appendChild(el);
 
     setTimeout(() => {

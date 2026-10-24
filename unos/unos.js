@@ -38,9 +38,9 @@ function renderujBiracPredmeta() {
         if (!predmeti.length) {
         kont.innerHTML = `
             <div class="bp-prazno">
-                <span class="bp-prazno-naslov">${ikonica('📭', '[!]')} Nema još predmeta</span>
+                <span class="bp-prazno-naslov">${ikonica('prazno', '[!]')} Nema još predmeta</span>
                 <p>Dodajte predmet da biste popunili raspored / boja čipa olakšava snalaženje.</p>
-                <button type="button" class="dugme dugme-glavno" onclick="otvoriModalPredmetSaRasporeda()">${ikonica('➕', '[+]')} Dodaj predmet</button>
+                <button type="button" class="dugme dugme-glavno" onclick="otvoriModalPredmetSaRasporeda()">${ikonica('plus', '[+]')} Dodaj predmet</button>
             </div>`;
         return;
     }
@@ -55,7 +55,7 @@ function renderujBiracPredmeta() {
         if (!filtrirani.length) {
         kont.innerHTML = `
             <div class="bp-prazno">
-                <span class="bp-prazno-naslov">${ikonica('🔍', '[>]')} Nema pogodaka</span>
+                <span class="bp-prazno-naslov">${ikonica('lupa', '[>]')} Nema pogodaka</span>
                 <p>Nijedan predmet ne odgovara pretrazi „${esc(pretragaEl ? pretragaEl.value : '')}”.</p>
                 <button type="button" class="dugme dugme-sekundarno" onclick="ocistiPretraguPredmeta()">Prikaži sve predmete</button>
             </div>`;
@@ -80,7 +80,7 @@ function renderujBiracPredmeta() {
                 <span class="bp-naziv">${esc(p.name)}</span>
                 <span class="bp-meta">${metaTekst}</span>
             </span>
-            <span class="bp-cek" aria-hidden="true">${ikonica('✓', '[v]')}</span>
+            <span class="bp-cek" aria-hidden="true">${ikonica('cek', '[v]')}</span>
         </button>`;
     }).join('');
 }
@@ -136,9 +136,9 @@ function renderujBiracGrupne() {
     if (!predmeti.length) {
         kont.innerHTML = `
             <div class="bp-prazno">
-                <span class="bp-prazno-naslov">${ikonica('📭', '[!]')} Nema još predmeta</span>
+                <span class="bp-prazno-naslov">${ikonica('prazno', '[!]')} Nema još predmeta</span>
                 <p>Dodajte predmet da biste popunili raspored.</p>
-                <button type="button" class="dugme dugme-glavno" onclick="otvoriModalPredmetIzGrupne()">${ikonica('➕', '[+]')} Dodaj predmet</button>
+                <button type="button" class="dugme dugme-glavno" onclick="otvoriModalPredmetIzGrupne()">${ikonica('plus', '[+]')} Dodaj predmet</button>
             </div>`;
         return;
     }
@@ -153,7 +153,7 @@ function renderujBiracGrupne() {
     if (!filtrirani.length) {
         kont.innerHTML = `
             <div class="bp-prazno">
-                <span class="bp-prazno-naslov">${ikonica('🔍', '[>]')} Nema pogodaka</span>
+                <span class="bp-prazno-naslov">${ikonica('lupa', '[>]')} Nema pogodaka</span>
                 <p>Nijedan predmet ne odgovara pretrazi „${esc(pretragaEl ? pretragaEl.value : '')}”.</p>
                 <button type="button" class="dugme dugme-sekundarno" onclick="ocistiPretraguGrupne()">Prikaži sve predmete</button>
             </div>`;
@@ -178,7 +178,7 @@ function renderujBiracGrupne() {
                 <span class="bp-naziv">${esc(p.name)}</span>
                 <span class="bp-meta">${metaTekst}</span>
             </span>
-            <span class="bp-cek" aria-hidden="true">${ikonica('✓', '[v]')}</span>
+            <span class="bp-cek" aria-hidden="true">${ikonica('cek', '[v]')}</span>
         </button>`;
     }).join('');
 }

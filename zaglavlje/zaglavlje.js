@@ -29,7 +29,7 @@ function prikaziObavestenja() {
     oznaka.classList.toggle('prikazi', nadolazeci.length > 0);
 
     if (nadolazeci.length === 0) {
-        kontejner.innerHTML = '<p style="text-align:center;color:var(--tekst-sekundarni);padding:18px 10px;font-size:0.8rem;">Nema nadolazećih događaja <span class="ik" data-e="🎉" data-a=":)"></span></p>';
+        kontejner.innerHTML = `<p style="text-align:center;color:var(--tekst-sekundarni);padding:18px 10px;font-size:0.8rem;">Nema nadolazećih događaja ${ikonica('iskre', ':)')}</p>`;
         return;
     }
 
@@ -72,7 +72,7 @@ function prikaziOznakuSmene() {
     const ikonaEl = document.getElementById('ikonaSmene');
     if (!nazivEl || !ikonaEl) return;
 
-    postaviIkonu(ikonaEl, smena === 'jutarnja' ? '🌅' : '🌇', smena === 'jutarnja' ? '[AM]' : '[PM]');
+    postaviIkonu(ikonaEl, smena === 'jutarnja' ? 'izlazak' : 'zalazak', smena === 'jutarnja' ? '[AM]' : '[PM]');
     nazivEl.textContent = podesavanjaSmene.name;
 
     const rezim = podaciAplikacije.settings.shiftMode || 'sat';
@@ -113,14 +113,15 @@ function azurirajStatusTekst() {
     }
 
     if (info.isBreak) {
-        el.textContent = info.isBigBreak ? '☕ Veliki odmor' : '🔹 Mali odmor';
-        if (document.body.classList.contains('code-tema')) el.textContent = tekstBezEmojija(el.textContent);
+        el.innerHTML = info.isBigBreak
+            ? `${ikonica('kafa', 'BRK')} Veliki odmor`
+            : `${ikonica('rombo', '-')} Mali odmor`;
         return;
     }
 
     const stavka = info.dayIndex >= 0 ? dobijStavkuRasporeda(info.dayIndex, info.period - 1) : null;
     const predmet = stavka ? dobijPredmet(stavka.subjectId) : null;
-    el.textContent = `▶ ${info.period}. čas${predmet ? ' / ' + predmet.name : ''} (${info.start}–${info.end})`;
+    el.innerHTML = `${ikonica('plej', '>')} ${info.period}. čas${predmet ? ' / ' + esc(predmet.name) : ''} (${info.start}–${info.end})`;
 }
 
 function pokreniSat() {

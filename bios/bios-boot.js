@@ -68,7 +68,7 @@ function pokreniBoot() {
 
     var plan = [
         { kasni: 100, tekst: 'ŠKOLSKI BIOS (C) 2025 Smart Gimnazija' },
-        { kasni: 160, tekst: 'Verzija 2.01' },
+        { kasni: 160, tekst: 'Verzija 2.02' },
         { kasni: 140, prazno: true },
         { kasni: 150, memorija: true },
         { kasni: 250, tekst: 'Učitavanje predmeta (' + st.predmeta + ')', vrednost: 'OK', ok: true },

@@ -38,7 +38,7 @@ function azurirajAutoTemu(tiho, forsirano) {
             sacuvajPodatke();
             primeniTemu();
             if (!tiho) {
-                prikaziToast(svetla ? '⚡ CODE tema: svetla varijanta (dnevni period)' : '⚡ CODE tema: tamna varijanta (noćni period)', 'info');
+                prikaziToast(svetla ? 'CODE tema: svetla varijanta (dnevni period)' : 'CODE tema: tamna varijanta (noćni period)', 'info');
             }
         }
         return;
@@ -49,7 +49,7 @@ function azurirajAutoTemu(tiho, forsirano) {
         sacuvajPodatke();
         primeniTemu();
         if (!tiho) {
-            prikaziToast(period === 'light' ? '☀️ Automatska tema: svetla' : '🌙 Automatska tema: tamna', 'info');
+            prikaziToast(period === 'light' ? 'Automatska tema: svetla' : 'Automatska tema: tamna', 'info');
         }
     }
 }
@@ -553,7 +553,7 @@ function primeniTemu() {
         const codeOznaka = '[' + codeRezimOznaka() + ']';
         if (ikonaTema) {
             postaviIkonu(ikonaTema,
-                jecode ? codeOznaka : (jeTamna ? '☀️' : '🌙'),
+                jeTamna ? 'sunce' : 'mesec',
                 jecode ? codeOznaka : (jeTamna ? '[L]' : '[D]'));
         }
 
@@ -569,7 +569,7 @@ function primeniTemu() {
 
         const logoIkona = document.getElementById('logoIkona');
         if (logoIkona) {
-            postaviIkonu(logoIkona, jecode ? '⚡' : '🎓', '>_');
+            postaviIkonu(logoIkona, jecode ? 'munja' : 'skola', '>_');
         }
     }
 }

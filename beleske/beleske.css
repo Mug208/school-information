@@ -244,6 +244,7 @@
 .beleska-kartica {
     display: flex;
     flex-direction: column;
+    position: relative;
     background: var(--bg-kartica);
     border: 1px solid var(--ivica);
     border-top: 3px solid var(--ivica);
@@ -449,6 +450,9 @@
 }
 
 .beleska-kartica.zakačena .beleska-kartica-naslov { color: var(--primarna); }
+
+/* mesto za traku „ZAKAČENO" da ne prekriva datum i oznake */
+.beleska-kartica.zakačena .beleska-kartica-footer { padding-right: 74px; }
 
 .dugme-zakaci { filter: grayscale(1); opacity: 0.55; }
 

@@ -221,7 +221,7 @@ function azurirajPretraguPredmeta() {
     if (pogodciEl) {
         let html = '';
         if (pojmovi.length && !pogodci.length) {
-            html = `<span class="pp-prazno">${ikonica('🚫', '//')} Nema pogodaka / prikazan je ceo raspored</span>`;
+            html = `<span class="pp-prazno">${ikonica('zabrana', '//')} Nema pogodaka / prikazan je ceo raspored</span>`;
         } else {
             for (const p of pogodci) {
                 const broj = podaciAplikacije.schedule.filter(s => s.subjectId === p.id).length;
@@ -310,7 +310,7 @@ function prikaziDesktopRaspored() {
             onclick="izaberiKolonuDana(${d})"
             aria-pressed="${izabrana}"
             title="${izabrana ? 'Skini isticanje' : 'Istakni'} / ${DANI_LAT[d]}">
-            <span class="dan-naziv">${izabrana ? '<span class="strelica-kolone" aria-hidden="true">▸ </span>' : ''}${DANI_LAT[d]}${jeDanas ? ' <span class="oznaka-danas">Danas</span>' : ''}</span>
+            <span class="dan-naziv">${izabrana ? '<span class="strelica-kolone" aria-hidden="true">' + ikonica('strelica_desno', '&gt;') + ' </span>' : ''}${DANI_LAT[d]}${jeDanas ? ' <span class="oznaka-danas">Danas</span>' : ''}</span>
             ${danDatum ? `<span class="dan-datum" aria-hidden="true">${danDatum}</span>` : ''}
         </button>`;
     }
@@ -322,7 +322,7 @@ function prikaziDesktopRaspored() {
         html += `<div class="celija-vremena ${jeTrenutni ? 'trenutni-cas' : ''}">
             <span class="broj-casa">${c + 1}</span>
             <span class="vreme">${vremeCasa ? vremeCasa.start : ''}<br>${vremeCasa ? vremeCasa.end : ''}</span>
-            ${jeTrenutni ? '<span class="indikator-trenutnog">▶</span>' : ''}
+            ${jeTrenutni ? '<span class="indikator-trenutnog">' + ikonica('plej', '>') + '</span>' : ''}
         </div>`;
 
         for (let d = 0; d < 5; d++) {
@@ -354,20 +354,20 @@ function prikaziDesktopRaspored() {
                     onclick="${akcijaCelije}"
                     ${msAktivan ? `aria-pressed="${msIzabrana}"` : ''}
                     aria-label="${msAktivan ? (msIzabrana ? 'Izabrano: ' : 'Izaberi: ') : ''}${esc(predmet.name)}, ${c + 1}. čas, ${DANI_LAT[d]}">
-                    ${msAktivan ? '<span class="ms-kucica" aria-hidden="true">✓</span>' : ''}
+                    ${msAktivan ? '<span class="ms-kucica" aria-hidden="true">' + ikonica('cek', 'v') + '</span>' : ''}
                     <span class="predmet-red-naziv">
                         <span class="predmet-tackica" aria-hidden="true"></span>
                         <span class="naziv-predmeta">${esc(predmet.name)}</span>
                     </span>
-                    ${stavka.room ? `<span class="kabinet">${ikonica('📍', '@')} ${esc(stavka.room)}</span>` : ''}
-                    ${jeTrenutnaCelija ? '<span class="oznaka-uzivo">● UŽIVO</span>' : ''}
+                    ${stavka.room ? `<span class="kabinet">${ikonica('lokacija', '@')} ${esc(stavka.room)}</span>` : ''}
+                    ${jeTrenutnaCelija ? '<span class="oznaka-uzivo">' + ikonica('tacka', '!') + ' UŽIVO</span>' : ''}
                     ${indikatori}
                 </button>`;
             } else {
                 html += `<button type="button" class="${klase}" data-dan="${d}"
                     onclick="${akcijaCelije}"
                     ${msAktivan ? `aria-pressed="${msIzabrana}"` : ''}
-                    aria-label="${msAktivan ? (msIzabrana ? 'Izabran prazan čas' : 'Izaberi prazan čas') : 'Dodaj'} ${c + 1}. čas, ${DANI_LAT[d]}">${msAktivan ? '<span class="ms-kucica" aria-hidden="true">✓</span>' : ''}${msAktivan ? '' : '+'}</button>`;
+                    aria-label="${msAktivan ? (msIzabrana ? 'Izabran prazan čas' : 'Izaberi prazan čas') : 'Dodaj'} ${c + 1}. čas, ${DANI_LAT[d]}">${msAktivan ? '<span class="ms-kucica" aria-hidden="true">' + ikonica('cek', 'v') + '</span>' : ''}${msAktivan ? '' : '+'}</button>`;
             }
         }
 
@@ -375,9 +375,9 @@ function prikaziDesktopRaspored() {
         if (velikiOdmor) {
             const jeOdmorSada = jeTrenutniOdmorVeliki() && infoTrenutnogCasa() && infoTrenutnogCasa().period === c + 1;
             html += `<div class="red-pauze velika-pauza ${jeOdmorSada ? 'trenutni-odmor' : ''}">
-                <span class="ikona-odmora">${ikonica('☕', '[BRK]')}</span>
+                <span class="ikona-odmora">${ikonica('kafa', '[BRK]')}</span>
                 VELIKI ODMOR (${velikiOdmor.start} – ${velikiOdmor.end})
-                ${jeOdmorSada ? '<span class="oznaka-uzivo">● UŽIVO</span>' : ''}
+                ${jeOdmorSada ? '<span class="oznaka-uzivo">' + ikonica('tacka', '!') + ' UŽIVO</span>' : ''}
             </div>`;
         }
     }
@@ -436,7 +436,7 @@ function prikaziMobilniRaspored() {
                 style="--pb:${predmet.color}"
                 onclick="${akcijaStavke}"
                 ${msAktivan ? `aria-pressed="${msIzabrana}"` : ''}>
-                ${msAktivan ? '<span class="ms-kucica" aria-hidden="true">✓</span>' : ''}
+                ${msAktivan ? '<span class="ms-kucica" aria-hidden="true">' + ikonica('cek', 'v') + '</span>' : ''}
                 <span class="stavka-rasporeda-broj">
                     <span class="broj">${c + 1}</span>
                     <span class="vreme">${vremeCasa ? vremeCasa.start : ''}</span>
@@ -446,16 +446,16 @@ function prikaziMobilniRaspored() {
                         <span class="predmet-tackica" aria-hidden="true"></span>
                         <span class="naziv-predmeta">${esc(predmet.name)}</span>
                     </span>
-                    ${stavka.room ? `<span class="kabinet">${ikonica('📍', '@')} ${esc(stavka.room)}</span>` : ''}
+                    ${stavka.room ? `<span class="kabinet">${ikonica('lokacija', '@')} ${esc(stavka.room)}</span>` : ''}
                     ${indikatori}
                 </span>
-                ${msAktivan ? '' : (jeTrenutni ? '<span class="oznaka-uzivo-mobilni">● UŽIVO</span>' : `<span class="stavka-rasporeda-izmeni">${ikonica('✏️', '&gt;')}</span>`)}
+                ${msAktivan ? '' : (jeTrenutni ? '<span class="oznaka-uzivo-mobilni">' + ikonica('tacka', '!') + ' UŽIVO</span>' : `<span class="stavka-rasporeda-izmeni">${ikonica('olovka', '&gt;')}</span>`)}
             </button>`;
         } else {
             html += `<button type="button" class="${klase}"
                 onclick="${akcijaStavke}"
                 ${msAktivan ? `aria-pressed="${msIzabrana}"` : ''}>
-                ${msAktivan ? '<span class="ms-kucica" aria-hidden="true">✓</span>' : ''}
+                ${msAktivan ? '<span class="ms-kucica" aria-hidden="true">' + ikonica('cek', 'v') + '</span>' : ''}
                 <span class="stavka-rasporeda-broj">
                     <span class="broj">${c + 1}</span>
                     <span class="vreme">${vremeCasa ? vremeCasa.start : ''}</span>
@@ -471,9 +471,9 @@ function prikaziMobilniRaspored() {
         if (velikiOdmor) {
             const jeOdmorSada = jeDanas && jeTrenutniOdmorVeliki() && infoTrenutnogCasa() && infoTrenutnogCasa().period === c + 1;
             html += `<div class="red-pauze velika-pauza ${jeOdmorSada ? 'trenutni-odmor' : ''}">
-                <span class="ikona-odmora">${ikonica('☕', '[BRK]')}</span>
+                <span class="ikona-odmora">${ikonica('kafa', '[BRK]')}</span>
                 VELIKI ODMOR (${velikiOdmor.start} – ${velikiOdmor.end})
-                ${jeOdmorSada ? '<span class="oznaka-uzivo">● UŽIVO</span>' : ''}
+                ${jeOdmorSada ? '<span class="oznaka-uzivo">' + ikonica('tacka', '!') + ' UŽIVO</span>' : ''}
             </div>`;
         }
     }
@@ -495,7 +495,7 @@ function preklopiMultiSelect(ukljuci) {
     prikaziDesktopRaspored();
     prikaziMobilniRaspored();
     if (stanje.multiSelect) {
-        prikaziToast('Višestruki izbor: kliknite na časove koje menjate.\nIzlaz: ESC ili ✕ na traci.', 'info');
+        prikaziToast('Višestruki izbor: kliknite na časove koje menjate.\nIzlaz: ESC ili X na traci.', 'info');
     }
 }
 

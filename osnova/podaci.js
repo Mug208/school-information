@@ -1,7 +1,7 @@
 'use strict';
 
 const KLJUC_SKLADISTA = 'skolski-info-podaci';
-const VERZIJA = '2.0';
+const VERZIJA = '2.02';
 
 const DANI_LAT = ['Ponedeljak', 'Utorak', 'Sreda', 'Četvrtak', 'Petak', 'Subota', 'Nedelja'];
 const DANI_KRATKO = ['Pon', 'Uto', 'Sre', 'Čet', 'Pet', 'Sub', 'Ned'];
@@ -18,43 +18,14 @@ const TEKST_PRECICA =
     'DEL / BIOS podešavanja\n' +
     'T / promena teme';
 
-function ikonica(emoji, ascii) {
-    return `<span class="ik" data-e="${emoji}" data-a="${ascii}" aria-hidden="true"></span>`;
-}
-
-function postaviIkonu(el, emoji, ascii) {
-    if (!el) return;
-    el.innerHTML = ikonica(emoji, ascii);
-}
-
-const EMOJI_ASCII_ZAMENA = [
-    ['⚡', '!!'],
-    ['📌', '*'],
-    ['🎉', ':)'],
-    ['🎓', ''],
-    ['☕', 'BRK'],
-    ['🔹', '-'],
-    ['📅', '']
-];
-
-function tekstBezEmojija(tekst) {
-    let t = String(tekst);
-    EMOJI_ASCII_ZAMENA.forEach(([e, a]) => { t = t.split(e).join(a); });
-    return t.replace(/\s{2,}/g, ' ').trim();
-}
-
 const TIPOVI_BELESKE = {
-    kontrolni: { label: 'Kontrolni', color: '#ef4444', icon: '⚠️', iconA: '!!', shortLabel: 'KONT' },
-    pismeni: { label: 'Pismeni', color: '#8b5cf6', icon: '📝', iconA: '[W]', shortLabel: 'PIS' },
-    blic: { label: 'Blic', color: '#f59e0b', icon: '⚡', iconA: '[B]', shortLabel: 'BLIC' },
-    prezentacija: { label: 'Prezentacija', color: '#14b8a6', icon: '🎤', iconA: '[PR]', shortLabel: 'PRES' },
-    domaci: { label: 'Domaći', color: '#3b82f6', icon: '📚', iconA: '[HW]', shortLabel: 'DOM' },
-    ostalo: { label: 'Ostalo', color: '#6b7280', icon: '📌', iconA: '[O]', shortLabel: 'OST' }
+    kontrolni: { label: 'Kontrolni', color: '#ef4444', icon: 'upozorenje', iconA: '!!', shortLabel: 'KONT' },
+    pismeni: { label: 'Pismeni', color: '#8b5cf6', icon: 'beleske', iconA: '[W]', shortLabel: 'PIS' },
+    blic: { label: 'Blic', color: '#f59e0b', icon: 'munja', iconA: '[B]', shortLabel: 'BLIC' },
+    prezentacija: { label: 'Prezentacija', color: '#14b8a6', icon: 'mikrofon', iconA: '[PR]', shortLabel: 'PRES' },
+    domaci: { label: 'Domaći', color: '#3b82f6', icon: 'knjiga', iconA: '[HW]', shortLabel: 'DOM' },
+    ostalo: { label: 'Ostalo', color: '#6b7280', icon: 'cackalica', iconA: '[O]', shortLabel: 'OST' }
 };
-
-function ikonaTipa(tip) {
-    return ikonica(tip.icon, tip.iconA || '');
-}
 
 const PREDMETI_PODRAZUMEVANI = [
     { id: '1', name: 'Srpski jezik', color: '#ef4444', teacher: '' },
