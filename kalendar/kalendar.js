@@ -15,10 +15,10 @@ function prikaziKalendar() {
     let html = `
         <div class="kalendar">
             <div class="kalendar-zaglavlje">
-                <button type="button" class="kalendar-nav-dugme" onclick="promeniMesec(-1)" aria-label="Prethodni mesec">${ikonica('strelica_levo', '&lt;')}</button>
+                <button type="button" class="kalendar-nav-dugme" onclick="promeniMesec(-1)" aria-label="${esc(t('kal.prethodni'))}">${ikonica('strelica_levo', '&lt;')}</button>
                 <span class="kalendar-naslov">${MESECI_LAT[mesec]} ${godina}</span>
-                <button type="button" class="kalendar-nav-dugme" onclick="promeniMesec(1)" aria-label="Sledeći mesec">${ikonica('strelica_desno', '&gt;')}</button>
-                <button type="button" class="kalendar-danas-dugme" onclick="kalendarNaDanas()" title="Tekući mesec / izaberi današnji datum">${ikonica('danas', '[*]')} Danas</button>
+                <button type="button" class="kalendar-nav-dugme" onclick="promeniMesec(1)" aria-label="${esc(t('kal.sledeci'))}">${ikonica('strelica_desno', '&gt;')}</button>
+                <button type="button" class="kalendar-danas-dugme" onclick="kalendarNaDanas()" title="${esc(t('kal.danasTitle'))}">${ikonica('danas', '[*]')} ${esc(t('kal.danas'))}</button>
             </div>
             <div class="kalendar-dani-u-nedelji">
                 ${DANI_KRATKO.map(d => `<div class="dan-u-nedelji">${d}</div>`).join('')}
@@ -49,7 +49,7 @@ function prikaziKalendar() {
             .join('');
 
         html += `<div class="${klase}" onclick="izaberiDatum(${godina}, ${mesec}, ${dan})"
-            role="button" tabindex="0" aria-label="${dan}. ${MESECI_LAT[mesec]}${beleskeZaDan.length ? `, ${beleskeZaDan.length} beleški` : ''}">
+            role="button" tabindex="0" aria-label="${esc(t('kal.ariaDatum', { dan, mesec: MESECI_LAT[mesec] }))}${beleskeZaDan.length ? esc(t('kal.ariaBeleske', { n: beleskeZaDan.length })) : ''}">
             ${dan}
             ${tacke ? `<span class="tacke-beleski">${tacke}</span>` : ''}
         </div>`;
@@ -102,7 +102,7 @@ function prikaziBeleskeIzabraniDatum() {
         kontejner.innerHTML = `
             <div class="prazno-stanje">
                 <div class="prazno-stanje-ikona" aria-hidden="true">${ikonica('beleske', '[N]')}</div>
-                <p class="prazno-sadrzaj">Nema beleški za ovaj dan</p>
+                <p class="prazno-sadrzaj">${esc(t('kal.nemaBeleski'))}</p>
             </div>`;
         return;
     }
@@ -127,9 +127,9 @@ function prikaziBeleskeIzabraniDatum() {
                         </div>
                     </div>
                     <div class="stavka-beleske-akcije">
-                        <button type="button" class="dugme dugme-ghost dugme-ikona" onclick="promeniStatusBeleske('${esc(beleska.id)}')" title="${beleska.completed ? 'Vrati u aktivne' : 'Označi kao završeno'}">${beleska.completed ? ikonica('vrati', '&lt;~') : ikonica('cek_u_krugu', '[v]')}</button>
-                        <button type="button" class="dugme dugme-ghost dugme-ikona" onclick="otvoriModalBeleska('${esc(beleska.id)}')" title="Izmeni">${ikonica('olovka', '&gt;')}</button>
-                        <button type="button" class="dugme dugme-ghost dugme-ikona" onclick="obrisiBelesku('${esc(beleska.id)}')" title="Obriši">${ikonica('kanta', '[x]')}</button>
+                        <button type="button" class="dugme dugme-ghost dugme-ikona" onclick="promeniStatusBeleske('${esc(beleska.id)}')" title="${esc(beleska.completed ? t('bel.vratiTitle') : t('bel.zavrsiTitle'))}">${beleska.completed ? ikonica('vrati', '&lt;~') : ikonica('cek_u_krugu', '[v]')}</button>
+                        <button type="button" class="dugme dugme-ghost dugme-ikona" onclick="otvoriModalBeleska('${esc(beleska.id)}')" title="${esc(t('bel.izmeniTitle'))}">${ikonica('olovka', '&gt;')}</button>
+                        <button type="button" class="dugme dugme-ghost dugme-ikona" onclick="obrisiBelesku('${esc(beleska.id)}')" title="${esc(t('bel.obrisiTitle'))}">${ikonica('kanta', '[x]')}</button>
                     </div>
                 </div>
             </div>
@@ -172,7 +172,7 @@ function prikaziNadolazeceDogadjaje() {
                     <div class="nadolazeca-stavka-datum">${formatirajDatum(kreirajDatumLokalno(beleska.date))}</div>
                 </div>
                 <span class="oznaka ${dana === 0 ? 'oznaka-opasno' : dana <= 3 ? 'oznaka-upozorenje' : 'oznaka-kontura'}">
-                    ${dana === 0 ? 'Danas!' : dana === 1 ? 'Sutra' : `${dana} dana`}
+                    ${esc(tekstDana(dana))}
                 </span>
             </div>
         `;

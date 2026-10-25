@@ -9,7 +9,7 @@ function codeBojeLista() {
         if (window.App && Array.isArray(window.App.codeBoje)) {
             return window.App.codeBoje;
         }
-    } catch (e) {}
+    } catch (e) { }
     return [];
 }
 
@@ -66,7 +66,7 @@ function prikazicodeBoju() {
         if (window.App && typeof window.App.primenicodeBoju === 'function') {
             window.App.primenicodeBoju(hexGxBoje(), radna.codeLight === true);
         }
-    } catch (e) {}
+    } catch (e) { }
 }
 
 function rgbIzHexa(hex) {
@@ -219,7 +219,7 @@ function napraviHsvBirac(kontejner, pocetniHex, promena) {
         if (korisnik && typeof promena === 'function') {
             try {
                 promena(tekuciHex());
-            } catch (e) {}
+            } catch (e) { }
         }
     }
 
@@ -246,10 +246,10 @@ function napraviHsvBirac(kontejner, pocetniHex, promena) {
             vuce = true;
             try {
                 el.setPointerCapture(d.pointerId);
-            } catch (e) {}
+            } catch (e) { }
             try {
                 el.focus();
-            } catch (e) {}
+            } catch (e) { }
             pozicija(d);
             d.preventDefault();
         });
@@ -260,7 +260,7 @@ function napraviHsvBirac(kontejner, pocetniHex, promena) {
             vuce = false;
             try {
                 el.releasePointerCapture(d.pointerId);
-            } catch (e) {}
+            } catch (e) { }
         }
         el.addEventListener('pointerup', kraj);
         el.addEventListener('pointercancel', kraj);

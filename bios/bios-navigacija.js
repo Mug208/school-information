@@ -268,7 +268,7 @@ function zameniUnosom(red) {
         if (red.vrsta === 'text') {
             v = String(v).trim();
             if (!v) {
-                toast('Vrednost ne može biti prazna!', 'greska');
+                toast(t('bios.toast.vrednostPrazna'), 'greska');
             } else {
                 red.set(v);
             }

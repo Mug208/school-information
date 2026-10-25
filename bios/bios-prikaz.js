@@ -7,9 +7,10 @@ function uzorakBoje(hex, fallback) {
 
 function gxPaletaHTML() {
     var boje = codeBojeLista();
-    var html = '<span class="gx-paletta" role="group" aria-label="Preset boje teme">';
+    var html = '<span class="gx-paletta" role="group" aria-label="' + bEsc(t('bios.paleta.arialabel')) + '">';
     boje.forEach(function (b) {
         var akt = radna && radna.effects.color === b.id ? ' aktivna' : '';
+        var nazivBoje = t('boja.' + b.id);
         html +=
             '<button type="button" class="gx-sw' +
             akt +
@@ -18,9 +19,9 @@ function gxPaletaHTML() {
             '" tabindex="-1" style="background:' +
             bezbednaBojaGx(b.hex) +
             '" title="' +
-            bEsc(b.naziv) +
+            bEsc(nazivBoje) +
             '" aria-label="' +
-            bEsc(b.naziv) +
+            bEsc(nazivBoje) +
             '"></button>';
     });
     var custAkt = radna && radna.effects.color === 'prilagodjeno' ? ' aktivna' : '';
@@ -29,7 +30,7 @@ function gxPaletaHTML() {
         custAkt +
         '" data-gx="prilagodjeno" tabindex="-1" style="background:' +
         bezbednaBojaGx(radna ? radna.effects.customColor : '') +
-        '" title="Prilagođena boja / otvara birač boja" aria-label="Prilagođena boja"></button>';
+        '" title="' + bEsc(t('bios.paleta.prilagodjena')) + '" aria-label="' + bEsc(t('bios.paleta.prilagodjenaAria')) + '"></button>';
     html += '</span>';
     return html;
 }
@@ -151,7 +152,7 @@ function renderNav() {
         b.setAttribute('type', 'button');
         b.setAttribute('role', 'tab');
         b.setAttribute('data-kat', kat.id);
-        b.textContent = kat.naziv;
+        b.textContent = t('bios.kat.' + kat.id);
         nav.appendChild(b);
     });
     osveziNav();
@@ -177,7 +178,7 @@ function renderRedovi() {
         if (k.id === aktivnaKategorija) kat = k;
     });
     if (!kat) kat = KATEGORIJE[0];
-    dom('biosKategorijaNaslov').textContent = kat.naziv.toUpperCase();
+    dom('biosKategorijaNaslov').textContent = t('bios.kat.' + kat.id).toUpperCase();
 
     trenutniRedoviModel.forEach(function (red) {
         kont.appendChild(napraviRedDOM(red));
@@ -227,15 +228,15 @@ function renderInfo() {
     var dl = dom('biosInfoSistem');
     if (!dl) return;
     var st = statistike();
-    var verzija = window.App && window.App.verzija ? window.App.verzija : '2.01';
+    var verzija = window.App && window.App.verzija ? window.App.verzija : VERZIJA;
     var redovi = [
-        ['Verzija', 'v' + verzija, null],
-        ['Datum', trenutniDatum(), 'datum'],
-        ['Vreme', trenutnoVreme(), 'vreme'],
-        ['Škola', radna.schoolName, null],
-        ['Razred', radna.className || '/', null],
-        ['Predmeta', st.predmeta, null],
-        ['Beleški', st.beleski, null]
+        [t('bios.info.verzija'), 'v' + verzija, null],
+        [t('bios.info.datum'), trenutniDatum(), 'datum'],
+        [t('bios.info.vreme'), trenutnoVreme(), 'vreme'],
+        [t('bios.info.skola'), radna.schoolName, null],
+        [t('bios.info.razred'), radna.className || '/', null],
+        [t('bios.info.predmeta'), st.predmeta, null],
+        [t('bios.info.beleski'), st.beleski, null]
     ];
     dl.innerHTML = '';
     redovi.forEach(function (r) {

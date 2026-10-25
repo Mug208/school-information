@@ -37,8 +37,6 @@
     min-height: 0;
 }
 
-
-
 .bios-red {
     display: flex;
     justify-content: space-between;
@@ -70,7 +68,6 @@
     flex-shrink: 0;
 }
 
-
 .bios-red.izabrano {
     background: var(--bios-izabrano-bg) !important;
     box-shadow: inset 3px 0 0 var(--bios-crveni);
@@ -82,11 +79,9 @@
     font-weight: 700;
 }
 
-
 .bios-red.tip-info .bios-red-vrednost {
     color: var(--bios-tekst-siv);
 }
-
 
 .bios-red.iskljucen {
     opacity: .45;
@@ -97,7 +92,6 @@
     color: var(--bios-tekst-siv);
 }
 
-
 .bios-red.tip-opasno .bios-red-vrednost,
 .bios-red.tip-opasno:hover .bios-red-vrednost {
     color: var(--bios-crveni);
@@ -107,7 +101,6 @@
     color: var(--bios-izabrano-tekst);
 }
 
-
 .bios-red.tip-glavni .bios-red-vrednost {
     color: var(--bios-zeleni);
 }
@@ -116,12 +109,10 @@
     color: var(--bios-izabrano-tekst);
 }
 
-
 .bios-red.tip-zakljucano .bios-red-vrednost {
     color: var(--bios-tekst-siv);
     letter-spacing: 2px;
 }
-
 
 .bios-red.bios-sekcija {
     display: block;
@@ -135,7 +126,6 @@
     cursor: default;
 }
 
-
 .bios-red.bios-predmet .bios-red-nastavnik {
     color: var(--bios-tekst-siv);
     font-size: 11.5px;
@@ -147,7 +137,6 @@
     opacity: .75;
 }
 
-
 .bios-boja-uzorak {
     display: inline-block;
     width: 12px;
@@ -156,8 +145,6 @@
     vertical-align: -1px;
     margin-right: 6px;
 }
-
-
 
 .bios-info {
     width: 280px;
@@ -224,7 +211,6 @@
     color: var(--bios-tekst-siv);
 }
 
-
 .bios-overlay kbd {
     display: inline-block;
     border: 1px solid var(--bios-kbd-ivica);
@@ -236,8 +222,6 @@
     font-size: 10.5px;
     line-height: 1.4;
 }
-
-
 
 .bios-footer {
     border-top: 3px double var(--bios-panel-ivica);
@@ -259,8 +243,6 @@
     display: none;
 }
 
-
-
 .bios-unos {
 
     background: var(--bios-bg-tamno);
@@ -280,7 +262,6 @@
     box-shadow: 0 0 0 1px rgba(255, 212, 0, .35);
 }
 
-
 .bios-unos[type='number'] {
     -moz-appearance: textfield;
     appearance: textfield;
@@ -291,7 +272,6 @@
     -webkit-appearance: none;
     margin: 0;
 }
-
 
 .bios-red-vrednost .bios-unos-red {
     background: transparent;
@@ -332,13 +312,11 @@
     50%, 100% { opacity: 0; }
 }
 
-
 .bios-unos-pak {
     position: relative;
     display: inline-flex;
     vertical-align: baseline;
 }
-
 
 .bios-kurzor-sloj {
     position: absolute;
@@ -356,6 +334,3 @@
 .bios-kurzor-sloj .bios-kurzor {
     margin-left: 0;
 }
-
-
-

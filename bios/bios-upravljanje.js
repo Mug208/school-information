@@ -267,10 +267,10 @@ function zatvori(sacuvaj) {
         try {
             if (window.App && typeof window.App.sacuvajPodesavanja === 'function') {
                 window.App.sacuvajPodesavanja(JSON.parse(JSON.stringify(radna)));
-                toast('Podešavanja sačuvana!', 'uspeh');
+                toast(t('bios.toast.podesavanjaSacuvana'), 'uspeh');
             }
         } catch (e) {
-            toast('Greška pri čuvanju podešavanja.', 'greska');
+            toast(t('bios.toast.greskaCuvanje'), 'greska');
         }
         if (radna.codeTheme) {
             try {
@@ -332,7 +332,8 @@ if (dom('biosRedovi')) {
     if (f && !f.querySelector('.bios-footer-mobilno')) {
         var s = document.createElement('span');
         s.className = 'bios-footer-mobilno';
-        s.textContent = 'Dodirnite stavku da biste je izmenili';
+        s.setAttribute('data-i18n', 'bios.mobilno');
+        s.textContent = t('bios.mobilno');
         f.appendChild(s);
     }
 })();

@@ -148,17 +148,17 @@ function redIskljucen(red) {
 
 function redoviGlavno() {
     return [
-        rInfo('gl_sistem', 'Sistem', 'Školska Informacija v2.02'),
-        rInfo('gl_datum', 'Datum', function () {
+        rInfo('gl_sistem', t('bios.gl.sistem'), '\u0160kolska Informacija v' + VERZIJA),
+        rInfo('gl_datum', t('bios.gl.datum'), function () {
             return trenutniDatum();
         }),
-        rInfo('gl_vreme', 'Vreme', function () {
+        rInfo('gl_vreme', t('bios.gl.vreme'), function () {
             return trenutnoVreme();
         }),
-        rSekcija('sek_skola', 'ŠKOLA'),
+        rSekcija('sek_skola', t('bios.gl.sekcijaSkola')),
         rTekst(
             'gl_skola',
-            'Naziv škole',
+            t('bios.gl.nazivSkole'),
             function () {
                 return radna.schoolName;
             },
@@ -168,7 +168,7 @@ function redoviGlavno() {
         ),
         rTekst(
             'gl_razred',
-            'Razred',
+            t('bios.gl.razred'),
             function () {
                 return radna.className;
             },
@@ -177,24 +177,40 @@ function redoviGlavno() {
             }
         ),
         rIzbor(
+            'gl_jezik',
+            t('bios.gl.jezik'),
+            function () {
+                return radna.language === 'sr' ? 'sr' : 'en';
+            },
+            function (v) {
+                radna.language = v === 'sr' ? 'sr' : 'en';
+                try {
+                    if (window.Jezici && typeof window.Jezici.postavi === 'function') {
+                        window.Jezici.postavi(radna.language);
+                    }
+                } catch (e) { }
+            },
+            [
+                { v: 'en', l: 'English' },
+                { v: 'sr', l: 'Srpski' }
+            ]
+        ),
+        rIzbor(
             'gl_broj',
-            'Broj časova',
+            t('bios.gl.brojCasova'),
             function () {
                 return radna.periodsCount;
             },
             function (v) {
                 radna.periodsCount = v;
             },
-            [
-                { v: 5, l: '5 časova' },
-                { v: 6, l: '6 časova' },
-                { v: 7, l: '7 časova' },
-                { v: 8, l: '8 časova' }
-            ]
+            [5, 6, 7, 8].map(function (n) {
+                return { v: n, l: t('bios.gl.brojCasovaOpcija', { n: n }) };
+            })
         ),
         rIzbor(
             'gl_smena',
-            'Aktivna smena',
+            t('bios.gl.aktivnaSmena'),
             function () {
                 return radna.currentShift;
             },
@@ -202,33 +218,33 @@ function redoviGlavno() {
                 radna.currentShift = v;
             },
             [
-                { v: 'jutarnja', l: 'Jutarnja' },
-                { v: 'popodnevna', l: 'Popodnevna' }
+                { v: 'jutarnja', l: t('smen.jutarnja') },
+                { v: 'popodnevna', l: t('smen.popodnevna') }
             ]
         ),
-        rInfo('gl_podaci', 'Podaci', function () {
+        rInfo('gl_podaci', t('bios.gl.podaci'), function () {
             var s = statistike();
-            return s.predmeta + ' predmeta • ' + s.beleski + ' beleški • ' + s.stavkiRasporeda + ' stavki rasporeda';
+            return t('bios.gl.podaciInfo', { p: s.predmeta, b: s.beleski, c: s.stavkiRasporeda });
         })
     ];
 }
 
 function redoviPredmeti() {
     var redovi = [
-        rInfo('pr_ukupno', 'Ukupno predmeta', function () {
+        rInfo('pr_ukupno', t('bios.pr.ukupno'), function () {
             return statistike().predmeta;
         })
     ];
-    redovi.push(rSekcija('sek_lista', 'LISTA PREDMETA'));
+    redovi.push(rSekcija('sek_lista', t('bios.pr.sekcija')));
     if (!radna.subjects.length) {
-        redovi.push(rInfo('pr_prazno', 'Status', 'Nema predmeta / dodajte prvi ispod'));
+        redovi.push(rInfo('pr_prazno', 'Status', t('bios.pr.prazno')));
     } else {
         radna.subjects.forEach(function (p) {
             redovi.push(rPredmet(p));
         });
     }
     redovi.push(
-        rAkcija('pr_dodaj', '+ Dodaj novi predmet', function () {
+        rAkcija('pr_dodaj', t('bios.pr.dodaj'), function () {
             panelPredmeta(null);
         })
     );
@@ -294,7 +310,7 @@ function rotacijaOpis() {
     if (!radna) return '/';
     try {
         var smena = rotacijaDanas(radna);
-        var naziv = smena === 'popodnevna' ? 'Popodnevna' : 'Jutarnja';
+        var naziv = smena === 'popodnevna' ? t('smen.popodnevna') : t('smen.jutarnja');
         var sidro = parsirajISO(radna.shiftRotationStart) || parsirajISO(podrazumevanoSidro());
         var perioda = radna.shiftRotation || 'nedelja';
         var sad = new Date();
@@ -321,20 +337,12 @@ function rotacijaOpis() {
         }
         var danTekst = '';
         if (perioda === 'nedelja' && danPromeneBIOS(radna) !== 1) {
-            var daniInstr = ['ponedeljkom', 'utorkom', 'sredom', 'četvrtkom', 'petkom', 'subotom', 'nedeljom'];
-            danTekst = daniInstr[danPromeneBIOS(radna) - 1] + ' ';
+            danTekst = DANI_ROTACIJE_INSTRUMENTAL[danPromeneBIOS(radna) - 1] + ' ';
         }
-        return (
-            naziv +
-            ' (menja se ' +
-            danTekst +
-            dvoje(promena.getDate()) +
-            '.' +
-            dvoje(promena.getMonth() + 1) +
-            '.' +
-            promena.getFullYear() +
-            '.)'
-        );
+        var datumStr = dvoje(promena.getDate()) + '.' + dvoje(promena.getMonth() + 1) + '.' + promena.getFullYear() + '.';
+        return danTekst
+            ? t('bios.sm.rotOpis', { naziv: naziv, danTekst: danTekst, datum: datumStr })
+            : t('bios.sm.rotOpisBezDana', { naziv: naziv, datum: datumStr });
     } catch (e) {
         return '/';
     }
@@ -347,7 +355,7 @@ function redoviSmene() {
     var redovi = [
         rIzbor(
             'sm_rezim',
-            'Režim smene',
+            t('bios.sm.rezim'),
             function () {
                 return radna.shiftMode || 'sat';
             },
@@ -356,21 +364,21 @@ function redoviSmene() {
                 radna.autoShiftChange = v !== 'rucno';
             },
             [
-                { v: 'rucno', l: 'Ručno (bez promene)' },
-                { v: 'sat', l: 'Po satima (automatski)' },
-                { v: 'rotacija', l: 'Rotacija (kalendar)' }
+                { v: 'rucno', l: t('bios.sm.rucno') },
+                { v: 'sat', l: t('bios.sm.sat') },
+                { v: 'rotacija', l: t('bios.sm.rotacija') }
             ]
         ),
-        rInfo('sm_rezim_info', 'Kako se menja', function () {
+        rInfo('sm_rezim_info', t('bios.sm.kako'), function () {
             var r = radna.shiftMode || 'sat';
-            if (r === 'rucno') return 'Smenu biraš ručno';
-            if (r === 'sat') return 'Po satu na zidu (dnevno)';
-            return 'Rotacija: ' + rotacijaOpis();
+            if (r === 'rucno') return t('bios.sm.kakoRucno');
+            if (r === 'sat') return t('bios.sm.kakoSat');
+            return t('bios.sm.kakoRotacija', { opis: rotacijaOpis() });
         }),
-        rSekcija('sek_rotacija', 'ROTACIJA SMENE (KALENDAR)'),
+        rSekcija('sek_rotacija', t('bios.sm.sekcijaRotacija')),
         rIzbor(
             'sm_rot_perioda',
-            'Smena se menja',
+            t('bios.sm.menjaSe'),
             function () {
                 return radna.shiftRotation || 'nedelja';
             },
@@ -378,38 +386,32 @@ function redoviSmene() {
                 radna.shiftRotation = v;
             },
             [
-                { v: 'nedelja', l: 'svake nedelje' },
-                { v: 'mesec', l: 'svakog meseca' },
-                { v: 'polugodiste', l: 'svakog polugodišta' },
-                { v: 'godina', l: 'svake godine' }
+                { v: 'nedelja', l: t('rot.nedelja') },
+                { v: 'mesec', l: t('rot.mesec') },
+                { v: 'polugodiste', l: t('rot.polugodiste') },
+                { v: 'godina', l: t('rot.godina') }
             ],
             nijeRotacija
         ),
         rIzbor(
             'sm_rot_dan',
-            'Dan promene (nedelja)',
+            t('bios.sm.danPromene'),
             function () {
                 return danPromeneBIOS(radna);
             },
             function (v) {
                 radna.shiftRotationDay = parseInt(v, 10) || 1;
             },
-            [
-                { v: 1, l: 'Ponedeljak' },
-                { v: 2, l: 'Utorak' },
-                { v: 3, l: 'Sreda' },
-                { v: 4, l: 'Četvrtak' },
-                { v: 5, l: 'Petak' },
-                { v: 6, l: 'Subota' },
-                { v: 7, l: 'Nedelja' }
-            ],
+            [1, 2, 3, 4, 5, 6, 7].map(function (n) {
+                return { v: n, l: DANI_ROTACIJE[n - 1] };
+            }),
             function () {
                 return nijeRotacija() || (radna.shiftRotation || 'nedelja') !== 'nedelja';
             }
         ),
         rDatum(
             'sm_rot_sidro',
-            'Rotacija počinje od',
+            t('bios.sm.sidro'),
             function () {
                 return radna.shiftRotationStart || podrazumevanoSidro();
             },
@@ -420,7 +422,7 @@ function redoviSmene() {
         ),
         rIzbor(
             'sm_rot_prva',
-            'Prva smena u ciklusu',
+            t('bios.sm.prva'),
             function () {
                 return radna.shiftRotationFirst === 'popodnevna' ? 'popodnevna' : 'jutarnja';
             },
@@ -428,18 +430,18 @@ function redoviSmene() {
                 radna.shiftRotationFirst = v;
             },
             [
-                { v: 'jutarnja', l: 'Jutarnja' },
-                { v: 'popodnevna', l: 'Popodnevna' }
+                { v: 'jutarnja', l: t('smen.jutarnja') },
+                { v: 'popodnevna', l: t('smen.popodnevna') }
             ],
             nijeRotacija
         ),
-        rInfo('sm_rot_danas', 'Danas po rotaciji', function () {
+        rInfo('sm_rot_danas', t('bios.sm.danas'), function () {
             return (radna.shiftMode || 'sat') === 'rotacija' ? rotacijaOpis() : '/';
         }),
-        rSekcija('sek_trajanja', 'TRAJANJA'),
+        rSekcija('sek_trajanja', t('bios.sm.sekcijaTrajanja')),
         rBroj(
             'sm_trajanje',
-            'Trajanje časa (min)',
+            t('bios.sm.trajanjeCasa'),
             function () {
                 return radna.periodDuration;
             },
@@ -452,7 +454,7 @@ function redoviSmene() {
         ),
         rBroj(
             'sm_mali',
-            'Mali odmor (min)',
+            t('bios.sm.maliOdmor'),
             function () {
                 return radna.smallBreakDuration;
             },
@@ -465,7 +467,7 @@ function redoviSmene() {
         ),
         rBroj(
             'sm_veliki',
-            'Veliki odmor (min)',
+            t('bios.sm.velikiOdmor'),
             function () {
                 return radna.bigBreakDuration;
             },
@@ -476,10 +478,10 @@ function redoviSmene() {
             30,
             5
         ),
-        rSekcija('sek_jutarnja', 'JUTARNJA SMENA'),
+        rSekcija('sek_jutarnja', t('bios.sm.sekcijaJutarnja')),
         rVreme(
             'sm_jut_start',
-            'Vreme početka',
+            t('bios.sm.pocetak'),
             function () {
                 return radna.shifts.jutarnja.startTime;
             },
@@ -489,24 +491,21 @@ function redoviSmene() {
         ),
         rIzbor(
             'sm_jut_veliki',
-            'Veliki odmor posle časa',
+            t('bios.sm.velikiPosle'),
             function () {
                 return radna.shifts.jutarnja.bigBreakAfterPeriod;
             },
             function (v) {
                 radna.shifts.jutarnja.bigBreakAfterPeriod = v;
             },
-            [
-                { v: 1, l: '1. čas' },
-                { v: 2, l: '2. čas' },
-                { v: 3, l: '3. čas' },
-                { v: 4, l: '4. čas' }
-            ]
+            [1, 2, 3, 4].map(function (n) {
+                return { v: n, l: t('bios.sm.cas', { n: n }) };
+            })
         ),
-        rSekcija('sek_popodnevna', 'POPODNEVNA SMENA'),
+        rSekcija('sek_popodnevna', t('bios.sm.sekcijaPopodnevna')),
         rVreme(
             'sm_pop_start',
-            'Vreme početka',
+            t('bios.sm.pocetak'),
             function () {
                 return radna.shifts.popodnevna.startTime;
             },
@@ -516,28 +515,25 @@ function redoviSmene() {
         ),
         rIzbor(
             'sm_pop_veliki',
-            'Veliki odmor posle časa',
+            t('bios.sm.velikiPosle'),
             function () {
                 return radna.shifts.popodnevna.bigBreakAfterPeriod;
             },
             function (v) {
                 radna.shifts.popodnevna.bigBreakAfterPeriod = v;
             },
-            [
-                { v: 1, l: '1. čas' },
-                { v: 2, l: '2. čas' },
-                { v: 3, l: '3. čas' },
-                { v: 4, l: '4. čas' }
-            ]
+            [1, 2, 3, 4].map(function (n) {
+                return { v: n, l: t('bios.sm.cas', { n: n }) };
+            })
         ),
-        rSekcija('sek_pregled', 'PREGLED VREMENA / ' + (radna.currentShift === 'jutarnja' ? 'JUTARNJA' : 'POPODNEVNA'))
+        rSekcija('sek_pregled', t('bios.sm.pregled', { smena: radna.currentShift === 'jutarnja' ? 'JUTARNJA' : 'POPODNEVNA' }))
     ];
     var niz = izracunajVremena(radna);
-    niz.forEach(function (t, i) {
+    niz.forEach(function (t2, i) {
         var naziv;
-        if (!t.isBreak) naziv = t.period + '. čas';
-        else naziv = t.isBigBreak ? 'VELIKI ODMOR' : 'Mali odmor';
-        redovi.push(rInfo('pv_' + i, naziv, t.start + ' - ' + t.end));
+        if (!t2.isBreak) naziv = t('bios.sm.cas', { n: t2.period });
+        else naziv = t2.isBigBreak ? t('bios.sm.velikiOdmorCip') : t('bios.sm.maliOdmorCip');
+        redovi.push(rInfo('pv_' + i, naziv, t2.start + ' - ' + t2.end));
     });
     return redovi;
 }
@@ -556,19 +552,19 @@ function autoTemaPeriodSvetao(danStr, nocStr) {
 
 function autoTemaStatusTekst() {
     if (!radna) return '/';
-    if (radna.autoTheme !== true) return 'Isključeno (ručna promena)';
+    if (radna.autoTheme !== true) return t('bios.ef.autoStatusIskljuceno');
     var svetlo = autoTemaPeriodSvetao(radna.autoThemeDayStart, radna.autoThemeNightStart);
-    var period = svetlo ? 'Svetli period' : 'Tamni period';
-    if (radna.codeTheme) return period + ' → CODE ' + (svetlo ? 'svetla' : 'tamna') + ' varijanta';
-    return period + ' → ' + (svetlo ? 'svetla tema' : 'tamna tema');
+    var period = svetlo ? t('bios.ef.svetliPeriod') : t('bios.ef.tamniPeriod');
+    if (radna.codeTheme) return period + ' ' + t(svetlo ? 'bios.ef.autoCodeSvetla' : 'bios.ef.autoCodeTamna');
+    return period + ' ' + t(svetlo ? 'bios.ef.autoSvetlaTema' : 'bios.ef.autoTamnaTema');
 }
 
 function redoviEfekti() {
     var redovi = [
-        rSekcija('sek_tema', 'TEMA'),
+        rSekcija('sek_tema', t('bios.ef.sekcijaTema')),
         rProvera(
             'ef_auto_tema',
-            'Automatski po vremenu',
+            t('bios.ef.auto'),
             function () {
                 return radna.autoTheme === true;
             },
@@ -578,7 +574,7 @@ function redoviEfekti() {
         ),
         rVreme(
             'ef_auto_dan',
-            'Svetla tema od',
+            t('bios.ef.danOd'),
             function () {
                 return radna.autoThemeDayStart || '07:00';
             },
@@ -591,7 +587,7 @@ function redoviEfekti() {
         ),
         rVreme(
             'ef_auto_noc',
-            'Tamna tema od',
+            t('bios.ef.nocOd'),
             function () {
                 return radna.autoThemeNightStart || '18:00';
             },
@@ -602,10 +598,10 @@ function redoviEfekti() {
                 return radna.autoTheme !== true;
             }
         ),
-        rInfo('ef_auto_status', 'Trenutno po vremenu', autoTemaStatusTekst),
+        rInfo('ef_auto_status', t('bios.ef.autoStatus'), autoTemaStatusTekst),
         rIzbor(
             'ef_tema',
-            'Tema aplikacije',
+            t('bios.ef.tema'),
             function () {
                 return radna.theme;
             },
@@ -613,8 +609,8 @@ function redoviEfekti() {
                 radna.theme = v;
             },
             [
-                { v: 'light', l: 'Svetla' },
-                { v: 'dark', l: 'Tamna' }
+                { v: 'light', l: t('bios.ef.svetla') },
+                { v: 'dark', l: t('bios.ef.tamna') }
             ],
             function () {
                 return radna.autoTheme === true;
@@ -622,7 +618,7 @@ function redoviEfekti() {
         ),
         rBoja(
             'ef_akcenat',
-            'Boja akcenta',
+            t('bios.ef.akcenat'),
             function () {
                 return radna.customTheme.primaryColor;
             },
@@ -630,16 +626,16 @@ function redoviEfekti() {
                 radna.customTheme.primaryColor = v;
             }
         ),
-        rSekcija('sek_code', 'CODE TEMA')
+        rSekcija('sek_code', t('bios.ef.sekcijaCode'))
     ];
     if (!radna.codeUnlocked) {
-        redovi.push(rZakljucano('ef_code', 'CODE tema'));
-        redovi.push(rInfo('ef_status', 'Status', 'ZAKLJUČANO / pronađite tajni kod'));
+        redovi.push(rZakljucano('ef_code', t('bios.ef.codeTema')));
+        redovi.push(rInfo('ef_status', 'Status', t('bios.ef.zakljucano')));
     } else {
         redovi.push(
             rProvera(
                 'ef_code',
-                'CODE tema',
+                t('bios.ef.codeTema'),
                 function () {
                     return radna.codeTheme;
                 },
@@ -651,7 +647,7 @@ function redoviEfekti() {
         redovi.push(
             rProvera(
                 'ef_anim',
-                'Animacija promene teme',
+                t('bios.ef.anim'),
                 function () {
                     return radna.animTema !== false;
                 },
@@ -667,7 +663,7 @@ function redoviEfekti() {
         redovi.push(
             rProvera(
                 'ef_code_svetla',
-                'Svetla varijanta CODE teme',
+                t('bios.ef.codeSvetla'),
                 function () {
                     return radna.codeLight === true;
                 },
@@ -683,7 +679,7 @@ function redoviEfekti() {
         redovi.push(
             rBroj(
                 'ef_intenzitet',
-                'Intenzitet efekata',
+                t('bios.ef.intenzitet'),
                 function () {
                     return radna.effects.intensity;
                 },
@@ -696,11 +692,11 @@ function redoviEfekti() {
             )
         );
 
-        redovi.push(rSekcija('sek_gx_boja', 'BOJA FOSFORA / IZGLED TEME'));
+        redovi.push(rSekcija('sek_gx_boja', t('bios.ef.sekcijaGx')));
         redovi.push(
             rGxBoja(
                 'ef_gx_boja',
-                'Boja teme',
+                t('bios.ef.bojaTeme'),
                 function () {
                     return hexGxBoje();
                 },
@@ -709,20 +705,20 @@ function redoviEfekti() {
                 }
             )
         );
-        redovi.push(rGxPaleta('ef_gx_presets', 'Preseti'));
+        redovi.push(rGxPaleta('ef_gx_presets', t('bios.ef.presets')));
 
-        redovi.push(rSekcija('sek_efekti', 'EFEKTI'));
+        redovi.push(rSekcija('sek_efekti', t('bios.ef.sekcijaEfekti')));
         [
-            { id: 'ef_invert', label: 'Invertovanje boja (kratko)', kljuc: 'invert' },
-            { id: 'ef_kisa', label: 'Digitalna kiša (matrix)', kljuc: 'rain' },
-            { id: 'ef_sken', label: 'Sken linije (CRT)', kljuc: 'scanlines' },
-            { id: 'ef_treperenje', label: 'CRT treperenje', kljuc: 'flicker' },
-            { id: 'ef_korupcija', label: 'Korupcija teksta', kljuc: 'corruption' }
+            { id: 'ef_invert', kljuc: 'invert', key: 'bios.ef.invert' },
+            { id: 'ef_kisa', kljuc: 'rain', key: 'bios.ef.kisa' },
+            { id: 'ef_sken', kljuc: 'scanlines', key: 'bios.ef.sken' },
+            { id: 'ef_treperenje', kljuc: 'flicker', key: 'bios.ef.treperenje' },
+            { id: 'ef_korupcija', kljuc: 'corruption', key: 'bios.ef.korupcija' }
         ].forEach(function (e) {
             redovi.push(
                 rProvera(
                     e.id,
-                    e.label,
+                    t(e.key),
                     function () {
                         return radna.effects[e.kljuc];
                     },
@@ -735,16 +731,16 @@ function redoviEfekti() {
         redovi.push(
             rInfo(
                 'ef_savet',
-                'Savet',
+                t('bios.ef.savet'),
                 radna.codeTheme
-                    ? 'Enter otvara birač boje / promena je odmah vidljiva (F10 čuva)'
-                    : 'Boja/efekti se vide po uključenju code teme (F10 čuva)'
+                    ? t('bios.ef.savetAktivno')
+                    : t('bios.ef.savetNeaktivno')
             )
         );
         redovi.push(
             rAkcija(
                 'ef_obavestenje',
-                'Prikaži uvodno obaveštenje o efektima',
+                t('bios.ef.obavestenjeAkcija'),
                 function () {
                     if (window.VirusTema && typeof window.VirusTema.efektiPanel === 'function') {
                         window.VirusTema.efektiPanel();
@@ -754,33 +750,33 @@ function redoviEfekti() {
             )
         );
     }
-    redovi.push(rSekcija('sek_napomena', 'NAPOMENA'));
+    redovi.push(rSekcija('sek_napomena', t('bios.ef.sekcijaNapomena')));
     return redovi;
 }
 
 function redoviPodaci() {
     return [
-        rInfo('pd_predmeti', 'Predmeti', function () {
+        rInfo('pd_predmeti', t('bios.pd.predmeti'), function () {
             return statistike().predmeta;
         }),
-        rInfo('pd_beleske', 'Beleške', function () {
+        rInfo('pd_beleske', t('bios.pd.beleske'), function () {
             return statistike().beleski;
         }),
-        rInfo('pd_raspored', 'Stavke rasporeda', function () {
+        rInfo('pd_raspored', t('bios.pd.raspored'), function () {
             return statistike().stavkiRasporeda;
         }),
-        rInfo('pd_zauzece', 'Zauzeće podataka', function () {
+        rInfo('pd_zauzece', t('bios.pd.zauzece'), function () {
             return statistike().velicinaKB + ' KB';
         }),
-        rSekcija('sek_akcije', 'AKCIJE'),
-        rAkcija('pd_izvoz', 'Izvezi podatke (JSON)', akcijaIzvoz),
-        rAkcija('pd_uvoz', 'Uvezi podatke (zamena svega)', function () {
+        rSekcija('sek_akcije', t('bios.pd.sekcija')),
+        rAkcija('pd_izvoz', t('bios.pd.izvoz'), akcijaIzvoz),
+        rAkcija('pd_uvoz', t('bios.pd.uvoz'), function () {
             akcijaUvoz(false);
         }),
-        rAkcija('pd_spoji', 'Spoji beleške iz fajla', function () {
+        rAkcija('pd_spoji', t('bios.pd.spoji'), function () {
             akcijaUvoz(true);
         }),
-        rAkcija('pd_reset', 'Resetuj sve podatke', akcijaReset, { opasno: true })
+        rAkcija('pd_reset', t('bios.pd.reset'), akcijaReset, { opasno: true })
     ];
 }
 
@@ -788,16 +784,16 @@ function redoviIzlaz() {
     return [
         rAkcija(
             'iz_sacuvaj',
-            'Sačuvaj promene i izađi',
+            t('bios.iz.sacuvaj'),
             function () {
                 zatvori(true);
             },
             { glavni: true, vrednost: '[ F10 ]' }
         ),
-        rAkcija('iz_otkazi', 'Odbaci promene i izađi', function () {
+        rAkcija('iz_otkazi', t('bios.iz.otkazi'), function () {
             zatvori(false);
         }),
-        rAkcija('iz_vrati', 'Vrati podrazumevana podešavanja', potvrdaFabrickaIzlaz, { opasno: true })
+        rAkcija('iz_vrati', t('bios.iz.vrati'), potvrdaFabrickaIzlaz, { opasno: true })
     ];
 }
 

@@ -1,8 +1,22 @@
-# Školski sistem (Školska Informacija v2.02)
+# Školski sistem (Školska Informacija v2.03)
 
 Školski Informacija je potpuno samostalan Informacioni sistem namenjeno za učenike(poput mene): raspored časova, kalendar sa događajima i beleške, sve u jednom preglednom interfejsu. Aplikacija radi u bilo kom modernom pregledaču, ne zahteva instalaciju, server ni bazu podataka, a svi podaci ostaju lokalno na vašem računaru.
 
 Projekat je napisan samo u HTML, CSS i JavaScriptu, bez ikakvih frameworka, bundlera ili npm zavisnosti. Dovoljno je otvoriti `index.html` ili preko linka "https://mug208.github.io/skolski-sistem/".
+
+## Novo u verziji 2.03
+
+- **Engleski jezik je sada podrazumevan** i nikad više, a srpski se uključuje u BIOS-u → Glavno → Jezik (`Language`). Promena se primenjuje odmah i čuva se sa ostalim podešavanjima. Cela aplikacija je prevedena: zaglavlje, raspored, kalendar, beleške, modalni dijalozi, komandna paleta, BIOS i obaveštenja.
+- **Novi bočni meni na mobilnom**: hamburger ikonica otvara fioku koja se uvlači s desne strane, sa prekrivačem, navigacijom, brzim akcijama (komande, tema, BIOS) i animacijom ikonice.
+- **Kalendar prilagođen malim ekranima**: ćelije se smanjuju na uskim ekranima, a kalendar je na srednjim širinama ograničen na 560px, pa ceo mesec staje na ekran bez upotreba zoom out-a.
+- **Responzivni redizajn**: veći dodirni ciljevi, tijesniji razmaci, bez odsečenog sadržaja i podrška za safe-area.
+
+## Šta ču kasnije dodati V2.1(W.I.P.):
+
+- **README.md na engleskom jeziku**, imače jedan PROCITAJME.md na srpskom jeziku i README.md na engleskom kasnije
+- **Restyle**: Van podešavanja, gledaću da izmenim dizajn web aplikacije jer izgleda previše moderno, pogotovo u rasporedu, sa sada nisam ismislio kako da to izmenim i već sam razmišljao mesecima kako bi bio više prilagođen dizajn u odnosu ostalih
+- **Login sistem i online sistem**: Malo izazovno, treba će mi server i da malo promenim logiku, i da se snalazim gde bih mogao staviti login/register u sajtu. Mada napraviću logiku ako ne može se povezivati za serverom onda ideš offline za upotrebom json fajla
+-**Svoj logo i loading screen**: Gledaću da nešto naučim kako da napravim dizajn i već imam nešto u glavi kako bih izgledalo, samo treba vremena i bolju sliku kako bih stojao uz sajt. Loading screen je za pokušaj priključenje servera ako za to se koristi
 
 ## Funkcionalnosti
 
@@ -140,6 +154,7 @@ Struktura sačuvanog JSON dokumenta:
   "settings": {
     "schoolName": "Smart Gimnazija",
     "className": "IV-3",
+    "language": "en",
     "theme": "dark",
     "periodsCount": 7,
     "periodDuration": 45,
@@ -204,9 +219,10 @@ Konvencija imenovanja: svaki folder je samostalan modul sa svojim JS i CSS fajlo
 
 ## Tehničke napomene
 
-- Ukupno oko 15 400 linija koda u 19 modula, bez ijedne spoljne JavaScript biblioteke.
+- Ukupno oko 17 000 linija koda u 20 modula, bez ijedne spoljne JavaScript biblioteke.
 - Jedina spoljna zavisnost su Google fontovi Inter i JetBrains Mono, učitani sa CDN-a uz rezervne sistemske fontove radi efikasnosti.
-- Interfejs je prilagođen ekranima svih veličina: tabela na desktopu, pregled po danu na mobilnom, posebno mobilni meni i biraci, ukratko dodato je responsivnost za sve ekrane.
+- Interfejs je prilagođen ekranima svih veličina: tabela na desktopu, pregled po danu na mobilnom, bočni fioka-meni na telefonu, kompaktan kalendar na uskim ekranima i dodiru prilagođeni biraci.
+- Višejezičnost: engleski (podrazumevan) i srpski, preko `osnova/jezici.js` statički tekstovi koriste `data-i18n` atribute, a dinamički pozivaju `t('kljuc')`.
 - Sopstveni set ikonica umesto emoji: crteži na mreži 24 x 24 u `osnova/ikone.js`, ugrađeni u dokument kao SVG simboli, pa rade i offline i pri otvaranju preko `file://`. Boju uzimaju iz `currentColor`, pa sami prate svetlu/tamnu temu i izabranu boju akcenta. U CODE temi se crteži sklanjaju i prikazuje se ASCII zamena iz `data-a`, tako da terminal ostaje čitak bez slika ~i bez mučenja~.
 - Sadržaj prati "Accessible Rich Internet Applications" uloge i oznake za čitače ekrana (dialog, listbox, search, progressbar).
 - Postoji poseban stil za štampu koji priprema celu nedelju, ili izabrani dan na jednom listu.

@@ -48,8 +48,8 @@ function prikaziBeleske() {
             <div class="prazno-stanje">
                 <div class="prazno-stanje-ikona" aria-hidden="true">${praznoZbogPretrage ? ikonica('lupa', '[?]') : ikonica('beleske', '[N]')}</div>
                 <p class="prazno-sadrzaj">${praznoZbogPretrage
-                    ? `Nema rezultata za „${esc(skratiTekst(stanje.pretraga, 30))}”. Probajte drugi pojam ili očistite pretragu.`
-                    : `Nema beleški${filter !== 'sve' ? ' u ovoj kategoriji' : ''}. Kliknite „Nova beleška" da dodate prvu.`}</p>
+            ? esc(t('bel.nemaRezultata', { upit: skratiTekst(stanje.pretraga, 30) }))
+            : esc(t(filter !== 'sve' ? 'bel.nemaBeleskiKat' : 'bel.nemaBeleski'))}</p>
             </div>`;
         return;
     }
@@ -64,17 +64,17 @@ function prikaziBeleske() {
 
         html += `
             <div class="beleska-kartica ${beleska.completed ? 'zavrsena' : ''}${beleska.pinned ? ' zakačena' : ''}" style="border-top-color:${tip.color}">
-                ${beleska.pinned ? '<span class="beleska-zakac-traka" aria-hidden="true">' + ikonica('cackalica', '*') + ' ZAKAČENO</span>' : ''}
+                ${beleska.pinned ? '<span class="beleska-zakac-traka" aria-hidden="true">' + ikonica('cackalica', '*') + ' ' + esc(t('bel.zakaceno')) + '</span>' : ''}
                 <div class="beleska-kartica-zaglavlje">
                     <div class="beleska-kartica-tip">
                         <span aria-hidden="true">${ikonaTipa(tip)}</span>
-                        <span class="oznaka oznaka-${esc(beleska.type)}">${tip.label}</span>
+                        <span class="oznaka oznaka-${esc(beleska.type)}">${esc(tip.label)}</span>
                     </div>
                     <div class="beleska-kartica-akcije">
-                        <button type="button" class="dugme dugme-ghost dugme-ikona dugme-zakaci${beleska.pinned ? ' aktivan' : ''}" onclick="zakaciBelesku('${esc(beleska.id)}')" title="${beleska.pinned ? 'Otkači belešku' : 'Zakači na vrh liste'}" aria-pressed="${beleska.pinned ? 'true' : 'false'}" aria-label="${beleska.pinned ? 'Otkači belešku' : 'Zakači belešku na vrh'}">${ikonica('cackalica', '*')}</button>
-                        <button type="button" class="dugme dugme-ghost dugme-ikona" onclick="promeniStatusBeleske('${esc(beleska.id)}')" title="${beleska.completed ? 'Vrati u aktivne' : 'Označi kao završeno'}">${beleska.completed ? ikonica('vrati', '&lt;~') : ikonica('cek_u_krugu', '[v]')}</button>
-                        <button type="button" class="dugme dugme-ghost dugme-ikona" onclick="otvoriModalBeleska('${esc(beleska.id)}')" title="Izmeni">${ikonica('olovka', '&gt;')}</button>
-                        <button type="button" class="dugme dugme-ghost dugme-ikona" onclick="obrisiBelesku('${esc(beleska.id)}')" title="Obriši">${ikonica('kanta', '[x]')}</button>
+                        <button type="button" class="dugme dugme-ghost dugme-ikona dugme-zakaci${beleska.pinned ? ' aktivan' : ''}" onclick="zakaciBelesku('${esc(beleska.id)}')" title="${esc(t(beleska.pinned ? 'bel.otkaciTitle' : 'bel.zakačiTitle'))}" aria-pressed="${beleska.pinned ? 'true' : 'false'}" aria-label="${esc(t('bel.zakačiAria'))}">${ikonica('cackalica', '*')}</button>
+                        <button type="button" class="dugme dugme-ghost dugme-ikona" onclick="promeniStatusBeleske('${esc(beleska.id)}')" title="${esc(t(beleska.completed ? 'bel.vratiTitle' : 'bel.zavrsiTitle'))}">${beleska.completed ? ikonica('vrati', '&lt;~') : ikonica('cek_u_krugu', '[v]')}</button>
+                        <button type="button" class="dugme dugme-ghost dugme-ikona" onclick="otvoriModalBeleska('${esc(beleska.id)}')" title="${esc(t('bel.izmeniTitle'))}">${ikonica('olovka', '&gt;')}</button>
+                        <button type="button" class="dugme dugme-ghost dugme-ikona" onclick="obrisiBelesku('${esc(beleska.id)}')" title="${esc(t('bel.obrisiTitle'))}">${ikonica('kanta', '[x]')}</button>
                     </div>
                 </div>
                 <div class="beleska-kartica-telo">
@@ -82,7 +82,7 @@ function prikaziBeleske() {
                     ${opis ? `<div class="beleska-kartica-opis">${esc(opis)}</div>` : ''}
                     <div class="beleska-kartica-footer">
                         <span class="beleska-kartica-datum">${ikonica('kalendar', '[D]')} ${formatirajDatum(kreirajDatumLokalno(beleska.date))}</span>
-                        ${dana >= 0 && !beleska.completed ? `<span class="oznaka ${dana === 0 ? 'oznaka-opasno' : dana <= 3 ? 'oznaka-upozorenje' : 'oznaka-kontura'}">${dana === 0 ? 'Danas!' : dana === 1 ? 'Sutra' : `${dana} dana`}</span>` : ''}
+                        ${dana >= 0 && !beleska.completed ? `<span class="oznaka ${dana === 0 ? 'oznaka-opasno' : dana <= 3 ? 'oznaka-upozorenje' : 'oznaka-kontura'}">${esc(tekstDana(dana))}</span>` : ''}
                         ${predmet ? `<span class="oznaka oznaka-kontura">${esc(predmet.name)}</span>` : ''}
                     </div>
                 </div>
@@ -108,16 +108,16 @@ function zakaciBelesku(id) {
     beleska.pinned = !beleska.pinned;
     sacuvajPodatke();
     azurirajPrikazeBeleski();
-    prikaziToast(beleska.pinned ? 'Beleška zakačena na vrh liste.' : 'Beleška otkačena.', 'info');
+    prikaziToast(beleska.pinned ? t('bel.toastZakacena') : t('bel.toastOtkacena'), 'info');
 }
 
 function obrisiBelesku(id) {
-    prikaziPotvrdu('Da li ste sigurni da želite da obrišete ovu belešku?', (potvrdjeno) => {
+    prikaziPotvrdu(t('bel.potvrdaBrisanje'), (potvrdjeno) => {
         if (!potvrdjeno) return;
         podaciAplikacije.notes = podaciAplikacije.notes.filter(n => n.id !== id);
         sacuvajPodatke();
         azurirajPrikazeBeleski();
-        prikaziToast('Beleška obrisana.', 'uspeh');
+        prikaziToast(t('bel.toastObrisana'), 'uspeh');
     });
 }
 
@@ -157,10 +157,10 @@ function azurirajProgresBeleski() {
     const zavrsene = skup.filter(n => n.completed).length;
     const procenat = Math.round((zavrsene / skup.length) * 100);
     traka.style.width = procenat + '%';
-    tekst.textContent = `završeno ${zavrsene}/${skup.length} (${procenat}%)`;
+    tekst.textContent = t('bel.progres', { z: zavrsene, u: skup.length, p: procenat });
     if (aria) {
         aria.setAttribute('aria-valuenow', String(procenat));
-        if (procenat === 100) aria.setAttribute('aria-valuetext', 'Sve beleške završene');
+        if (procenat === 100) aria.setAttribute('aria-valuetext', t('bel.progresSve'));
     }
 }
 
@@ -179,7 +179,7 @@ function azurirajPretraguPrikaz(brojRezultata) {
     }
     brojEl.hidden = false;
     const ukupno = podaciAplikacije.notes.length;
-    brojEl.textContent = `${brojRezultata}/${ukupno} ${brojRezultata === 1 ? 'rezultat' : 'rezultata'}`;
+    brojEl.textContent = `${brojRezultata}/${ukupno} ${t(brojRezultata === 1 ? 'bel.rezultat' : 'bel.rezultati')}`;
 }
 
 function postaviPretragu(upit) {

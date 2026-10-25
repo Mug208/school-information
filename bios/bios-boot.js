@@ -14,7 +14,7 @@ function dodajBootRed(html, prazno) {
 }
 
 function dodajMemRed() {
-    dodajBootRed(bootRed('Detektovanje memorije', '<span class="bios-mem-broj">0K</span>'));
+    dodajBootRed(bootRed(t('bios.boot.memorija'), '<span class="bios-mem-broj">0K</span>'));
     var redovi = svi('#biosBootLog .bios-boot-red');
     var brojEl = redovi.length ? redovi[redovi.length - 1].querySelector('.bios-mem-broj') : null;
     if (!brojEl) return;
@@ -56,32 +56,32 @@ function pokreniBoot() {
     var st = statistike();
     var statusTxt, statusCls;
     if (!radna.codeUnlocked) {
-        statusTxt = '[ ZAKLJUČAN ]';
+        statusTxt = t('bios.boot.zakljucan');
         statusCls = 'bios-status-zakljucano';
     } else if (radna.codeTheme) {
-        statusTxt = '[ AKTIVAN ]';
+        statusTxt = t('bios.boot.aktivan');
         statusCls = 'bios-status-spreman';
     } else {
-        statusTxt = '[ SPREMAN ]';
+        statusTxt = t('bios.boot.spreman');
         statusCls = 'bios-status-spreman';
     }
 
     var plan = [
-        { kasni: 100, tekst: 'ŠKOLSKI BIOS (C) 2025 Smart Gimnazija' },
-        { kasni: 160, tekst: 'Verzija 2.02' },
+        { kasni: 100, tekst: t('bios.naziv').toUpperCase() + ' (C) 2025 ' + (radna.schoolName || '') },
+        { kasni: 160, tekst: t('bios.boot.verzija', { v: VERZIJA }) },
         { kasni: 140, prazno: true },
         { kasni: 150, memorija: true },
-        { kasni: 250, tekst: 'Učitavanje predmeta (' + st.predmeta + ')', vrednost: 'OK', ok: true },
-        { kasni: 190, tekst: 'Učitavanje beleški (' + st.beleski + ')', vrednost: 'OK', ok: true },
-        { kasni: 190, tekst: 'Učitavanje rasporeda (' + st.stavkiRasporeda + ')', vrednost: 'OK', ok: true },
-        { kasni: 310, tekst: 'CODE modul', vrednost: statusTxt, klasa: statusCls },
+        { kasni: 250, tekst: t('bios.boot.predmeti', { n: st.predmeta }), vrednost: 'OK', ok: true },
+        { kasni: 190, tekst: t('bios.boot.beleske', { n: st.beleski }), vrednost: 'OK', ok: true },
+        { kasni: 190, tekst: t('bios.boot.raspored', { n: st.stavkiRasporeda }), vrednost: 'OK', ok: true },
+        { kasni: 310, tekst: t('bios.boot.code'), vrednost: statusTxt, klasa: statusCls },
         { kasni: 260, prazno: true },
         { kasni: 350, kraj: true }
     ];
 
-    var t = 0;
+    var ukupnoKasnjenje = 0;
     plan.forEach(function (korak) {
-        t += kasnjenje(korak.kasni);
+        ukupnoKasnjenje += kasnjenje(korak.kasni);
         bootTajmeri.push(
             setTimeout(function () {
                 if (faza !== 'boot') return;
@@ -106,7 +106,7 @@ function pokreniBoot() {
                           '</span>'
                         : null;
                 dodajBootRed(v ? bootRed(korak.tekst, v) : bEsc(korak.tekst));
-            }, t)
+            }, ukupnoKasnjenje)
         );
     });
 }

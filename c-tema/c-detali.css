@@ -1,4 +1,3 @@
-
 body.code-tema ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
@@ -37,7 +36,6 @@ body.code-tema .ik::before {
 body.code-tema .filter-dugme .ik::before {
     text-shadow: none;
 }
-
 
 body.code-tema .nav-ikona .ik::before {
     font-family: var(--font-mono);

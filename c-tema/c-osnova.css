@@ -9,12 +9,9 @@
     opacity: calc(0.25 + var(--code-jacina, 0.5) * 0.35);
 }
 
-
 body.code-tema[data-code-kisa="1"] #codeRain {
     display: block;
 }
-
-
 
 body.code-tema {
     --gx-rgb: 0, 255, 156;
@@ -52,14 +49,12 @@ body.code-tema {
     --gx-boot-zuti: #7dffb4;
     --gx-boot-zeleni: #00ff9c;
 
-
     background-color: var(--bg-glavni);
     background-image: none;
     color: var(--tekst-primarni);
     accent-color: var(--primarna);
     scrollbar-color: rgba(var(--gx-rgb), 0.35) var(--bg-glavni);
 }
-
 
 body.code-tema h1,
 body.code-tema h2,
@@ -82,13 +77,10 @@ body.code-tema label {
     font-family: 'JetBrains Mono', 'Courier New', monospace;
 }
 
-
 body.code-tema #appKoren {
     position: relative;
     background: transparent;
 }
-
-
 
 body.code-tema::before {
     content: '';
@@ -107,7 +99,6 @@ body.code-tema::before {
 body.code-tema[data-code-sken="0"]::before {
     display: none;
 }
-
 
 body.code-tema::after {
     content: '';

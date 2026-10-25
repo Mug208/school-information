@@ -23,7 +23,7 @@ function otvoriModalRaspored(dan, cas) {
         room: ''
     };
 
-    document.getElementById('naslovModalRaspored').textContent = postojecaStavka ? 'Izmeni čas' : 'Dodaj čas';
+    document.getElementById('naslovModalRaspored').textContent = postojecaStavka ? t('mod.izmeniCas') : t('mod.dodajCas');
     document.getElementById('rasporedDan').value = String(dan);
     document.getElementById('rasporedKabinet').value = postojecaStavka ? (postojecaStavka.room || '') : '';
     document.getElementById('dugmeObrisiRaspored').style.display = postojecaStavka ? 'inline-flex' : 'none';
@@ -31,7 +31,7 @@ function otvoriModalRaspored(dan, cas) {
     const selektCasa = document.getElementById('rasporedCas');
     selektCasa.innerHTML = '';
     for (let i = 0; i < podaciAplikacije.settings.periodsCount; i++) {
-        selektCasa.innerHTML += `<option value="${i}" ${i === cas ? 'selected' : ''}>${i + 1}. čas</option>`;
+        selektCasa.innerHTML += `<option value="${i}" ${i === cas ? 'selected' : ''}>${esc(t('mod.casOpcija', { n: i + 1 }))}</option>`;
     }
 
         const pretraga = document.getElementById('pretragaPredmeta');
@@ -50,7 +50,7 @@ function zatvoriModalRaspored() {
 function sacuvajRaspored() {
     const subjectId = stanje.editingSchedule ? stanje.editingSchedule.subjectId : '';
     if (!subjectId) {
-        prikaziToast('Izaberite predmet!', 'greska');
+        prikaziToast(t('mod.toastIzaberitePredmet'), 'greska');
         const kont = document.getElementById('biracPredmeta');
         if (kont) {
             kont.classList.remove('bp-greska');
@@ -85,7 +85,7 @@ function sacuvajRaspored() {
     prikaziMobilniRaspored();
     azurirajPrintZaglavlje();
     azurirajPodnozje();
-    prikaziToast('Čas sačuvan!', 'uspeh');
+    prikaziToast(t('mod.toastCasSacuvan'), 'uspeh');
 }
 
 function obrisiStavkuRasporeda() {
@@ -98,13 +98,13 @@ function obrisiStavkuRasporeda() {
         prikaziMobilniRaspored();
         azurirajPrintZaglavlje();
         azurirajPodnozje();
-        prikaziToast('Čas obrisan!', 'uspeh');
+        prikaziToast(t('mod.toastCasObrisan'), 'uspeh');
     }
 }
 
 function otvoriModalGrupnaIzmena() {
     if (!stanje.izabraniSlotovi.size) {
-        prikaziToast('Prvo izaberite bar jedan čas u tabeli!', 'greska');
+        prikaziToast(t('mod.toastPrvoIzaberite'), 'greska');
         return;
     }
     stanje.grupnaIzmena = { subjectId: '' };
@@ -138,11 +138,11 @@ function sacuvajGrupnuIzmenu() {
     const predmetId = stanje.grupnaIzmena ? stanje.grupnaIzmena.subjectId : '';
 
     if (!menjaPredmet && !menjaKabinet) {
-        prikaziToast('Označite šta menjate / predmet i/ili kabinet!', 'greska');
+        prikaziToast(t('mod.toastOznacite'), 'greska');
         return;
     }
     if (menjaPredmet && !predmetId) {
-        prikaziToast('Izaberite predmet!', 'greska');
+        prikaziToast(t('mod.toastIzaberitePredmet'), 'greska');
         const kont = document.getElementById('biracGrupne');
         if (kont) {
             kont.classList.remove('bp-greska');
@@ -184,7 +184,7 @@ function sacuvajGrupnuIzmenu() {
     prikaziMobilniRaspored();
     azurirajPrintZaglavlje();
     azurirajPodnozje();
-    prikaziToast(`Ažurirano ${promenjeno} ${pluralCasovi(promenjeno)}!`, 'uspeh');
+    prikaziToast(t('mod.toastAzurirano', { n: promenjeno, plural: pluralCasovi(promenjeno) }), 'uspeh');
 }
 
 function otvoriModalBeleska(id = null) {
@@ -200,7 +200,7 @@ function otvoriModalBeleska(id = null) {
         pinned: false
     };
 
-    document.getElementById('naslovModalBeleska').textContent = beleska ? 'Izmeni belešku' : 'Nova beleška';
+    document.getElementById('naslovModalBeleska').textContent = beleska ? t('mod.izmeniBelesku') : t('mod.novaBeleska');
     document.getElementById('beleskaNaslov').value = stanje.editingNote.title;
     document.getElementById('beleskaTip').value = stanje.editingNote.type;
     document.getElementById('beleskaDatum').value = stanje.editingNote.date;
@@ -210,7 +210,7 @@ function otvoriModalBeleska(id = null) {
     document.getElementById('dugmeObrisiBelesku').style.display = beleska ? 'inline-flex' : 'none';
 
     const selektPredmeta = document.getElementById('beleskaPredmet');
-    selektPredmeta.innerHTML = '<option value="">-- Bez predmeta --</option>' +
+    selektPredmeta.innerHTML = `<option value="">${esc(t('mod.bezPredmeta'))}</option>` +
         podaciAplikacije.settings.subjects.map(s =>
             `<option value="${esc(s.id)}" ${s.id === stanje.editingNote.subjectId ? 'selected' : ''}>${esc(s.name)}</option>`
         ).join('');
@@ -227,7 +227,7 @@ function zatvoriModalBeleska() {
 function sacuvajBelesku() {
     const naslov = document.getElementById('beleskaNaslov').value.trim();
     if (!naslov) {
-        prikaziToast('Unesite naslov!', 'greska');
+        prikaziToast(t('mod.toastUnesiteNaslov'), 'greska');
         return;
     }
 
@@ -251,14 +251,14 @@ function sacuvajBelesku() {
     zatvoriModalBeleska();
     azurirajPrikazeBeleski();
     prikaziKalendar();
-    prikaziToast('Beleška sačuvana!', 'uspeh');
+    prikaziToast(t('bel.toastSacuvana'), 'uspeh');
 }
 
 function otvoriModalPredmet(id = null) {
     const predmet = id ? dobijPredmet(id) : null;
     stanje.editingSubject = predmet || { id: '', name: '', color: '#0d9488', teacher: '' };
 
-    document.getElementById('naslovModalPredmet').textContent = predmet ? 'Izmeni predmet' : 'Dodaj predmet';
+    document.getElementById('naslovModalPredmet').textContent = predmet ? t('mod.izmeniPredmet') : t('mod.dodajPredmet');
     document.getElementById('predmetNaziv').value = stanje.editingSubject.name;
     document.getElementById('predmetBoja').value = stanje.editingSubject.color;
     document.getElementById('predmetNastavnik').value = stanje.editingSubject.teacher || '';
@@ -280,7 +280,7 @@ function zatvoriModalPredmet() {
 function sacuvajPredmet() {
     const naziv = document.getElementById('predmetNaziv').value.trim();
     if (!naziv) {
-        prikaziToast('Unesite naziv predmeta!', 'greska');
+        prikaziToast(t('mod.toastUnesiteNaziv'), 'greska');
         return;
     }
 
@@ -306,13 +306,13 @@ function sacuvajPredmet() {
     prikaziMobilniRaspored();
     prikaziBeleske();
     azurirajPodnozje();
-    prikaziToast('Predmet sačuvan!', 'uspeh');
+    prikaziToast(t('mod.toastPredmetSacuvan'), 'uspeh');
 }
 
 function obrisiPredmet() {
     if (!stanje.editingSubject || !stanje.editingSubject.id) return;
 
-    prikaziPotvrdu('Da li ste sigurni da želite da obrišete ovaj predmet? Biće uklonjen iz rasporeda.', (potvrdjeno) => {
+    prikaziPotvrdu(t('mod.potvrdaObrisiPredmet'), (potvrdjeno) => {
         if (!potvrdjeno) return;
         const id = stanje.editingSubject.id;
         podaciAplikacije.settings.subjects = podaciAplikacije.settings.subjects.filter(s => s.id !== id);
@@ -326,7 +326,7 @@ function obrisiPredmet() {
         prikaziMobilniRaspored();
         prikaziBeleske();
         azurirajPodnozje();
-        prikaziToast('Predmet obrisan!', 'uspeh');
+        prikaziToast(t('mod.toastPredmetObrisan'), 'uspeh');
     });
 }
 

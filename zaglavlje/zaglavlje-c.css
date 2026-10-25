@@ -7,7 +7,6 @@ body.code-tema .logo-naslov {
     animation: naslov-code calc(3.5s / var(--code-jacina, 0.5)) infinite steps(1, end);
 }
 
-
 body.code-tema .logo-naslov::before,
 body.code-tema .logo-naslov::after {
     content: attr(data-text);
@@ -37,7 +36,6 @@ body.code-tema .logo-naslov::after {
     animation: naslov-desna calc(3.5s / var(--code-jacina, 0.5)) infinite steps(1, end);
 }
 
-
 @keyframes naslov-code {
     0%, 90%, 95%, 100% { transform: none; }
     91% { transform: skewX(-7deg) translateX(1px); }
@@ -45,7 +43,6 @@ body.code-tema .logo-naslov::after {
     93% { transform: skewX(-3deg) translateX(1px); }
     94% { transform: skewX(2deg); }
 }
-
 
 @keyframes naslov-leva {
     0%   { clip-path: inset(0 0 88% 0); }
@@ -64,7 +61,6 @@ body.code-tema .logo-naslov::after {
     100% { clip-path: inset(0 0 88% 0); }
 }
 
-
 @keyframes naslov-desna {
     0%   { clip-path: inset(92% 0 0 0); }
     8%   { clip-path: inset(0 0 74% 0); }
@@ -82,7 +78,6 @@ body.code-tema .logo-naslov::after {
     100% { clip-path: inset(92% 0 0 0); }
 }
 
-
 body.code-tema .zaglavlje {
     background: var(--bg-zaglavlje);
     border-bottom: 1px solid var(--ivica);
@@ -99,7 +94,6 @@ body.code-tema #nazivRazreda {
     font-size: 12px;
     letter-spacing: 0.08em;
 }
-
 
 body.code-tema .desktop-nav .nav-dugme {
     font-size: 13px;
@@ -122,7 +116,6 @@ body.code-tema .desktop-nav .nav-dugme.aktivan {
     text-shadow: 0 0 12px rgba(var(--gx-rgb), 0.55);
 }
 
-
 body.code-tema .desktop-nav .nav-dugme.aktivan::before {
     content: '▌';
     color: var(--primarna);
@@ -136,7 +129,6 @@ body.code-tema .desktop-nav .nav-dugme.aktivan::before {
     56%, 100% { opacity: 0; }
 }
 
-
 @keyframes nav-tresenje {
     0%   { transform: translate(0, 0); text-shadow: none; }
     25%  { transform: translate(1px, 0); text-shadow: 1px 0 rgba(255, 56, 96, 0.65), -1px 0 rgba(0, 255, 240, 0.65); }
@@ -144,7 +136,6 @@ body.code-tema .desktop-nav .nav-dugme.aktivan::before {
     75%  { transform: translate(1px, 0); text-shadow: 1px 0 rgba(255, 56, 96, 0.65), -1px 0 rgba(0, 255, 240, 0.65); }
     100% { transform: translate(0, 0); text-shadow: none; }
 }
-
 
 body.code-tema .statusna-traka {
     font-size: 12px;
@@ -170,7 +161,6 @@ body.code-tema .statusna-traka .status-separator {
     color: var(--tekst-muted);
     opacity: 0.6;
 }
-
 
 body.code-tema .ikonica-dugme {
     color: var(--tekst-sekundarni);
@@ -211,10 +201,14 @@ body.code-tema .dropdown-zaglavlje {
     border-bottom: 1px solid var(--ivica-svetla);
 }
 
-
 body.code-tema .mobilni-meni {
     background: var(--bg-zaglavlje);
-    border-bottom: 1px solid var(--ivica);
+    border-bottom: none;
+    border-left: 1px solid var(--ivica);
+}
+
+body.code-tema .mobilni-meni-zatvori:hover {
+    color: var(--primarna);
 }
 
 body.code-tema .mobilni-nav-dugme {

@@ -7,13 +7,11 @@ body.code-tema .celija-rasporeda {
     border: 1px solid var(--ivica-svetla);
 }
 
-
 body.code-tema .celija-rasporeda:not(.ima-predmet),
 body.code-tema .celija-prazna {
     color: var(--tekst-muted);
     opacity: 0.6;
 }
-
 
 body.code-tema .celija-rasporeda.ima-predmet {
     border: 1px solid var(--ivica);
@@ -37,12 +35,10 @@ body.code-tema .celija-rasporeda.ima-predmet:hover {
         0 0 14px color-mix(in srgb, var(--pb) 22%, transparent);
 }
 
-
 body.code-tema .predmet-tackica {
     border-radius: 0;
     box-shadow: 0 0 8px color-mix(in srgb, var(--pb) 70%, transparent);
 }
-
 
 body.code-tema .celija-rasporeda .kabinet,
 body.code-tema .stavka-rasporeda .kabinet {
@@ -145,7 +141,6 @@ body.code-tema .stavka-rasporeda.ima-predmet {
         transparent 100%);
 }
 
-
 body.code-tema .trenutni-cas {
     border-color: var(--primarna);
     box-shadow: inset 3px 0 0 var(--primarna), 0 0 22px rgba(var(--gx-rgb), 0.3), inset 0 0 24px rgba(var(--gx-rgb), 0.12);
@@ -156,7 +151,6 @@ body.code-tema .trenutni-cas {
     0%, 100% { box-shadow: inset 3px 0 0 var(--primarna), 0 0 12px rgba(var(--gx-rgb), 0.18), inset 0 0 12px rgba(var(--gx-rgb), 0.06); }
     50%      { box-shadow: inset 3px 0 0 var(--primarna), 0 0 30px rgba(var(--gx-rgb), 0.45), inset 0 0 30px rgba(var(--gx-rgb), 0.16); }
 }
-
 
 body.code-tema .oznaka-uzivo {
     color: var(--opasna);
@@ -170,7 +164,6 @@ body.code-tema .oznaka-uzivo {
     0%, 60% { opacity: 1; }
     61%, 100% { opacity: 0.25; }
 }
-
 
 body.code-tema .velika-pauza,
 body.code-tema .red-pauze {

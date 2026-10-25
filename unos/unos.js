@@ -19,10 +19,10 @@ function azurirajInfoSlota() {
     const smena = podaciAplikacije.settings.currentShift === 'popodnevna' ? 'POPODNEVNA' : 'JUTARNJA';
 
     el.innerHTML = `
-        <span class="is-cip is-dan">${DANI_LAT[dan].toUpperCase()}</span>
-        <span class="is-cip">${cas + 1}. ČAS</span>
+        <span class="is-cip is-dan">${esc(DANI_LAT[dan].toUpperCase())}</span>
+        <span class="is-cip">${esc(t('unos.casCip', { n: cas + 1 }))}</span>
         ${v ? `<span class="is-cip is-vreme">${v.start}–${v.end}</span>` : ''}
-        <span class="is-cip is-smena">${smena} SMENA</span>
+        <span class="is-cip is-smena">${esc(t(smena === 'POPODNEVNA' ? 'ms.smenaPopodnevna' : 'ms.smenaJutarnja'))}</span>
     `;
 }
 
@@ -38,9 +38,9 @@ function renderujBiracPredmeta() {
         if (!predmeti.length) {
         kont.innerHTML = `
             <div class="bp-prazno">
-                <span class="bp-prazno-naslov">${ikonica('prazno', '[!]')} Nema još predmeta</span>
-                <p>Dodajte predmet da biste popunili raspored / boja čipa olakšava snalaženje.</p>
-                <button type="button" class="dugme dugme-glavno" onclick="otvoriModalPredmetSaRasporeda()">${ikonica('plus', '[+]')} Dodaj predmet</button>
+                <span class="bp-prazno-naslov">${ikonica('prazno', '[!]')} ${esc(t('unos.nemaJos'))}</span>
+                <p>${esc(t('unos.nemaJosOpis'))}</p>
+                <button type="button" class="dugme dugme-glavno" onclick="otvoriModalPredmetSaRasporeda()">${ikonica('plus', '[+]')} ${esc(t('unos.dodajPredmet'))}</button>
             </div>`;
         return;
     }
@@ -55,9 +55,9 @@ function renderujBiracPredmeta() {
         if (!filtrirani.length) {
         kont.innerHTML = `
             <div class="bp-prazno">
-                <span class="bp-prazno-naslov">${ikonica('lupa', '[>]')} Nema pogodaka</span>
-                <p>Nijedan predmet ne odgovara pretrazi „${esc(pretragaEl ? pretragaEl.value : '')}”.</p>
-                <button type="button" class="dugme dugme-sekundarno" onclick="ocistiPretraguPredmeta()">Prikaži sve predmete</button>
+                <span class="bp-prazno-naslov">${ikonica('lupa', '[>]')} ${esc(t('unos.nemaPogodaka'))}</span>
+                <p>${esc(t('unos.neOdgovara', { upit: pretragaEl ? pretragaEl.value : '' }))}</p>
+                <button type="button" class="dugme dugme-sekundarno" onclick="ocistiPretraguPredmeta()">${esc(t('unos.prikaziSve'))}</button>
             </div>`;
         return;
     }
@@ -106,11 +106,10 @@ function azurirajGiInfo() {
     const el = document.getElementById('giInfo');
     if (!el) return;
     const n = stanje.izabraniSlotovi.size;
-    const smena = podaciAplikacije.settings.currentShift === 'popodnevna' ? 'POPODNEVNA' : 'JUTARNJA';
     el.innerHTML = `
-        <span class="is-cip is-dan">${n} ${n === 1 ? 'IZABRAN' : 'IZABRANA'}</span>
-        <span class="is-cip is-smena">${smena} SMENA</span>
-        <span class="is-cip">PON – PET</span>
+        <span class="is-cip is-dan">${n} ${esc(t('unos.izabrano'))}</span>
+        <span class="is-cip is-smena">${esc(t(podaciAplikacije.settings.currentShift === 'popodnevna' ? 'ms.smenaPopodnevna' : 'ms.smenaJutarnja'))}</span>
+        <span class="is-cip">${esc(t('unos.ponPet'))}</span>
     `;
 }
 
@@ -136,9 +135,9 @@ function renderujBiracGrupne() {
     if (!predmeti.length) {
         kont.innerHTML = `
             <div class="bp-prazno">
-                <span class="bp-prazno-naslov">${ikonica('prazno', '[!]')} Nema još predmeta</span>
-                <p>Dodajte predmet da biste popunili raspored.</p>
-                <button type="button" class="dugme dugme-glavno" onclick="otvoriModalPredmetIzGrupne()">${ikonica('plus', '[+]')} Dodaj predmet</button>
+                <span class="bp-prazno-naslov">${ikonica('prazno', '[!]')} ${esc(t('unos.nemaJos'))}</span>
+                <p>${esc(t('unos.nemaJosOpis'))}</p>
+                <button type="button" class="dugme dugme-glavno" onclick="otvoriModalPredmetIzGrupne()">${ikonica('plus', '[+]')} ${esc(t('unos.dodajPredmet'))}</button>
             </div>`;
         return;
     }
@@ -153,9 +152,9 @@ function renderujBiracGrupne() {
     if (!filtrirani.length) {
         kont.innerHTML = `
             <div class="bp-prazno">
-                <span class="bp-prazno-naslov">${ikonica('lupa', '[>]')} Nema pogodaka</span>
-                <p>Nijedan predmet ne odgovara pretrazi „${esc(pretragaEl ? pretragaEl.value : '')}”.</p>
-                <button type="button" class="dugme dugme-sekundarno" onclick="ocistiPretraguGrupne()">Prikaži sve predmete</button>
+                <span class="bp-prazno-naslov">${ikonica('lupa', '[>]')} ${esc(t('unos.nemaPogodaka'))}</span>
+                <p>${esc(t('unos.neOdgovara', { upit: pretragaEl ? pretragaEl.value : '' }))}</p>
+                <button type="button" class="dugme dugme-sekundarno" onclick="ocistiPretraguGrupne()">${esc(t('unos.prikaziSve'))}</button>
             </div>`;
         return;
     }

@@ -8,9 +8,6 @@
     }
 }
 
-
-
-
 .gx-paletta {
     display: inline-flex;
     align-items: center;
@@ -47,7 +44,6 @@
     outline-offset: 2px;
 }
 
-
 .gx-sw.aktivna {
     box-shadow:
         inset 0 0 0 1px rgba(0, 0, 0, .5),
@@ -55,14 +51,12 @@
         0 0 8px rgba(255, 212, 0, .55);
 }
 
-
 .bios-red.izabrano .gx-sw.aktivna {
     box-shadow:
         inset 0 0 0 1px rgba(0, 0, 0, .5),
         0 0 0 2px var(--bios-crveni),
         0 0 8px rgba(255, 92, 92, .45);
 }
-
 
 .gx-sw-prilagodjena {
     position: relative;
@@ -85,13 +79,10 @@
     text-shadow: 0 0 3px rgba(0, 0, 0, .95), 0 0 3px rgba(0, 0, 0, .95);
 }
 
-
 .bios-red.iskljucen .gx-sw {
     pointer-events: none;
     filter: saturate(.3);
 }
-
-
 
 .bios-pomoc {
     list-style: none;
@@ -105,8 +96,6 @@
 .bios-pomoc li kbd {
     margin-right: 6px;
 }
-
-
 
 .bios-redovi,
 .bios-info,
@@ -134,8 +123,6 @@
     background: var(--bios-panel-ivica);
 }
 
-
-
 .bios-overlay :focus-visible {
     outline: 2px solid var(--bios-zuti);
     outline-offset: 1px;
@@ -158,9 +145,6 @@
     user-select: text;
 }
 
-
-
-
 @keyframes bios-red-pojavljivanje {
     from {
         opacity: 0;
@@ -172,18 +156,15 @@
     }
 }
 
-
 @keyframes bios-treperenje {
     0%, 100% { opacity: 1; }
     50% { opacity: 0; }
 }
 
-
 @keyframes bios-ui-pojavljivanje {
     from { opacity: 0; }
     to { opacity: 1; }
 }
-
 
 @keyframes bios-treska {
     0%, 100% { transform: translateX(0); }
@@ -196,6 +177,3 @@
 .bios-red.bios-treska {
     animation: bios-treska .25s ease-in-out;
 }
-
-
-

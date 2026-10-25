@@ -1,9 +1,4 @@
-
-
-
-
 .bios-overlay {
-
     --bios-bg: #0000aa;
     --bios-bg-tamno: #000077;
     --bios-panel: #0000cc;
@@ -33,10 +28,8 @@
     line-height: 1.45;
     color: var(--bios-tekst);
 
-
     box-shadow: inset 0 0 140px rgba(0, 0, 0, .38);
 }
-
 
 .bios-overlay[hidden],
 .bios-boot[hidden],
@@ -45,7 +38,6 @@
 .bios-side[hidden] {
     display: none !important;
 }
-
 
 .bios-overlay::before {
     content: '';
@@ -61,7 +53,6 @@
     );
 }
 
-
 .bios-overlay::after {
     content: '';
     position: absolute;
@@ -71,21 +62,16 @@
     background: radial-gradient(ellipse at center, transparent 58%, rgba(0, 0, 0, .32) 100%);
 }
 
-
 body.bios-otvoren {
     overflow: hidden;
 }
-
 
 .bios-overlay ::selection {
     background: var(--bios-zuti);
     color: var(--bios-izabrano-tekst);
 }
 
-
-
 .bios-boot {
-
     --bios-tekst: var(--gx-boot-tekst, #e8e8ff);
     --bios-tekst-siv: var(--gx-boot-tekst-siv, #9aa5c9);
     --bios-zuti: var(--gx-boot-zuti, #ffd400);
@@ -156,8 +142,6 @@ body.bios-otvoren {
     animation: bios-treperenje 1.1s steps(2, start) infinite;
 }
 
-
-
 .bios-ui {
     position: relative;
     z-index: 1;
@@ -171,8 +155,6 @@ body.bios-otvoren {
     animation: bios-ui-pojavljivanje .45s ease-out;
     min-height: 0;
 }
-
-
 
 .bios-header {
     display: flex;
@@ -239,8 +221,6 @@ body.bios-otvoren {
     font-weight: 500;
 }
 
-
-
 .bios-nav {
     display: flex;
     flex-wrap: wrap;
@@ -270,6 +250,3 @@ body.bios-otvoren {
     font-weight: 700;
     border-color: var(--bios-panel-ivica);
 }
-
-
-

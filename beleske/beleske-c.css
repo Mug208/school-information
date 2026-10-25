@@ -41,7 +41,6 @@ body.code-tema .prazno-sadrzaj {
     letter-spacing: 0.06em;
 }
 
-
 body.code-tema .oznaka {
     font-size: 11px;
     letter-spacing: 0.06em;
@@ -93,7 +92,6 @@ body.code-tema .pretraga-broj {
     color: var(--primarna);
     text-shadow: 0 0 8px rgba(var(--gx-rgb), 0.4);
 }
-
 
 body.code-tema .beleske-progres-traka {
     border: 1px solid var(--ivica);

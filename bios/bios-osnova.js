@@ -137,6 +137,7 @@ function normalizuj(p) {
     if (!n.customTheme || typeof n.customTheme !== 'object') n.customTheme = {};
     n.customTheme.primaryColor = bezbednaBoja(n.customTheme.primaryColor);
     n.customTheme.enabled = n.customTheme.enabled !== false;
+    n.language = n.language === 'sr' ? 'sr' : 'en';
     n.codeUnlocked = !!n.codeUnlocked;
     n.codeTheme = !!n.codeTheme;
     n.codeLight = n.codeLight === true;
@@ -161,12 +162,13 @@ function normalizuj(p) {
 function validiraj() {
     if (!radna.schoolName || !String(radna.schoolName).trim()) {
         prikaziDialog({
-            naslov: 'GREŠKA',
-            html: 'Naziv škole ne može biti prazan.',
-            dugmad: [{ tekst: 'U redu', klasa: 'bios-dugme-glavni' }]
+            naslov: t('bios.dlg.greska'),
+            html: t('bios.dlg.greskaSkola'),
+            dugmad: [{ tekst: t('bios.dlg.uredu'), klasa: 'bios-dugme-glavni' }]
         });
         return false;
     }
+    radna.language = radna.language === 'sr' ? 'sr' : 'en';
     radna.periodsCount = broj(radna.periodsCount, 6, 5, 8);
     radna.periodDuration = broj(radna.periodDuration, 45, 30, 60);
     radna.smallBreakDuration = broj(radna.smallBreakDuration, 10, 5, 15);

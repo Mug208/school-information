@@ -1,33 +1,70 @@
 'use strict';
 
 const NOVINE_KLJUC = 'skolski-info-novine';
-const NOVINE_VERZIJA = '2.02';
+const NOVINE_VERZIJA = '2.03';
 
-const NOVINE_NASLOV = 'Šta je novo';
-const NOVINE_PODNASLOV = 'Kratak pregled najvažnijih izmena u ovoj verziji.';
-
-const NOVINE_STAVKE = [
-    {
-        ikona: 'paleta',
-        ikonaA: '[T]',
-        naziv: 'Nove ikonice kroz celu aplikaciju',
-        opis: 'Emoji su zamenjeni sa 43 crtane ikonice. Prate boju teksta i temu, ' +
-              'a u CODE temi se pretvaraju u ASCII oznake, pa terminal ostaje čist.'
-    },
-    {
-        ikona: 'zvono',
-        ikonaA: '[!]',
-        naziv: 'Prozor „Šta je novo”',
-        opis: 'Posle svake veće izmene dobijate ovaj kratak pregled. Prikazuje se ' +
-              'samo jednom po verziji, a ručno ga otvarate iz komandne palete (Ctrl+K).'
-    },
-    {
-        ikona: 'iskre',
-        ikonaA: '[*]',
-        naziv: 'Verzija 2.02',
-        opis: 'Broj verzije je usklađen u zaglavlju, BIOS-u, komandnoj paleti i podnožju.'
-    }
-];
+const NOVINE_STAVKE = {
+    en: [
+        {
+            ikona: 'paleta',
+            ikonaA: '[T]',
+            naziv: 'English language + Serbian',
+            opis: 'The app now speaks English by default, and you can switch to Serbian ' +
+                  'in BIOS → Main → Language. The change applies instantly.'
+        },
+        {
+            ikona: 'meni',
+            ikonaA: '[=]',
+            naziv: 'New mobile side menu',
+            opis: 'On phones the hamburger button now opens a slide-in side drawer ' +
+                  'with navigation and quick actions, with an overlay and safe-area support.'
+        },
+        {
+            ikona: 'kalendar',
+            ikonaA: '[D]',
+            naziv: 'Calendar fits small screens',
+            opis: 'The calendar scales down on small displays, so the whole month is visible ' +
+                  'without horizontal scrolling or zooming out.'
+        },
+        {
+            ikona: 'skola',
+            ikonaA: '[#]',
+            naziv: 'Responsive redesign',
+            opis: 'Header, schedule, notes and BIOS have been fine-tuned for narrow screens: ' +
+                  'tighter paddings, larger touch targets and no more clipped content.'
+        }
+    ],
+    sr: [
+        {
+            ikona: 'paleta',
+            ikonaA: '[T]',
+            naziv: 'Engleski + srpski jezik',
+            opis: 'Aplikacija je sada podrazumevano na engleskom, a srpski se uključuje ' +
+                  'u BIOS-u → Glavno → Jezik. Promena se primenjuje odmah.'
+        },
+        {
+            ikona: 'meni',
+            ikonaA: '[=]',
+            naziv: 'Novi bočni meni na mobilnom',
+            opis: 'Na telefonu hamburger dugme sada otvara bočni fioku-meni ' +
+                  'sa navigacijom i brzim akcijama, sa prekrivačem i podrškom za safe-area.'
+        },
+        {
+            ikona: 'kalendar',
+            ikonaA: '[D]',
+            naziv: 'Kalendar staje na male ekrane',
+            opis: 'Kalendar se smanjuje na malim ekranima, pa je ceo mesec vidljiv ' +
+                  'bez horizontalnog skrolovanja i zumiranja.'
+        },
+        {
+            ikona: 'skola',
+            ikonaA: '[#]',
+            naziv: 'Responzivni redizajn',
+            opis: 'Zaglavlje, raspored, beleške i BIOS su doterani za uske ekrane: ' +
+                  'manje paddinge, veće dodirne ciljeve i bez odsečenog sadržaja.'
+        }
+    ]
+};
 
 let novineOtvorene = false;
 let novineFokusPre = null;
@@ -46,8 +83,12 @@ function novineZapamtiVidjeno() {
     } catch (e) {  }
 }
 
+function novineStavke() {
+    return (typeof trenutniJezik === 'function' && trenutniJezik() === 'sr') ? NOVINE_STAVKE.sr : NOVINE_STAVKE.en;
+}
+
 function novineTrebaPrikazati() {
-    return NOVINE_STAVKE.length > 0 && novineVidjenaVerzija() !== NOVINE_VERZIJA;
+    return novineStavke().length > 0 && novineVidjenaVerzija() !== NOVINE_VERZIJA;
 }
 
 function novineIscrtaj() {
@@ -57,11 +98,11 @@ function novineIscrtaj() {
     const listaEl = document.getElementById('novineLista');
 
     if (verzijaEl) verzijaEl.textContent = 'v' + NOVINE_VERZIJA;
-    if (naslovEl) naslovEl.textContent = NOVINE_NASLOV;
-    if (podnaslovEl) podnaslovEl.textContent = NOVINE_PODNASLOV;
+    if (naslovEl) naslovEl.textContent = t('nov.naslov');
+    if (podnaslovEl) podnaslovEl.textContent = t('nov.podnaslov');
     if (!listaEl) return;
 
-    listaEl.innerHTML = NOVINE_STAVKE.map(stavka => `
+    listaEl.innerHTML = novineStavke().map(stavka => `
         <li class="novine-stavka">
             <span class="novine-ikona" aria-hidden="true">${ikonica(stavka.ikona, stavka.ikonaA || '')}</span>
             <span class="novine-tekst">

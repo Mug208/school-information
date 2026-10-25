@@ -3,23 +3,23 @@
 function izlazniTok() {
     if (imaIzmena()) {
         prikaziDialog({
-            naslov: 'NESAČUVANE PROMENE',
-            html: 'Sačuvati promene pre izlaza?',
+            naslov: t('bios.dlg.nesacuvano'),
+            html: t('bios.dlg.sacuvati'),
             dugmad: [
                 {
-                    tekst: 'Sačuvaj i izađi',
+                    tekst: t('bios.dlg.sacuvajIziđi'),
                     klasa: 'bios-dugme-glavni',
                     onEnter: function () {
                         zatvori(true);
                     }
                 },
                 {
-                    tekst: 'Izađi bez čuvanja',
+                    tekst: t('bios.dlg.izadjiBez'),
                     onEnter: function () {
                         zatvori(false);
                     }
                 },
-                { tekst: 'Otkaži' }
+                { tekst: t('bios.dlg.otkazi') }
             ]
         });
     } else {
@@ -29,36 +29,36 @@ function izlazniTok() {
 
 function potvrdaFabrickaIzlaz() {
     prikaziDialog({
-        naslov: 'FABRIČKA PODEŠAVANJA',
-        html: 'Vratiti fabrička podešavanja? (beleške, raspored i predmeti se ČUVAJU)',
-        dugmad: [{ tekst: 'Da', klasa: 'bios-dugme-glavni', onEnter: vratiFabricka }, { tekst: 'Ne' }]
+        naslov: t('bios.dlg.fabricka'),
+        html: t('bios.dlg.fabrickaPitanje'),
+        dugmad: [{ tekst: t('bios.dlg.da'), klasa: 'bios-dugme-glavni', onEnter: vratiFabricka }, { tekst: t('bios.dlg.ne') }]
     });
 }
 
 function potvrdaPodrazumevanoF9() {
     prikaziDialog({
-        naslov: 'PODRAZUMEVANO',
-        html: 'Vratiti podrazumevano podešavanja?',
-        dugmad: [{ tekst: 'Da', klasa: 'bios-dugme-glavni', onEnter: vratiFabricka }, { tekst: 'Ne' }]
+        naslov: t('bios.dlg.podrazumevano'),
+        html: t('bios.dlg.podrazumevanoPitanje'),
+        dugmad: [{ tekst: t('bios.dlg.da'), klasa: 'bios-dugme-glavni', onEnter: vratiFabricka }, { tekst: t('bios.dlg.ne') }]
     });
 }
 
 function vratiFabricka() {
     if (!(window.App && typeof window.App.podrazumevanaPodesavanja === 'function')) {
-        toast('Podrazumevana podešavanja nisu dostupna.', 'greska');
+        toast(t('bios.toast.podrazumevanaNedostupna'), 'greska');
         return;
     }
     var predmeti = radna.subjects;
     try {
         radna = normalizuj(window.App.podrazumevanaPodesavanja());
     } catch (e) {
-        toast('Greška pri vraćanju podešavanja.', 'greska');
+        toast(t('bios.toast.greskaVracanje'), 'greska');
         return;
     }
     radna.subjects = Array.isArray(predmeti) && predmeti.length ? predmeti : [];
     izabraniId = null;
     osveziPrikaz();
-    toast('Fabrička podešavanja vraćena / sačuvajte sa F10.', 'info');
+    toast(t('bios.toast.fabrickaVracena'), 'info');
 }
 
 function panelPredmeta(predmet) {
@@ -86,18 +86,18 @@ function panelPredmeta(predmet) {
         }
         if (pregledUzorak) {
             pregledUzorak.style.background = trenutna;
-            pregledUzorak.textContent = 'BOJA ' + trenutna.toUpperCase();
+            pregledUzorak.textContent = t('bios.panel.bojaUzorak', { hex: trenutna.toUpperCase() });
         }
         if (pregledHex) pregledHex.textContent = trenutna.toUpperCase();
     }
 
     otvoriSidePanel({
-        naslov: nov ? 'DODAJ PREDMET' : 'IZMENA PREDMETA',
+        naslov: nov ? t('bios.panel.dodaj') : t('bios.panel.izmena'),
         fokus: '#spNaziv',
         render: function (sadrzaj, footer) {
             var l1 = document.createElement('label');
             l1.className = 'sp-naslov';
-            l1.textContent = 'NAZIV';
+            l1.textContent = t('bios.panel.naziv');
             sadrzaj.appendChild(l1);
             nazivEl = document.createElement('input');
             nazivEl.type = 'text';
@@ -105,12 +105,12 @@ function panelPredmeta(predmet) {
             nazivEl.id = 'spNaziv';
             nazivEl.maxLength = 60;
             nazivEl.value = p.name;
-            nazivEl.setAttribute('aria-label', 'Naziv predmeta');
+            nazivEl.setAttribute('aria-label', t('mod.nazivPredmeta'));
             sadrzaj.appendChild(nazivEl);
 
             var l2 = document.createElement('label');
             l2.className = 'sp-naslov';
-            l2.textContent = 'NASTAVNIK (OPCIONO)';
+            l2.textContent = t('bios.panel.nastavnik');
             sadrzaj.appendChild(l2);
             nastavnikEl = document.createElement('input');
             nastavnikEl.type = 'text';
@@ -118,12 +118,12 @@ function panelPredmeta(predmet) {
             nastavnikEl.id = 'spNastavnik';
             nastavnikEl.maxLength = 60;
             nastavnikEl.value = p.teacher || '';
-            nastavnikEl.setAttribute('aria-label', 'Nastavnik (opciono)');
+            nastavnikEl.setAttribute('aria-label', t('mod.nastavnik'));
             sadrzaj.appendChild(nastavnikEl);
 
             var sekB = document.createElement('div');
             sekB.className = 'sp-sekcija';
-            sekB.textContent = 'BOJA';
+            sekB.textContent = t('bios.panel.boja');
             sadrzaj.appendChild(sekB);
 
             hsvBirac = napraviHsvBirac(sadrzaj, trenutna, function (hex) {
@@ -169,13 +169,13 @@ function panelPredmeta(predmet) {
 
             var hint = document.createElement('span');
             hint.className = 'bios-side-hint';
-            hint.innerHTML = '<kbd>ESC</kbd> Otkaži &middot; <kbd>ENTER</kbd> Sačuvaj';
+            hint.innerHTML = t('bios.panel.hint');
             footer.appendChild(hint);
 
             var dugmeS = document.createElement('button');
             dugmeS.type = 'button';
             dugmeS.className = 'bios-dugme bios-dugme-glavni';
-            dugmeS.textContent = 'Sačuvaj';
+            dugmeS.textContent = t('mod.sacuvaj');
             dugmeS.addEventListener('click', sacuvaj);
             footer.appendChild(dugmeS);
 
@@ -183,7 +183,7 @@ function panelPredmeta(predmet) {
                 var dugmeB = document.createElement('button');
                 dugmeB.type = 'button';
                 dugmeB.className = 'bios-dugme bios-dugme-opasno';
-                dugmeB.textContent = 'Obriši';
+                dugmeB.textContent = t('mod.obrisi');
                 dugmeB.addEventListener('click', function () {
                     potvrdiBrisanje();
                 });
@@ -198,7 +198,7 @@ function panelPredmeta(predmet) {
         if (sacuvano) return;
         var ime = nazivEl ? String(nazivEl.value || '').trim() : '';
         if (!ime) {
-            toast('Unesite naziv predmeta!', 'greska');
+            toast(t('bios.toast.unesiteNaziv'), 'greska');
             if (nazivEl) nazivEl.focus();
             return;
         }
@@ -211,12 +211,12 @@ function panelPredmeta(predmet) {
                 color: trenutna,
                 teacher: nast
             });
-            toast('Predmet dodat / sačuvajte sa F10.', 'uspeh');
+            toast(t('bios.toast.predmetDodat'), 'uspeh');
         } else {
             predmet.name = ime;
             predmet.color = trenutna;
             predmet.teacher = nast;
-            toast('Predmet izmenjen / sačuvajte sa F10.', 'uspeh');
+            toast(t('bios.toast.predmetIzmenjen'), 'uspeh');
         }
         zatvoriSidePanel();
         osveziPrikaz();
@@ -224,11 +224,11 @@ function panelPredmeta(predmet) {
 
     function potvrdiBrisanje() {
         prikaziDialog({
-            naslov: 'BRISANJE PREDMETA',
-            html: 'Obrisati predmet <b>' + bEsc(p.name) + '</b>? Biće uklonjen iz rasporeda i beleški.',
+            naslov: t('bios.dlg.brisanje'),
+            html: t('bios.dlg.brisanjePitanje', { ime: bEsc(p.name) }),
             dugmad: [
                 {
-                    tekst: 'Da',
+                    tekst: t('bios.dlg.da'),
                     klasa: 'bios-dugme-opasno',
                     onEnter: function () {
                         radna.subjects = radna.subjects.filter(function (s) {
@@ -239,7 +239,7 @@ function panelPredmeta(predmet) {
                         osveziPrikaz();
                     }
                 },
-                { tekst: 'Ne' }
+                { tekst: t('bios.dlg.ne') }
             ]
         });
     }
@@ -249,28 +249,28 @@ function akcijaIzvoz() {
     if (window.App && typeof window.App.izveziPodatke === 'function') {
         try {
             window.App.izveziPodatke();
-        } catch (e) {}
-        toast('Podaci izvezeni!', 'info');
+        } catch (e) { }
+        toast(t('bios.toast.izvezeni'), 'info');
     } else {
-        toast('Izvoz nije dostupan.', 'greska');
+        toast(t('bios.toast.izvozNedostupan'), 'greska');
     }
 }
 
 function akcijaUvoz(spoji) {
     prikaziDialog({
-        naslov: spoji ? 'SPOJI BELEŠKE' : 'UVOZ PODATAKA',
+        naslov: spoji ? t('bios.dlg.spoji') : t('bios.dlg.uvoz'),
         html: spoji
-            ? 'Beleške iz fajla biće spojene sa postojećim. Nastaviti?'
-            : 'Uvoz će ZAMENITI sve postojeće podatke. Nastaviti?',
+            ? t('bios.dlg.spojiPitanje')
+            : t('bios.dlg.uvozPitanje'),
         dugmad: [
             {
-                tekst: 'Da',
+                tekst: t('bios.dlg.da'),
                 klasa: spoji ? 'bios-dugme-glavni' : 'bios-dugme-opasno',
                 onEnter: function () {
                     izadjiIUvezi(spoji);
                 }
             },
-            { tekst: 'Ne' }
+            { tekst: t('bios.dlg.ne') }
         ]
     });
 }
@@ -281,18 +281,18 @@ function izadjiIUvezi(spoji) {
         if (window.App && typeof window.App.uveziPodatke === 'function') {
             try {
                 window.App.uveziPodatke(!!spoji);
-            } catch (e) {}
+            } catch (e) { }
         }
     }, 80);
 }
 
 function akcijaReset() {
     prikaziDialog({
-        naslov: 'RESET SVIH PODATAKA',
-        html: 'Obrisati SVE podatke (podešavanja, raspored, beleške)? Ovo se ne može poništiti!',
+        naslov: t('bios.dlg.reset'),
+        html: t('bios.dlg.resetPitanje'),
         dugmad: [
             {
-                tekst: 'Obriši',
+                tekst: t('mod.obrisi'),
                 klasa: 'bios-dugme-opasno',
                 onEnter: function () {
                     zatvori(false);
@@ -300,12 +300,12 @@ function akcijaReset() {
                         if (window.App && typeof window.App.resetujSve === 'function') {
                             try {
                                 window.App.resetujSve();
-                            } catch (e) {}
+                            } catch (e) { }
                         }
                     }, 80);
                 }
             },
-            { tekst: 'Otkaži' }
+            { tekst: t('bios.dlg.otkazi') }
         ]
     });
 }

@@ -10,12 +10,49 @@ function prebaciTab(tab) {
         sadrzaj.classList.toggle('aktivan', sadrzaj.id === `tab${tab.charAt(0).toUpperCase() + tab.slice(1)}`);
     });
 
-    const mobilniMeni = document.getElementById('mobilniMeni');
-    if (mobilniMeni) mobilniMeni.classList.remove('prikazi');
+    zatvoriMobilniMeni();
 }
 
 function prebaciMobilniMeni() {
-    document.getElementById('mobilniMeni').classList.toggle('prikazi');
+    const meni = document.getElementById('mobilniMeni');
+    if (!meni) return;
+    if (meni.classList.contains('prikazi')) {
+        zatvoriMobilniMeni();
+    } else {
+        otvoriMobilniMeni();
+    }
+}
+
+function otvoriMobilniMeni() {
+    const meni = document.getElementById('mobilniMeni');
+    const prekrivac = document.getElementById('mobilniMeniPrekrivac');
+    const dugme = document.getElementById('dugmeMobilniMeni');
+    if (!meni) return;
+
+    meni.classList.add('prikazi');
+    if (prekrivac) prekrivac.classList.add('prikazi');
+    document.body.classList.add('meni-otvoren');
+    if (dugme) {
+        dugme.setAttribute('aria-expanded', 'true');
+        dugme.setAttribute('aria-label', t('meni.zatvori'));
+    }
+    const prvoDugme = meni.querySelector('.mobilni-nav-dugme');
+    if (prvoDugme) setTimeout(() => { try { prvoDugme.focus(); } catch (e) { } }, 240);
+}
+
+function zatvoriMobilniMeni() {
+    const meni = document.getElementById('mobilniMeni');
+    const prekrivac = document.getElementById('mobilniMeniPrekrivac');
+    const dugme = document.getElementById('dugmeMobilniMeni');
+    if (!meni || !meni.classList.contains('prikazi')) return;
+
+    meni.classList.remove('prikazi');
+    if (prekrivac) prekrivac.classList.remove('prikazi');
+    document.body.classList.remove('meni-otvoren');
+    if (dugme) {
+        dugme.setAttribute('aria-expanded', 'false');
+        dugme.setAttribute('aria-label', t('meni.arialabel'));
+    }
 }
 
 function prikaziObavestenja() {
@@ -29,7 +66,7 @@ function prikaziObavestenja() {
     oznaka.classList.toggle('prikazi', nadolazeci.length > 0);
 
     if (nadolazeci.length === 0) {
-        kontejner.innerHTML = `<p style="text-align:center;color:var(--tekst-sekundarni);padding:18px 10px;font-size:0.8rem;">Nema nadolazećih događaja ${ikonica('iskre', ':)')}</p>`;
+        kontejner.innerHTML = `<p style="text-align:center;color:var(--tekst-sekundarni);padding:18px 10px;font-size:0.8rem;">${esc(t('dropdown.nema'))} ${ikonica('iskre', ':)')}</p>`;
         return;
     }
 
@@ -45,7 +82,7 @@ function prikaziObavestenja() {
                 <div class="dropdown-stavka-meta">
                     <span>${formatirajDatum(kreirajDatumLokalno(beleska.date))}</span>
                     <span class="oznaka ${dana === 0 ? 'oznaka-opasno' : dana <= 3 ? 'oznaka-upozorenje' : 'oznaka-kontura'}">
-                        ${dana === 0 ? 'Danas!' : dana === 1 ? 'Sutra' : `${dana} dana`}
+                        ${esc(tekstDana(dana))}
                     </span>
                 </div>
                 ${predmet ? `<span class="oznaka oznaka-kontura">${esc(predmet.name)}</span>` : ''}
@@ -84,8 +121,8 @@ function prikaziOznakuSmene() {
             const sati = Math.floor(minutaDo / 60);
             const minuti = minutaDo % 60;
             nazivEl.textContent += sati > 0
-                ? ` (popodnevna za ${sati}č ${minuti}min)`
-                : ` (popodnevna za ${minuti}min)`;
+                ? t('status.popodnevnaZa', { sati, minuti })
+                : t('status.popodnevnaZaMin', { minuti });
         }
     } else if (rezim === 'rotacija') {
 
@@ -96,7 +133,7 @@ function prikaziOznakuSmene() {
                 const dan = danPromeneRotacije();
                 if (dan !== 1) danTekst = DANI_ROTACIJE_INSTRUMENTAL[dan - 1] + ' ';
             }
-            nazivEl.textContent += ` (menja se ${danTekst}${formatirajDatum(sledeca)})`;
+            nazivEl.textContent += t('status.menjaSe', { danTekst, datum: formatirajDatum(sledeca) });
         }
     }
 }
@@ -108,20 +145,20 @@ function azurirajStatusTekst() {
     const info = infoTrenutnogCasa();
     if (!info) {
         const jutarnjiPocetak = vremeUMinute(podaciAplikacije.settings.shifts.jutarnja.startTime);
-        el.textContent = trenutnoVremeMinuta() < jutarnjiPocetak ? 'Nastava još nije počela' : 'Nastava je završena';
+        el.textContent = trenutnoVremeMinuta() < jutarnjiPocetak ? t('status.nastavaNije') : t('status.nastavaKraj');
         return;
     }
 
     if (info.isBreak) {
         el.innerHTML = info.isBigBreak
-            ? `${ikonica('kafa', 'BRK')} Veliki odmor`
-            : `${ikonica('rombo', '-')} Mali odmor`;
+            ? `${ikonica('kafa', 'BRK')} ${esc(t('status.velikiOdmor'))}`
+            : `${ikonica('rombo', '-')} ${esc(t('status.maliOdmor'))}`;
         return;
     }
 
     const stavka = info.dayIndex >= 0 ? dobijStavkuRasporeda(info.dayIndex, info.period - 1) : null;
     const predmet = stavka ? dobijPredmet(stavka.subjectId) : null;
-    el.innerHTML = `${ikonica('plej', '>')} ${info.period}. čas${predmet ? ' / ' + esc(predmet.name) : ''} (${info.start}–${info.end})`;
+    el.innerHTML = `${ikonica('plej', '>')} ${esc(t('status.cas', { n: info.period }))}${predmet ? ' / ' + esc(predmet.name) : ''} (${info.start}–${info.end})`;
 }
 
 function pokreniSat() {
@@ -152,7 +189,7 @@ function azurirajPodnozje() {
     if (!el) return;
 
     const st = getStatistike();
-    el.textContent = `${st.predmeta} predmeta • ${st.beleski} beleški • ${st.stavkiRasporeda} časova • ${st.velicinaKB} KB`;
+    el.textContent = t('fud.statistika', { p: st.predmeta, b: st.beleski, c: st.stavkiRasporeda, kb: st.velicinaKB });
 }
 
 function prikaziNazivSkole() {
@@ -166,5 +203,5 @@ function prikaziNazivSkole() {
     document.getElementById('nazivSkoleOstatak').textContent = ostatak;
     h1.setAttribute('data-text', naziv);
     h1.title = naziv;
-    document.getElementById('nazivRazreda').textContent = `Razred: ${podaciAplikacije.settings.className || '/'}`;
+    document.getElementById('nazivRazreda').textContent = t('app.razred') + (podaciAplikacije.settings.className || '/');
 }

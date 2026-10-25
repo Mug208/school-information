@@ -1,13 +1,13 @@
 'use strict';
-const NAZIVI_ROTACIJE = {
+let NAZIVI_ROTACIJE = {
     nedelja: 'svake nedelje',
     mesec: 'svakog meseca',
     polugodiste: 'svakog polugodišta',
     godina: 'svake godine'
 };
 
-const DANI_ROTACIJE = ['Ponedeljak', 'Utorak', 'Sreda', 'Četvrtak', 'Petak', 'Subota', 'Nedelja'];
-const DANI_ROTACIJE_INSTRUMENTAL = ['ponedeljkom', 'utorkom', 'sredom', 'četvrtkom', 'petkom', 'subotom', 'nedeljom'];
+let DANI_ROTACIJE = ['Ponedeljak', 'Utorak', 'Sreda', 'Četvrtak', 'Petak', 'Subota', 'Nedelja'];
+let DANI_ROTACIJE_INSTRUMENTAL = ['ponedeljkom', 'utorkom', 'sredom', 'četvrtkom', 'petkom', 'subotom', 'nedeljom'];
 
 function danPromeneRotacije() {
     const d = parseInt(podaciAplikacije.settings.shiftRotationDay, 10);
@@ -111,7 +111,7 @@ function azurirajAutoSmenu() {
         prikaziMobilniRaspored();
         azurirajPrintZaglavlje();
         azurirajMultiSelectUI();
-        if (s.shiftMode === 'rotacija') prikaziToast(`Smena rotirala na: ${naziv}`, 'info');
+        if (s.shiftMode === 'rotacija') prikaziToast(t('smen.toastRotacija', { naziv: naziv }), 'info');
     }
     prikaziOznakuSmene();
 }

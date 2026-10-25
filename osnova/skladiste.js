@@ -38,6 +38,7 @@ function ucitajPodatke() {
         if (typeof s.animTema !== 'boolean') {
             s.animTema = localStorage.getItem('vt-anim') !== '0';
         }
+        if (s.language !== 'en' && s.language !== 'sr') s.language = 'en';
         if (!s.effects || typeof s.effects !== 'object') {
             s.effects = { ...PODESAVANJA_PODRAZUMEVANA.effects };
         } else {
@@ -89,7 +90,7 @@ function uveziPodatkeIzFajla(fajl, spojiBeleske) {
                     podaciAplikacije.notes = [...podaciAplikacije.notes, ...noveBeleske];
                     sacuvajPodatke();
                     prikaziSve();
-                    prikaziToast(`Spojeno ${noveBeleske.length} novih beleški!`, 'uspeh');
+                    prikaziToast(t('pod.toastSpojeno', { n: noveBeleske.length }), 'uspeh');
                 } else {
                     podaciAplikacije = {
                         settings: { ...JSON.parse(JSON.stringify(PODESAVANJA_PODRAZUMEVANA)), ...uvezeno.settings },
@@ -101,14 +102,15 @@ function uveziPodatkeIzFajla(fajl, spojiBeleske) {
                     sacuvajPodatke();
                     primeniTemu();
                     azurirajAutoTemu(true, true);
+                    if (typeof postaviJezik === 'function') postaviJezik(podaciAplikacije.settings.language, { sacuvaj: false, osvezi: false });
                     prikaziSve();
-                    prikaziToast('Podaci uspešno učitani!', 'uspeh');
+                    prikaziToast(t('pod.toastUcitano'), 'uspeh');
                 }
             } else {
-                prikaziToast('Neispravan format fajla!', 'greska');
+                prikaziToast(t('pod.toastFormat'), 'greska');
             }
         } catch (greska) {
-            prikaziToast('Greška pri čitanju fajla!', 'greska');
+            prikaziToast(t('pod.toastCitanje'), 'greska');
         }
     };
     citac.readAsText(fajl);
@@ -129,6 +131,7 @@ function ucitajPodatkeStrukturu() {
     if (s.codeTheme === undefined) s.codeTheme = false;
     if (s.autoTheme === undefined) s.autoTheme = false;
     if (s.codeLight === undefined) s.codeLight = false;
+    if (s.language !== 'en' && s.language !== 'sr') s.language = 'en';
     if (!/^\d{2}:\d{2}$/.test(String(s.autoThemeDayStart || ''))) s.autoThemeDayStart = '07:00';
     if (!/^\d{2}:\d{2}$/.test(String(s.autoThemeNightStart || ''))) s.autoThemeNightStart = '18:00';
 
@@ -145,8 +148,9 @@ function resetujSvePodatke() {
     };
     sacuvajPodatke();
     primeniTemu();
+    if (typeof postaviJezik === 'function') postaviJezik(podaciAplikacije.settings.language, { sacuvaj: false, osvezi: false });
     prikaziSve();
-    prikaziToast('Svi podaci su resetovani na podrazumevane vrednosti.', 'uspeh');
+    prikaziToast(t('pod.toastReset'), 'uspeh');
 }
 
 function getStatistike() {
@@ -167,6 +171,10 @@ function sacuvajPodesavanja(novi) {
 
         podaciAplikacije.settings = { ...novi };
     ucitajPodatkeStrukturu();
+
+    if (typeof postaviJezik === 'function') {
+        postaviJezik(podaciAplikacije.settings.language, { sacuvaj: false, osvezi: false });
+    }
 
         const idjevi = new Set(podaciAplikacije.settings.subjects.map(s => s.id));
     podaciAplikacije.schedule = podaciAplikacije.schedule.filter(s => idjevi.has(s.subjectId));

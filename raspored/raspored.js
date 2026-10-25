@@ -117,13 +117,9 @@ function formatirajTrajanje(minuta) {
     if (minuta <= 0) return '0min';
     const sati = Math.floor(minuta / 60);
     const minuti = minuta % 60;
-    if (sati > 0 && minuti > 0) return `${sati}č ${minuti}min`;
-    if (sati > 0) return `${sati}č`;
+    if (sati > 0 && minuti > 0) return jeSrpski() ? `${sati}č ${minuti}min` : `${sati}h ${minuti}min`;
+    if (sati > 0) return jeSrpski() ? `${sati}č` : `${sati}h`;
     return `${minuti}min`;
-}
-
-function pluralCasovi(n) {
-    return n === 1 ? 'čas' : (n >= 2 && n <= 4 ? 'časa' : 'časova');
 }
 
 function izaberiKolonuDana(d) {
@@ -221,13 +217,13 @@ function azurirajPretraguPredmeta() {
     if (pogodciEl) {
         let html = '';
         if (pojmovi.length && !pogodci.length) {
-            html = `<span class="pp-prazno">${ikonica('zabrana', '//')} Nema pogodaka / prikazan je ceo raspored</span>`;
+            html += `<span class="pp-prazno">${ikonica('zabrana', '//')} ${esc(t('pp.nemaPogodaka'))}</span>`;
         } else {
             for (const p of pogodci) {
                 const broj = podaciAplikacije.schedule.filter(s => s.subjectId === p.id).length;
                 html += `<button type="button" class="pp-cip" style="--pb:${p.color}"
                     onclick="dodajPredmetUPretragu('${esc(p.name)}')"
-                    title="Dodaj „${esc(p.name)}“ kao pojam (multi-select)">
+                    title="${esc(t('pp.cipTitle', { ime: p.name }))}">
                     <span class="pp-tackica" aria-hidden="true"></span>
                     <span class="pp-ime">${esc(p.name)}</span>
                     ${broj ? `<span class="pp-kolicina">×${broj}</span>` : ''}
@@ -271,18 +267,18 @@ function azurirajPrintZaglavlje() {
     const smena = s.shifts[s.currentShift] || { name: '/' };
     let rotOznaka = '';
     if (s.shiftMode === 'rotacija') {
-        rotOznaka = ` · ROTACIJA: ${NAZIVI_ROTACIJE[s.shiftRotation] || NAZIVI_ROTACIJE.nedelja}`;
+        rotOznaka = ` · ${t('raspored.print.rotacija')}: ${t('rot.' + (s.shiftRotation || 'nedelja'))}`;
         if (s.shiftRotation === 'nedelja' && danPromeneRotacije() !== 1) {
             rotOznaka += ` (${DANI_ROTACIJE_INSTRUMENTAL[danPromeneRotacije() - 1]})`;
         }
     }
     el.innerHTML = `
-        <div class="print-zaglavlje-naslov">${esc(s.schoolName || 'Školska Informacija')} / Raspored časova</div>
+        <div class="print-zaglavlje-naslov">${esc(s.schoolName || 'Školska Informacija')} / ${esc(t('raspored.naslov'))}</div>
         <div class="print-zaglavlje-meta">
-            <span>Razred: <strong>${esc(s.className || '/')}</strong></span>
+            <span>${esc(t('raspored.print.razred'))}<strong>${esc(s.className || '/')}</strong></span>
             <span>${esc(smena.name + rotOznaka)}</span>
-            <span>NEDELJA ${brojNedelje(pon)} · ${d2(pon)} – ${d2(petak)}</span>
-            <span>Odštampano: ${formatirajDatum(new Date())}</span>
+            <span>${esc(t('raspored.print.nedelja', { n: brojNedelje(pon) }))} · ${d2(pon)} – ${d2(petak)}</span>
+            <span>${esc(t('raspored.print.stampano'))}${formatirajDatum(new Date())}</span>
         </div>`;
 }
 
@@ -300,7 +296,7 @@ function prikaziDesktopRaspored() {
 
     let html = '';
 
-            html += '<div class="celija-zaglavlja celija-cas">Čas</div>';
+            html += `<div class="celija-zaglavlja celija-cas">${esc(t('raspored.cas'))}</div>`;
     for (let d = 0; d < 5; d++) {
         const jeDanas = d === indeksDana;
         const izabrana = stanje.izabranaKolona === d;
@@ -309,8 +305,8 @@ function prikaziDesktopRaspored() {
         html += `<button type="button" class="celija-zaglavlja celija-dan${jeDanas ? ' zaglavlje-danas' : ''}${izabrana ? ' zaglavlje-izabrano' : ''}" data-dan="${d}"
             onclick="izaberiKolonuDana(${d})"
             aria-pressed="${izabrana}"
-            title="${izabrana ? 'Skini isticanje' : 'Istakni'} / ${DANI_LAT[d]}">
-            <span class="dan-naziv">${izabrana ? '<span class="strelica-kolone" aria-hidden="true">' + ikonica('strelica_desno', '&gt;') + ' </span>' : ''}${DANI_LAT[d]}${jeDanas ? ' <span class="oznaka-danas">Danas</span>' : ''}</span>
+            title="${esc(t(izabrana ? 'raspored.skiniIsticanje' : 'raspored.istakni'))} / ${esc(DANI_LAT[d])}">
+            <span class="dan-naziv">${izabrana ? '<span class="strelica-kolone" aria-hidden="true">' + ikonica('strelica_desno', '&gt;') + ' </span>' : ''}${esc(DANI_LAT[d])}${jeDanas ? ' <span class="oznaka-danas">' + esc(t('raspored.danas')) + '</span>' : ''}</span>
             ${danDatum ? `<span class="dan-datum" aria-hidden="true">${danDatum}</span>` : ''}
         </button>`;
     }
@@ -353,21 +349,21 @@ function prikaziDesktopRaspored() {
                     style="--pb:${predmet.color}"
                     onclick="${akcijaCelije}"
                     ${msAktivan ? `aria-pressed="${msIzabrana}"` : ''}
-                    aria-label="${msAktivan ? (msIzabrana ? 'Izabrano: ' : 'Izaberi: ') : ''}${esc(predmet.name)}, ${c + 1}. čas, ${DANI_LAT[d]}">
+                    aria-label="${msAktivan ? esc(t(msIzabrana ? 'raspored.ariaIzabrano' : 'raspored.ariaIzaberi')) : ''}${esc(predmet.name)}, ${esc(t('mod.casOpcija', { n: c + 1 }))}, ${esc(DANI_LAT[d])}">
                     ${msAktivan ? '<span class="ms-kucica" aria-hidden="true">' + ikonica('cek', 'v') + '</span>' : ''}
                     <span class="predmet-red-naziv">
                         <span class="predmet-tackica" aria-hidden="true"></span>
                         <span class="naziv-predmeta">${esc(predmet.name)}</span>
                     </span>
                     ${stavka.room ? `<span class="kabinet">${ikonica('lokacija', '@')} ${esc(stavka.room)}</span>` : ''}
-                    ${jeTrenutnaCelija ? '<span class="oznaka-uzivo">' + ikonica('tacka', '!') + ' UŽIVO</span>' : ''}
+                    ${jeTrenutnaCelija ? '<span class="oznaka-uzivo">' + ikonica('tacka', '!') + ' ' + esc(t('raspored.uzivo')) + '</span>' : ''}
                     ${indikatori}
                 </button>`;
             } else {
                 html += `<button type="button" class="${klase}" data-dan="${d}"
                     onclick="${akcijaCelije}"
                     ${msAktivan ? `aria-pressed="${msIzabrana}"` : ''}
-                    aria-label="${msAktivan ? (msIzabrana ? 'Izabran prazan čas' : 'Izaberi prazan čas') : 'Dodaj'} ${c + 1}. čas, ${DANI_LAT[d]}">${msAktivan ? '<span class="ms-kucica" aria-hidden="true">' + ikonica('cek', 'v') + '</span>' : ''}${msAktivan ? '' : '+'}</button>`;
+                    aria-label="${msAktivan ? esc(t(msIzabrana ? 'raspored.ariaPrazanIzabran' : 'raspored.ariaPrazanIzaberi')) : esc(t('raspored.ariaDodaj'))} ${esc(t('mod.casOpcija', { n: c + 1 }))}, ${esc(DANI_LAT[d])}">${msAktivan ? '<span class="ms-kucica" aria-hidden="true">' + ikonica('cek', 'v') + '</span>' : ''}${msAktivan ? '' : '+'}</button>`;
             }
         }
 
@@ -376,8 +372,8 @@ function prikaziDesktopRaspored() {
             const jeOdmorSada = jeTrenutniOdmorVeliki() && infoTrenutnogCasa() && infoTrenutnogCasa().period === c + 1;
             html += `<div class="red-pauze velika-pauza ${jeOdmorSada ? 'trenutni-odmor' : ''}">
                 <span class="ikona-odmora">${ikonica('kafa', '[BRK]')}</span>
-                VELIKI ODMOR (${velikiOdmor.start} – ${velikiOdmor.end})
-                ${jeOdmorSada ? '<span class="oznaka-uzivo">' + ikonica('tacka', '!') + ' UŽIVO</span>' : ''}
+                ${esc(t('raspored.velikiOdmor', { pocetak: velikiOdmor.start, kraj: velikiOdmor.end }))}
+                ${jeOdmorSada ? '<span class="oznaka-uzivo">' + ikonica('tacka', '!') + ' ' + esc(t('raspored.uzivo')) + '</span>' : ''}
             </div>`;
         }
     }
@@ -399,7 +395,7 @@ function prikaziMobilniRaspored() {
     const indeksDana = (danas === 0 || danas === 6) ? -1 : danas - 1;
     const jeDanas = dan === indeksDana;
 
-    document.getElementById('naslovMobilniDan').textContent = DANI_LAT[dan] + (jeDanas ? ' (Danas)' : '');
+    document.getElementById('naslovMobilniDan').textContent = DANI_LAT[dan] + (jeDanas ? t('raspored.danasSufiks') : '');
     document.getElementById('selektorDana').value = String(dan);
 
         const datumEl = document.getElementById('mobilniDanDatum');
@@ -449,7 +445,7 @@ function prikaziMobilniRaspored() {
                     ${stavka.room ? `<span class="kabinet">${ikonica('lokacija', '@')} ${esc(stavka.room)}</span>` : ''}
                     ${indikatori}
                 </span>
-                ${msAktivan ? '' : (jeTrenutni ? '<span class="oznaka-uzivo-mobilni">' + ikonica('tacka', '!') + ' UŽIVO</span>' : `<span class="stavka-rasporeda-izmeni">${ikonica('olovka', '&gt;')}</span>`)}
+                ${msAktivan ? '' : (jeTrenutni ? '<span class="oznaka-uzivo-mobilni">' + ikonica('tacka', '!') + ' ' + esc(t('raspored.uzivo')) + '</span>' : `<span class="stavka-rasporeda-izmeni">${ikonica('olovka', '&gt;')}</span>`)}
             </button>`;
         } else {
             html += `<button type="button" class="${klase}"
@@ -461,7 +457,7 @@ function prikaziMobilniRaspored() {
                     <span class="vreme">${vremeCasa ? vremeCasa.start : ''}</span>
                 </span>
                 <span class="stavka-rasporeda-sadrzaj">
-                    <span class="naziv-predmeta" style="color:var(--tekst-muted)">Prazan čas</span>
+                    <span class="naziv-predmeta" style="color:var(--tekst-muted)">${esc(t('raspored.prazanCas'))}</span>
                 </span>
                 ${msAktivan ? '' : '<span class="stavka-rasporeda-izmeni">+</span>'}
             </button>`;
@@ -472,8 +468,8 @@ function prikaziMobilniRaspored() {
             const jeOdmorSada = jeDanas && jeTrenutniOdmorVeliki() && infoTrenutnogCasa() && infoTrenutnogCasa().period === c + 1;
             html += `<div class="red-pauze velika-pauza ${jeOdmorSada ? 'trenutni-odmor' : ''}">
                 <span class="ikona-odmora">${ikonica('kafa', '[BRK]')}</span>
-                VELIKI ODMOR (${velikiOdmor.start} – ${velikiOdmor.end})
-                ${jeOdmorSada ? '<span class="oznaka-uzivo">' + ikonica('tacka', '!') + ' UŽIVO</span>' : ''}
+                ${esc(t('raspored.velikiOdmor', { pocetak: velikiOdmor.start, kraj: velikiOdmor.end }))}
+                ${jeOdmorSada ? '<span class="oznaka-uzivo">' + ikonica('tacka', '!') + ' ' + esc(t('raspored.uzivo')) + '</span>' : ''}
             </div>`;
         }
     }
@@ -495,7 +491,7 @@ function preklopiMultiSelect(ukljuci) {
     prikaziDesktopRaspored();
     prikaziMobilniRaspored();
     if (stanje.multiSelect) {
-        prikaziToast('Višestruki izbor: kliknite na časove koje menjate.\nIzlaz: ESC ili X na traci.', 'info');
+        prikaziToast(t('ms.toast'), 'info');
     }
 }
 
@@ -539,7 +535,7 @@ function azurirajMultiSelectUI() {
     document.querySelectorAll('#dugmeMultiSelect, .dugmeMultiSelectMobilni').forEach(d => {
         d.classList.toggle('aktivan', aktivan);
         d.setAttribute('aria-pressed', String(aktivan));
-        d.title = aktivan ? 'Izađi iz višestrukog izbora (M)' : 'Višestruki izbor časova (M)';
+        d.title = t(aktivan ? 'ms.zatvoriTitle' : 'ms.izmeniTitle');
     });
 
     const bar = document.getElementById('multiSelectBar');
@@ -550,14 +546,14 @@ function azurirajMultiSelectUI() {
     if (brojEl) brojEl.textContent = broj;
     const smenaEl = document.getElementById('msSmena');
     if (smenaEl) {
-        smenaEl.textContent = (podaciAplikacije.settings.currentShift === 'popodnevna' ? 'POPODNEVNA' : 'JUTARNJA') + ' SMENA';
+        smenaEl.textContent = t(podaciAplikacije.settings.currentShift === 'popodnevna' ? 'ms.smenaPopodnevna' : 'ms.smenaJutarnja');
     }
     ['msIzmeni', 'msObrisi'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.disabled = broj === 0;
     });
     const dugmeSacuvaj = document.getElementById('dugmeSacuvajGrupnu');
-    if (dugmeSacuvaj) dugmeSacuvaj.textContent = broj > 0 ? `Primeni na ${broj} ${pluralCasovi(broj)}` : 'Primeni izmene';
+    if (dugmeSacuvaj) dugmeSacuvaj.textContent = broj > 0 ? t('ms.primeniNa', { n: broj, plural: pluralCasovi(broj) }) : t('ms.primeni');
 }
 
 function obrisiIzabraneSlotove() {
@@ -565,7 +561,7 @@ function obrisiIzabraneSlotove() {
     const n = stanje.izabraniSlotovi.size;
     if (!n) return;
 
-    prikaziPotvrdu(`Da li ste sigurni da želite da obrišete izabrane časove (${n})?`, (potvrdjeno) => {
+    prikaziPotvrdu(t('ms.potvrdaBrisanje', { n }), (potvrdjeno) => {
         if (!potvrdjeno) return;
         let obrisano = 0;
         podaciAplikacije.schedule = podaciAplikacije.schedule.filter(s => {
@@ -580,6 +576,6 @@ function obrisiIzabraneSlotove() {
         prikaziMobilniRaspored();
         azurirajPrintZaglavlje();
         azurirajPodnozje();
-        prikaziToast(`Obrisano ${obrisano} ${pluralCasovi(obrisano)}!`, 'uspeh');
+        prikaziToast(t('ms.obrisano', { n: obrisano, plural: pluralCasovi(obrisano) }), 'uspeh');
     });
 }

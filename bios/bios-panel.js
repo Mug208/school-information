@@ -7,17 +7,17 @@ function panelBoje(red) {
 
     var preseti = gx
         ? codeBojeLista().map(function (b) {
-              return { naziv: b.naziv, hex: bezbednaBojaGx(b.hex) };
+              return { naziv: t('boja.' + b.id), hex: bezbednaBojaGx(b.hex) };
           })
         : [
-              { naziv: 'Crvena', hex: '#ef4444' },
-              { naziv: 'Narandž.', hex: '#f59e0b' },
-              { naziv: 'Žuta', hex: '#eab308' },
-              { naziv: 'Zelena', hex: '#22c55e' },
-              { naziv: 'Tirkizna', hex: '#0d9488' },
-              { naziv: 'Plava', hex: '#3b82f6' },
-              { naziv: 'Ljubič.', hex: '#8b5cf6' },
-              { naziv: 'Roze', hex: '#ec4899' }
+              { naziv: t('boja.crvena'), hex: '#ef4444' },
+              { naziv: t('boja.narandzasta'), hex: '#f59e0b' },
+              { naziv: t('boja.zuta'), hex: '#eab308' },
+              { naziv: t('boja.zelena'), hex: '#22c55e' },
+              { naziv: t('boja.tirkiz'), hex: '#0d9488' },
+              { naziv: t('boja.plava'), hex: '#3b82f6' },
+              { naziv: t('boja.ljubicasta'), hex: '#8b5cf6' },
+              { naziv: t('boja.roze'), hex: '#ec4899' }
           ];
 
     var mreza,
@@ -43,13 +43,13 @@ function panelBoje(red) {
         }
         if (pregledUzorak) {
             pregledUzorak.style.background = trenutna;
-            pregledUzorak.textContent = 'PRIMENA ' + trenutna.toUpperCase();
+            pregledUzorak.textContent = t('bios.panel.bojaUzorak', { hex: trenutna.toUpperCase() });
         }
         if (pregledHex) pregledHex.textContent = trenutna.toUpperCase();
     }
 
     otvoriSidePanel({
-        naslov: gx ? 'BOJA FOSFORA / IZGLED TEME' : 'BOJA AKCENTA',
+        naslov: gx ? t('bios.ef.sekcijaGx') : t('bios.ef.akcenat'),
         fokus: '.gxb-sv',
         render: function (sadrzaj, footer) {
             hsvBirac = napraviHsvBirac(sadrzaj, trenutna, function (hex) {
@@ -59,7 +59,7 @@ function panelBoje(red) {
 
             var sekP = document.createElement('div');
             sekP.className = 'sp-sekcija';
-            sekP.textContent = 'PRESETI';
+            sekP.textContent = t('bios.ef.presets').toUpperCase();
             sadrzaj.appendChild(sekP);
 
             mreza = document.createElement('div');
@@ -97,19 +97,19 @@ function panelBoje(red) {
             napomena.className = 'bios-dialog-napomena';
             napomena.textContent = gx
                 ? radna && radna.codeTheme
-                    ? 'Promena boje se VIDI ODMAH na temi iza BIOS-a (F10 čuva).'
-                    : 'Boja/efekti se vide po uključenju code teme (F10 čuva).'
-                : 'Boja akcenta se primenjuje na temu čuvanjem (F10).';
+                    ? t('bios.panel.napomenaAktivno')
+                    : t('bios.panel.napomenaNeaktivno')
+                : t('bios.panel.napomenaAkcenat');
             sadrzaj.appendChild(napomena);
 
             var hint = document.createElement('span');
             hint.className = 'bios-side-hint';
-            hint.innerHTML = '<kbd>ESC</kbd> Nazad &middot; promene odmah';
+            hint.innerHTML = t('bios.panel.hintBoja');
             footer.appendChild(hint);
             var dugmeZ = document.createElement('button');
             dugmeZ.type = 'button';
             dugmeZ.className = 'bios-dugme bios-dugme-glavni';
-            dugmeZ.textContent = 'Zatvori';
+            dugmeZ.textContent = t('mod.zatvori');
             dugmeZ.addEventListener('click', zatvoriSidePanel);
             footer.appendChild(dugmeZ);
 
@@ -227,28 +227,16 @@ function rukujDijalogTaster(dog, izUnosa) {
 
 function dialogOdbijen() {
     prikaziDialog({
-        naslov: 'PRISTUP ODBIJEN',
-        html: 'CODE modul je zaključan.<br>Pronađite tajni kod...<br><span class="bios-dialog-napomena">(napomena: pokušajte nešto otkucati)</span>',
-        dugmad: [{ tekst: 'RAZUMEM', klasa: 'bios-dugme-glavni' }]
+        naslov: t('bios.dlg.odbijen'),
+        html: t('bios.dlg.odbijenHtml'),
+        dugmad: [{ tekst: t('bios.dlg.razumem'), klasa: 'bios-dugme-glavni' }]
     });
 }
 
 function pomocDijalog() {
     prikaziDialog({
-        naslov: 'POMOĆ',
-        html:
-            '<ul class="bios-pomoc">' +
-            '<li><kbd>↑</kbd><kbd>↓</kbd> izbor stavke</li>' +
-            '<li><kbd>←</kbd><kbd>→</kbd> promena kategorije</li>' +
-            '<li><kbd>+</kbd><kbd>−</kbd> promena vrednosti</li>' +
-            '<li><kbd>Enter</kbd> izmeni / potvrdi stavku</li>' +
-            '<li><kbd>Home</kbd><kbd>End</kbd> prva / poslednja kategorija</li>' +
-            '<li><kbd>Tab</kbd> sledeća kategorija</li>' +
-            '<li><kbd>F1</kbd> pomoć</li>' +
-            '<li><kbd>F9</kbd> podrazumevana podešavanja</li>' +
-            '<li><kbd>F10</kbd> sačuvaj i izađi</li>' +
-            '<li><kbd>ESC</kbd> izlaz</li>' +
-            '</ul>',
-        dugmad: [{ tekst: 'Zatvori', klasa: 'bios-dugme-glavni' }]
+        naslov: t('bios.dlg.pomoc'),
+        html: t('bios.pomoc.html'),
+        dugmad: [{ tekst: t('mod.zatvori'), klasa: 'bios-dugme-glavni' }]
     });
 }

@@ -9,11 +9,47 @@ function initDogadjaji() {
     document.getElementById('dugmeMobilniMeni').addEventListener('click', prebaciMobilniMeni);
     document.getElementById('dugmeTema').addEventListener('click', promeniTemu);
 
+    const meniPrekrivac = document.getElementById('mobilniMeniPrekrivac');
+    if (meniPrekrivac) meniPrekrivac.addEventListener('click', zatvoriMobilniMeni);
+    const meniZatvori = document.getElementById('dugmeZatvoriMeni');
+    if (meniZatvori) meniZatvori.addEventListener('click', zatvoriMobilniMeni);
+
+    const meniKomandeDugme = document.getElementById('meniKomande');
+    if (meniKomandeDugme) meniKomandeDugme.addEventListener('click', () => { zatvoriMobilniMeni(); kpPreklopi(); });
+    const meniTemaDugme = document.getElementById('meniTema');
+    if (meniTemaDugme) meniTemaDugme.addEventListener('click', promeniTemu);
+    const meniBiosDugme = document.getElementById('meniBios');
+    if (meniBiosDugme) meniBiosDugme.addEventListener('click', () => {
+        zatvoriMobilniMeni();
+        if (window.BIOS && typeof window.BIOS.otvori === 'function') {
+            window.BIOS.otvori();
+        } else {
+            prikaziToast(t('dog.biosNedostupan'), 'greska');
+        }
+    });
+
+    const meniTastatura = document.getElementById('mobilniMeni');
+    if (meniTastatura) {
+        meniTastatura.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                e.preventDefault();
+                e.stopPropagation();
+                zatvoriMobilniMeni();
+                const d = document.getElementById('dugmeMobilniMeni');
+                if (d) d.focus();
+            }
+        });
+    }
+
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) zatvoriMobilniMeni();
+    });
+
         document.getElementById('dugmePodesavanja').addEventListener('click', () => {
         if (window.BIOS && typeof window.BIOS.otvori === 'function') {
             window.BIOS.otvori();
         } else {
-            prikaziToast('BIOS modul nije dostupan.', 'greska');
+            prikaziToast(t('dog.biosNedostupan'), 'greska');
         }
     });
 
@@ -96,7 +132,7 @@ function initDogadjaji() {
     document.getElementById('dugmeOtkaziRaspored').addEventListener('click', zatvoriModalRaspored);
     document.getElementById('dugmeSacuvajRaspored').addEventListener('click', sacuvajRaspored);
     document.getElementById('dugmeObrisiRaspored').addEventListener('click', () => {
-        prikaziPotvrdu('Da li ste sigurni da želite da obrišete ovaj čas?', (potvrdjeno) => {
+        prikaziPotvrdu(t('mod.potvrdaObrisiCas'), (potvrdjeno) => {
             if (!potvrdjeno) return;
             obrisiStavkuRasporeda();
         });
@@ -156,14 +192,14 @@ function initDogadjaji() {
     document.getElementById('dugmeOtkaziBelesku').addEventListener('click', zatvoriModalBeleska);
     document.getElementById('dugmeSacuvajBelesku').addEventListener('click', sacuvajBelesku);
     document.getElementById('dugmeObrisiBelesku').addEventListener('click', () => {
-        prikaziPotvrdu('Da li ste sigurni da želite da obrišete ovu belešku?', (potvrdjeno) => {
+        prikaziPotvrdu(t('bel.potvrdaBrisanje'), (potvrdjeno) => {
             if (!potvrdjeno) return;
             if (stanje.editingNote && stanje.editingNote.id) {
                 const id = stanje.editingNote.id;
                 podaciAplikacije.notes = podaciAplikacije.notes.filter(n => n.id !== id);
                 sacuvajPodatke();
                 azurirajPrikazeBeleski();
-                prikaziToast('Beleška obrisana.', 'uspeh');
+                prikaziToast(t('bel.toastObrisana'), 'uspeh');
             }
             zatvoriModalBeleska();
         });
@@ -197,7 +233,7 @@ function initDogadjaji() {
         const dugme = document.querySelector(sel);
         if (dugme) {
             dugme.addEventListener('click', () => {
-                prikaziToast('Priprema za štampu… (cela nedelja)', 'info');
+                prikaziToast(t('kp.stampajToast'), 'info');
                 setTimeout(() => window.print(), 150);
             });
         }
@@ -245,8 +281,10 @@ function initDogadjaji() {
         if (!e.target.closest('.obavestenje-wrapper')) {
             zatvoriObavestenja();
         }
-        if (!e.target.closest('#mobilniMeni') && !e.target.closest('#dugmeMobilniMeni')) {
-            document.getElementById('mobilniMeni').classList.remove('prikazi');
+        const meniEl = document.getElementById('mobilniMeni');
+        if (meniEl && meniEl.classList.contains('prikazi') &&
+            !e.target.closest('#mobilniMeni') && !e.target.closest('#dugmeMobilniMeni')) {
+            zatvoriMobilniMeni();
         }
     });
 
@@ -362,6 +400,9 @@ function initDogadjaji() {
 
 document.addEventListener('DOMContentLoaded', () => {
     ucitajPodatke();
+    if (typeof postaviJezik === 'function') {
+        postaviJezik(podaciAplikacije.settings.language, { sacuvaj: false, osvezi: false });
+    }
     prikaziSve();
     initDogadjaji();
     pokreniSat();

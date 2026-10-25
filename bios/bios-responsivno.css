@@ -20,7 +20,6 @@
         display: none;
     }
 
-
     .bios-nav {
         flex-wrap: nowrap;
         overflow-x: auto;
@@ -38,7 +37,6 @@
         flex-direction: column;
         gap: 10px;
     }
-
 
     .bios-side {
         order: -1;
@@ -61,7 +59,6 @@
         height: 36px;
     }
 
-
     .gxb-sv {
         height: 120px;
     }
@@ -74,7 +71,6 @@
     .gxb-hue {
         height: 20px;
     }
-
 
     .sp-boje,
     .sp-pregled {
@@ -92,7 +88,6 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
-
 
     .bios-red[data-id="ef_gx_presets"] .bios-red-vrednost {
         max-width: 52vw;
@@ -114,13 +109,16 @@
         font-size: 14px;
     }
 
-
     .bios-footer > span:not(.bios-footer-mobilno) {
         display: none;
     }
 
     .bios-footer-mobilno {
         display: block;
+    }
+
+    .bios-side-hint {
+        display: none;
     }
 }
 
@@ -171,8 +169,6 @@
         flex: 1;
     }
 }
-
-
 
 @media (prefers-reduced-motion: reduce) {
     .bios-boot-red,

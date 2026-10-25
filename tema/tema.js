@@ -38,7 +38,7 @@ function azurirajAutoTemu(tiho, forsirano) {
             sacuvajPodatke();
             primeniTemu();
             if (!tiho) {
-                prikaziToast(svetla ? 'CODE tema: svetla varijanta (dnevni period)' : 'CODE tema: tamna varijanta (noćni period)', 'info');
+                prikaziToast(svetla ? t('tema.codeSvetla') : t('tema.codeTamna'), 'info');
             }
         }
         return;
@@ -49,7 +49,7 @@ function azurirajAutoTemu(tiho, forsirano) {
         sacuvajPodatke();
         primeniTemu();
         if (!tiho) {
-            prikaziToast(period === 'light' ? 'Automatska tema: svetla' : 'Automatska tema: tamna', 'info');
+            prikaziToast(period === 'light' ? t('tema.autoSvetla') : t('tema.autoTamna'), 'info');
         }
     }
 }
@@ -103,7 +103,7 @@ function aktivirajCodeTemu() {
             } catch (e) {  }
         }
 
-        prikaziToast('CODE TEMA AKTIVIRANA\nPrečica za ulaz i izlaz: codes\nBoja teme: BIOS → Efekti → „Boja teme"', 'uspeh');
+        prikaziToast(t('tema.codeAktivirana'), 'uspeh');
 
         prikaziEfektiUvod(2600);
         return;
@@ -113,7 +113,7 @@ function aktivirajCodeTemu() {
     if (s.codeTheme && s.autoTheme) s.codeLight = temaPeriodTekuci() === 'light';
     sacuvajPodatke();
     primeniTemu();
-    prikaziToast(s.codeTheme ? 'CODE tema uključena' : 'CODE tema isključena', 'uspeh');
+    prikaziToast(s.codeTheme ? t('tema.codeUkljucena') : t('tema.codeIskljucena'), 'uspeh');
 
     if (s.codeTheme && !s.efektiNapomena) {
         s.efektiNapomena = true;
@@ -138,6 +138,7 @@ const code_BOJE = [
     { id: 'magenta', naziv: 'Magenta', hex: '#e879f9' },
     { id: 'bela',    naziv: 'Bela',    hex: '#e8f4ec' }
 ];
+/* naziv je rezerva; prikaz se prevodi preko t('boja.' + id) u BIOS-u */
 const code_BOJA_PODRAZUMEVANA = '#00ff9c';
 
 const code_VARIJABLE = [
@@ -472,7 +473,6 @@ function codeRezimOznaka() {
 function promeniCodeRezim() {
     const s = podaciAplikacije.settings;
     const sledeci = { D: 'S', S: 'A', A: 'D' }[codeRezimOznaka()];
-    const nazivi = { D: 'tamna', S: 'svetla', A: 'automatska' };
 
     s.autoTheme = sledeci === 'A';
     if (sledeci === 'A') {
@@ -482,7 +482,7 @@ function promeniCodeRezim() {
     }
     sacuvajPodatke();
     primeniTemu();
-    prikaziToast('CODE tema [' + sledeci + ']: ' + nazivi[sledeci] + ' varijanta', 'info');
+    prikaziToast(t('tema.codeVarijanta', { oznaka: sledeci, naziv: t(sledeci === 'D' ? 'tema.nazivTamna' : sledeci === 'S' ? 'tema.nazivSvetla' : 'tema.nazivAuto') }), 'info');
 }
 
 function promeniTemu() {
@@ -496,7 +496,7 @@ function promeniTemu() {
     if (s.autoTheme) {
         s.autoTheme = false;
         sacuvajPodatke();
-        prikaziToast('Automatska tema isključena', 'info');
+        prikaziToast(t('tema.autoIskljucena'), 'info');
     }
 
     s.theme = s.theme === 'dark' ? 'light' : 'dark';
@@ -560,8 +560,7 @@ function primeniTemu() {
         const dugmeTema = document.getElementById('dugmeTema');
         if (dugmeTema) {
             if (jecode) {
-                const nazivi = { D: 'tamna', S: 'svetla', A: 'automatska' };
-                dugmeTema.title = 'CODE varijanta: ' + nazivi[codeRezimOznaka()] + ' (T za promenu)';
+                dugmeTema.title = t('tema.codeTitle', { naziv: t(codeRezimOznaka() === 'D' ? 'tema.nazivTamna' : codeRezimOznaka() === 'S' ? 'tema.nazivSvetla' : 'tema.nazivAuto') });
             } else {
                 dugmeTema.removeAttribute('title');
             }

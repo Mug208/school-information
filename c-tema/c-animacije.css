@@ -62,7 +62,6 @@ body.code-tema .raspored-kontejner::after {
     border-right: 2px solid var(--primarna);
 }
 
-
 body.code-tema .kartica-zaglavlje {
     border-bottom: 1px solid var(--ivica-svetla);
 }
@@ -80,7 +79,6 @@ body.code-tema .kalendar-naslov {
     text-transform: uppercase;
 }
 
-
 body.code-tema .kartica-zaglavlje h3::before,
 body.code-tema .raspored-zaglavlje h2::before,
 body.code-tema .beleske-zaglavlje h2::before {
@@ -96,7 +94,6 @@ body.code-tema .raspored-zaglavlje p {
     letter-spacing: 0.04em;
 }
 
-
 body.code-tema #appKoren.code-prasak {
     animation: code-prasak-anim var(--prasak-trajanje, 380ms) steps(4, end) both;
 }
@@ -109,7 +106,6 @@ body.code-tema #appKoren.code-prasak {
     100% { transform: translate(0, 0) skewX(0deg); }
 }
 
-
 body.code-tema .code-pucket {
     animation: pucket-anim var(--pucket-trajanje, 300ms) steps(2, end) both;
 }
@@ -121,7 +117,6 @@ body.code-tema .code-pucket {
     70%  { text-shadow: 1px 0 #ff3860, -1px 0 #00fff0; transform: translate(1px, 0); }
     100% { text-shadow: none; transform: translate(0, 0); }
 }
-
 
 body.code-tema #appKoren.code-static::before {
     content: '';
@@ -142,7 +137,6 @@ body.code-tema #appKoren.code-static::before {
     100% { opacity: 0.22; background-position: 50px -30px; }
 }
 
-
 body.code-tema #appKoren.code-slice {
     animation: code-slice-anim var(--slice-trajanje, 420ms) steps(1, end) both;
 }
@@ -156,7 +150,6 @@ body.code-tema #appKoren.code-slice {
     88%  { clip-path: inset(32% 0 47% 0); transform: translateX(4px); }
     100% { clip-path: inset(0 0 0 0); transform: translateX(0); }
 }
-
 
 body.code-tema #appKoren.invert-flash {
     filter: invert(1) hue-rotate(180deg);

@@ -1,5 +1,5 @@
 'use strict';
-    function pokreniSveTajmere() {
+    function pokreniSveTajmere() {
         planirajPrasak();
         planirajInverziju();
         planirajKorupciju();
@@ -33,7 +33,7 @@
         }
     }
 
-    function primeniAtribute() {
+    function primeniAtribute() {
         var telo = document.body;
         if (!telo) return;
         var e = efikasneVrednosti();
@@ -50,7 +50,7 @@
         }
     }
 
-    function primeni(podesavanja) {
+    function primeni(podesavanja) {
         try {
             if (podesavanja && typeof podesavanja === 'object') {
                 if (typeof podesavanja.omogucen !== 'undefined') {
@@ -89,13 +89,13 @@
         }
     }
 
-    function podesaviSlusace() {
+    function podesaviSlusace() {
 
         window.addEventListener('resize', function () {
             zakazi('resize', function () { podesaviPlatno(); }, 150);
         });
 
-        document.addEventListener('visibilitychange', function () {
+        document.addEventListener('visibilitychange', function () {
             if (document.hidden) {
                 ocistiSve();
                 ukloniKlasePraska();
@@ -107,7 +107,7 @@
             }
         });
 
-        if (medijaSmanjeno) {
+        if (medijaSmanjeno) {
             var promena = function () { primeni(); };
             if (typeof medijaSmanjeno.addEventListener === 'function') {
                 medijaSmanjeno.addEventListener('change', promena);
@@ -127,7 +127,7 @@
             if (platno) podesaviPlatno();
             podesaviSlusace();
 
-            if (document.body && !document.body.hasAttribute('data-code-intenzitet')) {
+            if (document.body && !document.body.hasAttribute('data-code-intenzitet')) {
                 primeniAtribute();
             }
         } catch (e) {
@@ -135,7 +135,7 @@
         }
     }
 
-    window.codeEngine = {
+    window.codeEngine = {
         init: cInit,
         primeni: primeni,
         pokreni: pokreni,
@@ -146,7 +146,7 @@
         aktivan: function () { return !!cfg.omogucen; }
     };
 
-    if (document.readyState === 'loading') {
+    if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', cInit);
     } else {
         cInit();
