@@ -2,7 +2,7 @@
 
 Školski Informacija je potpuno samostalan Informacioni sistem namenjeno za učenike(poput mene): raspored časova, kalendar sa događajima i beleške, sve u jednom preglednom interfejsu. Aplikacija radi u bilo kom modernom pregledaču, ne zahteva instalaciju, server ni bazu podataka, a svi podaci ostaju lokalno na vašem računaru.
 
-Projekat je napisan samo u HTML, CSS i JavaScriptu, bez ikakvih frameworka, bundlera ili npm zavisnosti. Dovoljno je otvoriti `index.html` ili preko linka "https://mug208.github.io/skolski-sistem/".
+Projekat je napisan samo u HTML, CSS i JavaScriptu, bez ikakvih frameworka, bundlera ili npm zavisnosti. Dovoljno je otvoriti `index.html` ili preko linka "https://mug208.github.io/school-information/".
 
 ## Novo u verziji 2.03
 
@@ -100,7 +100,7 @@ Projekat je napisan samo u HTML, CSS i JavaScriptu, bez ikakvih frameworka, bund
 
 Ne postoji proces instalacije ni build korak.
 
-Može pokrenuti preko linka "https://mug208.github.io/skolski-sistem/" ili preko fajlova:
+Može pokrenuti preko linka "https://mug208.github.io/school-information/" ili preko fajlova:
 
 1. Preuzmite .zip fajla celog ove web aplikacije.
 2. Raspakujte i otvorite folder "skolski-sistem V2.01"
