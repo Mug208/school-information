@@ -1,3 +1,4 @@
+// Sakrivene kockice C O D E S koje otkljucavaju CODE temu.
 'use strict';
 (function () {
     const KLJUC = 'skolski-info-kocke';
@@ -6,6 +7,7 @@
     const ZNAKOVI = '01#$%&@<>/|';
     const POLOVINA = 7;
 
+    // ===== DEFINICIJE POZICIJA =====
     const DEFINICIJE = {
         raspored: {
             ekviv: true,
@@ -53,6 +55,7 @@
         }
     };
 
+    // ===== STANJE I POMOCNE FUNKCIJE =====
     let sacuvano = null;
     let trenutna = null;
     let trenutnoSlovo = '';
@@ -78,6 +81,7 @@
         return kopija;
     }
 
+    // ===== PLAN KOCKICA =====
     function napraviPlan() {
         const redosled = promesaj(KATEGORIJE);
         return SLOVA.map(function (slovo, i) {
@@ -155,6 +159,7 @@
         return lista.find(upotrebljiv) || null;
     }
 
+    // ===== PRIKAZ KOCKICE =====
     function ukloni() {
         if (trenutna) {
             trenutna.remove();
@@ -216,6 +221,7 @@
         if (typeof prikaziToast === 'function') prikaziToast('> ' + tekst, 'info');
     }
 
+    // ===== EFEKAT POGOTKA =====
     function napraviSloj(cx, cy) {
         const sloj = document.createElement('div');
         sloj.className = 'kk-fx';
@@ -274,6 +280,7 @@
         setTimeout(kraj, 560);
     }
 
+    // ===== NALAZENJE =====
     function pronadjena(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -298,6 +305,7 @@
         });
     }
 
+    // ===== POKRETANJE I JAVNI API =====
     function pokreni() {
         ucitajStanje();
         osvezi();

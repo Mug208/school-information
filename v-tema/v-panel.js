@@ -1,3 +1,4 @@
+// VirusTema: panel za izbor teme i efekata.
 'use strict';
     var IMENA_EFEKATA = [
         ['scanlines', 'Sken linije (CRT)'],
@@ -7,6 +8,7 @@
         ['corruption', 'Korupcija teksta']
     ];
 
+    // ===== PODESAVANJA =====
     function podesavanjaAplikacije() {
         try {
             if (window.App && typeof window.App.getPodesavanja === 'function') {
@@ -16,6 +18,7 @@
         return {};
     }
 
+    // ===== PANEL EFEKATA =====
     function efektiPanel() {
         if (document.getElementById('vt-efekti-sloj')) return;
 

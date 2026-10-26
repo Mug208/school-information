@@ -1,3 +1,4 @@
+/* CODE varijanta podnozja. */
 body.code-tema .podnozje {
     background: var(--gx-bg-podnozje);
     border-top: 1px solid var(--ivica-svetla);

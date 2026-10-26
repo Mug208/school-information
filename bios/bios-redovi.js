@@ -1,5 +1,7 @@
+// BIOS: model redova podesavanja po kategorijama.
 'use strict';
 
+// ===== FABRIKE REDOVA =====
 function rSekcija(id, naziv) {
     return { id: id, naziv: naziv, vrsta: 'sekcija', izbor: false };
 }
@@ -122,6 +124,7 @@ function rAkcija(id, label, akcija, opcije) {
     };
 }
 
+// ===== RED PREDMETA =====
 function rPredmet(predmet) {
     return {
         id: 'predmet_' + predmet.id,
@@ -146,6 +149,7 @@ function redIskljucen(red) {
     return typeof red.iskljucenFn === 'function' ? !!red.iskljucenFn() : false;
 }
 
+// ===== KATEGORIJA: GLAVNO =====
 function redoviGlavno() {
     return [
         rInfo('gl_sistem', t('bios.gl.sistem'), '\u0160kolska Informacija v' + VERZIJA),
@@ -229,6 +233,7 @@ function redoviGlavno() {
     ];
 }
 
+// ===== KATEGORIJA: PREDMETI =====
 function redoviPredmeti() {
     var redovi = [
         rInfo('pr_ukupno', t('bios.pr.ukupno'), function () {
@@ -251,6 +256,7 @@ function redoviPredmeti() {
     return redovi;
 }
 
+// ===== ROTACIJA =====
 function podrazumevanoSidro() {
     var sad = new Date();
     var godina = sad.getMonth() >= 8 ? sad.getFullYear() : sad.getFullYear() - 1;
@@ -348,6 +354,7 @@ function rotacijaOpis() {
     }
 }
 
+// ===== KATEGORIJA: SMENE =====
 function redoviSmene() {
     var nijeRotacija = function () {
         return (radna.shiftMode || 'sat') !== 'rotacija';

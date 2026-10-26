@@ -1,3 +1,4 @@
+// Toast obavestenja u uglu ekrana, najvise tri odjednom.
 'use strict';
 function prikaziToast(poruka, tip = 'uspeh') {
     const kont = document.getElementById('toastKontejner');

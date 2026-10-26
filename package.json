@@ -1,0 +1,9 @@
+{
+    "name": "skolski-sistem",
+    "version": "2.03",
+    "private": true,
+    "description": "Skolska Informacija: raspored, kalendar i beleske u jednom interfejsu.",
+    "scripts": {
+        "test": "node testovi/test-logika.mjs"
+    }
+}

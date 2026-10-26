@@ -1,9 +1,12 @@
+/* BIOS: responzivna pravila, prefiks .bios-. */
+/* ===== ISPOD 1024px ===== */
 @media (max-width: 1024px) {
     .bios-info {
         display: none;
     }
 }
 
+/* ===== ISPOD 768px ===== */
 @media (max-width: 768px) {
     .bios-ui {
         padding: 10px;
@@ -122,6 +125,7 @@
     }
 }
 
+/* ===== ISPOD 480px ===== */
 @media (max-width: 480px) {
     .bios-ui {
         padding: 8px;
@@ -170,6 +174,7 @@
     }
 }
 
+/* ===== SMANJENO POMERANJE ===== */
 @media (prefers-reduced-motion: reduce) {
     .bios-boot-red,
     .bios-boot-skip,

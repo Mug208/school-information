@@ -1,5 +1,7 @@
+// BIOS: cuvanje, izvoz, uvoz, reset i statistika.
 'use strict';
 
+// ===== IZLAZ I RESET =====
 function izlazniTok() {
     if (imaIzmena()) {
         prikaziDialog({
@@ -61,6 +63,7 @@ function vratiFabricka() {
     toast(t('bios.toast.fabrickaVracena'), 'info');
 }
 
+// ===== PANEL PREDMETA =====
 function panelPredmeta(predmet) {
     var nov = !predmet;
     var p = predmet || { name: '', teacher: '', color: '#0d9488' };
@@ -245,6 +248,7 @@ function panelPredmeta(predmet) {
     }
 }
 
+// ===== AKCIJE: IZVOZ, UVOZ, RESET =====
 function akcijaIzvoz() {
     if (window.App && typeof window.App.izveziPodatke === 'function') {
         try {

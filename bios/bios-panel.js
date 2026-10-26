@@ -1,5 +1,7 @@
+// BIOS: paneli za izbor vrednosti (boje, liste, vreme).
 'use strict';
 
+// ===== BOJE PANELA =====
 function panelBoje(red) {
     var gx = red.vrsta === 'gxboja';
     var bezbedna = gx ? bezbednaBojaGx : bezbednaBoja;
@@ -118,6 +120,7 @@ function panelBoje(red) {
     });
 }
 
+// ===== DIJALOZI =====
 function prikaziDialog(podaci) {
     var dij = dom('biosDialog');
     if (!dij) return;

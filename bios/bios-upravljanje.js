@@ -1,5 +1,7 @@
+// BIOS: reakcije na tastere i tok izlaska sa cuvanjem.
 'use strict';
 
+// ===== TASTATURA =====
 function naTaster(dog) {
     if (!otvorenFlag) return;
 
@@ -145,6 +147,7 @@ function naTaster(dog) {
     }
 }
 
+// ===== KLIK =====
 function naPokret() {
     if (faza === 'boot') preskociBoot();
 }
@@ -212,6 +215,7 @@ function naRedKlik(dog) {
     }
 }
 
+// ===== OTVARANJE I ZATVARANJE =====
 function otvori(kategorija) {
     if (otvorenFlag) return;
     otvorenFlag = true;
@@ -338,6 +342,7 @@ if (dom('biosRedovi')) {
     }
 })();
 
+// ===== JAVNI API =====
 window.BIOS = {
     otvori: otvori,
     zatvori: zatvori,

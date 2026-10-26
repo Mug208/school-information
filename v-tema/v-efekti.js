@@ -1,4 +1,6 @@
+// VirusTema: efekti na dugmadima i panelu teme.
 'use strict';
+    // ===== EFEKTI NA DUGMADIMA =====
     function dugmeTeme() {
         var d = document.getElementById('dugmeTema');
         if (!d) {
@@ -33,6 +35,7 @@
         atmos.style.setProperty('--vt-skala', (precnik / osnova).toFixed(3));
     }
 
+    // ===== SPORE =====
     function spore(n, lecenje, osnova, raspon, oblast) {
         if (smanjenPrikaz) return;
         var c = epicentar();
@@ -56,6 +59,7 @@
         }
     }
 
+    // ===== ZARAZA =====
     function zarazi(primeni) {
         var d = dugmeTeme();
         var c = epicentar();

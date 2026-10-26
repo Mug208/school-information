@@ -1,4 +1,7 @@
 'use strict';
+// window.App je fasada preko Store-a (osnova/store.js). Za novi kod
+// radije koristi Store.getStanje(), Store.dispatch i Store.subscribe.
+// ===== PUNO OSVEZAVANJE PRIKAZA =====
 function prikaziSve() {
     prikaziNazivSkole();
     azurirajPretraguPredmeta();
@@ -15,6 +18,8 @@ function prikaziSve() {
     azurirajPodnozje();
     primeniTemu();
 }
+
+// ===== JAVNI API (FASADA) =====
 window.App = {
     verzija: VERZIJA,
     getPodaci: () => podaciAplikacije,
@@ -39,5 +44,6 @@ window.App = {
         }
     },
     resetujSve: resetujSvePodatke,
-    getStatistike: getStatistike
+    getStatistike: getStatistike,
+    store: Store
 };

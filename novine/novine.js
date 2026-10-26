@@ -1,8 +1,10 @@
+// Prozor sta je novo: verzija, stavke i pamcenje sta je korisnik vec video.
 'use strict';
 
 const NOVINE_KLJUC = 'skolski-info-novine';
 const NOVINE_VERZIJA = '2.03';
 
+// ===== SADRZAJ NOVINA =====
 const NOVINE_STAVKE = {
     en: [
         {
@@ -69,6 +71,7 @@ const NOVINE_STAVKE = {
 let novineOtvorene = false;
 let novineFokusPre = null;
 
+// ===== LOGIKA PRIKAZA =====
 function novineVidjenaVerzija() {
     try {
         return localStorage.getItem(NOVINE_KLJUC) || '';
@@ -91,6 +94,7 @@ function novineTrebaPrikazati() {
     return novineStavke().length > 0 && novineVidjenaVerzija() !== NOVINE_VERZIJA;
 }
 
+// ===== ISCRTAVANJE =====
 function novineIscrtaj() {
     const verzijaEl = document.getElementById('novineVerzija');
     const naslovEl = document.getElementById('novineNaslov');
@@ -112,6 +116,7 @@ function novineIscrtaj() {
         </li>`).join('');
 }
 
+// ===== OTVARANJE I ZATVARANJE =====
 function otvoriNovine(prisilno = false) {
     const el = document.getElementById('modalNovine');
     if (!el || novineOtvorene) return false;
@@ -144,6 +149,7 @@ function zatvoriNovine(zapamti = true) {
     novineFokusPre = null;
 }
 
+// ===== POKRETANJE I JAVNI API =====
 function pokreniNovine() {
     if (!novineTrebaPrikazati()) return;
     setTimeout(() => otvoriNovine(), 600);

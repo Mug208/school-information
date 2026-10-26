@@ -1,3 +1,6 @@
+/* BIOS: okvir i raspored ploce, prefiks .bios-. */
+/* ===== OVERLAY ===== */
+
 .bios-overlay {
     --bios-bg: #0000aa;
     --bios-bg-tamno: #000077;
@@ -71,6 +74,7 @@ body.bios-otvoren {
     color: var(--bios-izabrano-tekst);
 }
 
+/* ===== BOOT EKRAN ===== */
 .bios-boot {
     --bios-tekst: var(--gx-boot-tekst, #e8e8ff);
     --bios-tekst-siv: var(--gx-boot-tekst-siv, #9aa5c9);
@@ -142,6 +146,7 @@ body.bios-otvoren {
     animation: bios-treperenje 1.1s steps(2, start) infinite;
 }
 
+/* ===== BIOS UI ===== */
 .bios-ui {
     position: relative;
     z-index: 1;
@@ -156,6 +161,7 @@ body.bios-otvoren {
     min-height: 0;
 }
 
+/* ===== ZAGLAVLJE ===== */
 .bios-header {
     display: flex;
     justify-content: space-between;
@@ -221,6 +227,7 @@ body.bios-otvoren {
     font-weight: 500;
 }
 
+/* ===== NAVIGACIJA ===== */
 .bios-nav {
     display: flex;
     flex-wrap: wrap;

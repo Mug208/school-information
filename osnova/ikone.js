@@ -1,5 +1,7 @@
+// Skup SVG ikonica sa ASCII zamena; gradi sprite i funkciju ikonica().
 'use strict';
 
+// ===== BAZA IKONA =====
 const IKONE = {
 
     skola:
@@ -198,6 +200,7 @@ const IKONE_ATRIBUTI =
     'fill="none" stroke="currentColor" stroke-width="1.75" ' +
     'stroke-linecap="round" stroke-linejoin="round"';
 
+// ===== RAD SA IKONAMA =====
 function ikonaSimbol(naziv, sadrzaj) {
     return `<symbol id="i-${naziv}" viewBox="0 0 24 24" ${IKONE_ATRIBUTI}>${sadrzaj}</symbol>`;
 }

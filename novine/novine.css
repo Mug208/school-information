@@ -1,3 +1,5 @@
+/* Modul novine: prozor sta je novo, prefiks .novine-. */
+/* ===== KARTICA NOVINA ===== */
 .novine-kartica {
     max-width: 560px;
 }
@@ -68,6 +70,7 @@
     margin: -4px -6px 0 0;
 }
 
+/* ===== LISTA NOVINA ===== */
 .novine-telo {
     padding: 14px 14px 8px;
 }
@@ -133,6 +136,7 @@
     color: var(--tekst-muted);
 }
 
+/* ===== RESPONZIVNOST ===== */
 @media (max-width: 520px) {
     .novine-kartica {
         max-width: none;

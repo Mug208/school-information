@@ -1,4 +1,7 @@
+// Rezimi smena, rotacija i proracun vremena casova. Ciste funkcije su u osnova/logika.js.
 'use strict';
+
+// ===== PODACI ROTACIJE =====
 let NAZIVI_ROTACIJE = {
     nedelja: 'svake nedelje',
     mesec: 'svakog meseca',
@@ -9,6 +12,7 @@ let NAZIVI_ROTACIJE = {
 let DANI_ROTACIJE = ['Ponedeljak', 'Utorak', 'Sreda', 'Četvrtak', 'Petak', 'Subota', 'Nedelja'];
 let DANI_ROTACIJE_INSTRUMENTAL = ['ponedeljkom', 'utorkom', 'sredom', 'četvrtkom', 'petkom', 'subotom', 'nedeljom'];
 
+// ===== RACUNANJE ROTACIJE =====
 function danPromeneRotacije() {
     const d = parseInt(podaciAplikacije.settings.shiftRotationDay, 10);
     return (d >= 1 && d <= 7) ? d : 1;
@@ -70,6 +74,7 @@ function datumSledeceRotacije() {
     }
 }
 
+// ===== AUTO SMENA =====
 function normalizujRezimSmene(s) {
     if (!['rucno', 'sat', 'rotacija'].includes(s.shiftMode)) {
         s.shiftMode = (s.autoShiftChange === false) ? 'rucno' : 'sat';
@@ -89,10 +94,7 @@ function autoSmena() {
     if (rezim === 'rotacija') return smenaIzRotacije();
     if (rezim === 'rucno') return s.currentShift;
 
-    const sad = trenutnoVremeMinuta();
-    const popodnevniPocetak = vremeUMinute(s.shifts.popodnevna.startTime);
-    if (sad >= popodnevniPocetak) return 'popodnevna';
-    return 'jutarnja';
+    return Logika.odrediSmenu(s, trenutnoVremeMinuta());
 }
 
 function azurirajAutoSmenu() {
@@ -116,33 +118,11 @@ function azurirajAutoSmenu() {
     prikaziOznakuSmene();
 }
 
+// Proracun vremena je cista funkcija u osnova/logika.js i ima testove.
+// Ovde se samo cita tekuci kontekst i prosledjuje kao argument.
+// ===== VREMENA CASOVA =====
+
 function izracunajVremenaCasova() {
     const s = podaciAplikacije.settings;
-    const smena = s.shifts[s.currentShift];
-    const brojCasova = s.periodsCount;
-    const velikiOdmorPosle = smena.bigBreakAfterPeriod;
-
-    const vremena = [];
-    let trenutno = smena.startTime;
-
-    for (let i = 0; i < brojCasova; i++) {
-        const pocetakCasa = trenutno;
-        const krajCasa = formatirajVreme(pocetakCasa, s.periodDuration);
-        vremena.push({ period: i + 1, start: pocetakCasa, end: krajCasa, isBreak: false });
-
-        if (i < brojCasova - 1) {
-            const trajanjeOdmora = (i + 1) === velikiOdmorPosle ? s.bigBreakDuration : s.smallBreakDuration;
-            const pocetakOdmora = krajCasa;
-            const krajOdmora = formatirajVreme(pocetakOdmora, trajanjeOdmora);
-            vremena.push({
-                period: i + 1,
-                start: pocetakOdmora,
-                end: krajOdmora,
-                isBreak: true,
-                isBigBreak: (i + 1) === velikiOdmorPosle
-            });
-            trenutno = krajOdmora;
-        }
-    }
-    return vremena;
+    return Logika.izracunajVremenaCasova(s, s.shifts[s.currentShift]);
 }

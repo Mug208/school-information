@@ -1,4 +1,7 @@
+// Cuvanje, ucitavanje, izvoz, uvoz i reset podataka. Podaci zive u Store-u.
 'use strict';
+
+// ===== CUVANJE I UCITAVANJE =====
 function sacuvajPodatke() {
     try {
         localStorage.setItem(KLJUC_SKLADISTA, JSON.stringify(podaciAplikacije));
@@ -11,11 +14,14 @@ function ucitajPodatke() {
 
     try {
         const parsirano = JSON.parse(sacuvano);
-        podaciAplikacije = {
-            settings: { ...JSON.parse(JSON.stringify(PODESAVANJA_PODRAZUMEVANA)), ...(parsirano.settings || {}) },
-            schedule: parsirano.schedule || [],
-            notes: (parsirano.notes || []).map(n => ({ ...n, pinned: n.pinned === true }))
-        };
+        Store.dispatch({
+            type: 'PODACI_ZAMENI',
+            payload: {
+                settings: { ...JSON.parse(JSON.stringify(PODESAVANJA_PODRAZUMEVANA)), ...(parsirano.settings || {}) },
+                schedule: parsirano.schedule || [],
+                notes: (parsirano.notes || []).map(n => ({ ...n, pinned: n.pinned === true }))
+            }
+        });
         const s = podaciAplikacije.settings;
 
                 if (!s.shifts || !s.shifts.jutarnja || !s.shifts.popodnevna) {
@@ -57,14 +63,18 @@ function ucitajPodatke() {
 
         normalizujRezimSmene(s);
     } catch (e) {
-        podaciAplikacije = {
-            settings: JSON.parse(JSON.stringify(PODESAVANJA_PODRAZUMEVANA)),
-            schedule: [],
-            notes: []
-        };
+        Store.dispatch({
+            type: 'PODACI_ZAMENI',
+            payload: {
+                settings: JSON.parse(JSON.stringify(PODESAVANJA_PODRAZUMEVANA)),
+                schedule: [],
+                notes: []
+            }
+        });
     }
 }
 
+// ===== IZVOZ I UVOZ =====
 function izveziPodatke() {
     const podaciStr = JSON.stringify(podaciAplikacije, null, 2);
     const blob = new Blob([podaciStr], { type: 'application/json' });
@@ -92,11 +102,14 @@ function uveziPodatkeIzFajla(fajl, spojiBeleske) {
                     prikaziSve();
                     prikaziToast(t('pod.toastSpojeno', { n: noveBeleske.length }), 'uspeh');
                 } else {
-                    podaciAplikacije = {
-                        settings: { ...JSON.parse(JSON.stringify(PODESAVANJA_PODRAZUMEVANA)), ...uvezeno.settings },
-                        schedule: uvezeno.schedule || [],
-                        notes: uvezeno.notes || []
-                    };
+                    Store.dispatch({
+                        type: 'PODACI_ZAMENI',
+                        payload: {
+                            settings: { ...JSON.parse(JSON.stringify(PODESAVANJA_PODRAZUMEVANA)), ...uvezeno.settings },
+                            schedule: uvezeno.schedule || [],
+                            notes: uvezeno.notes || []
+                        }
+                    });
 
                     ucitajPodatkeStrukturu();
                     sacuvajPodatke();
@@ -116,6 +129,7 @@ function uveziPodatkeIzFajla(fajl, spojiBeleske) {
     citac.readAsText(fajl);
 }
 
+// ===== STRUKTURA I RESET =====
 function ucitajPodatkeStrukturu() {
     const s = podaciAplikacije.settings;
     if (!s.shifts || !s.shifts.jutarnja) s.shifts = JSON.parse(JSON.stringify(PODESAVANJA_PODRAZUMEVANA.shifts));
@@ -141,11 +155,14 @@ function ucitajPodatkeStrukturu() {
 }
 
 function resetujSvePodatke() {
-    podaciAplikacije = {
-        settings: JSON.parse(JSON.stringify(PODESAVANJA_PODRAZUMEVANA)),
-        schedule: [],
-        notes: []
-    };
+    Store.dispatch({
+        type: 'PODACI_ZAMENI',
+        payload: {
+            settings: JSON.parse(JSON.stringify(PODESAVANJA_PODRAZUMEVANA)),
+            schedule: [],
+            notes: []
+        }
+    });
     sacuvajPodatke();
     primeniTemu();
     if (typeof postaviJezik === 'function') postaviJezik(podaciAplikacije.settings.language, { sacuvaj: false, osvezi: false });
@@ -153,6 +170,7 @@ function resetujSvePodatke() {
     prikaziToast(t('pod.toastReset'), 'uspeh');
 }
 
+// ===== STATISTIKE =====
 function getStatistike() {
     let velicinaKB = 0;
     try {
@@ -166,6 +184,7 @@ function getStatistike() {
     };
 }
 
+// ===== PODESAVANJA =====
 function sacuvajPodesavanja(novi) {
     if (!novi || typeof novi !== 'object') return;
 

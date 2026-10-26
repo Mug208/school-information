@@ -1,8 +1,12 @@
+// Logika svetle i tamne teme, auto tema i tajna aktivacija CODE teme.
 'use strict';
+
+// ===== TAJNA SEKVENCA =====
 const TAJNA_SEKVENC = ['c', 'o', 'd', 'e', 's'];
 let tajnaIndeks = 0;
 let tajnaPoslednji = 0;
 
+// ===== AUTO TEMA PO VREMENU =====
 function temaVremeUMinute(v) {
     const m = /^(\d{1,2}):(\d{2})$/.exec(String(v || ''));
     if (!m) return null;
@@ -54,6 +58,7 @@ function azurirajAutoTemu(tiho, forsirano) {
     }
 }
 
+// ===== TAJNA AKTIVACIJA =====
 function inicijalizujTajnuAktivaciju() {
     document.addEventListener('keydown', (e) => {
         if (!podaciAplikacije.settings.codeUnlocked) {
@@ -129,6 +134,8 @@ function prikaziEfektiUvod(kasnjenje) {
         }
     }, kasnjenje == null ? 1200 : kasnjenje);
 }
+// ===== CODE TEMA: BOJE =====
+
 const code_BOJE = [
     { id: 'zelena',  naziv: 'Zelena',  hex: '#00ff9c' },
     { id: 'plava',   naziv: 'Plava',   hex: '#3aa0ff' },
@@ -303,6 +310,7 @@ function ocisticodeBoje() {
     telo.classList.remove('code-svetla');
 }
 
+// ===== KONVERZIJE BOJA =====
 function hexToHsl(hex) {
     hex = String(hex || '').replace(/^#/, '');
     if (hex.length !== 6) return { h: 174, s: 42, l: 32 };
@@ -379,6 +387,7 @@ function getContrastText(bgColor) {
     }
 }
 
+// ===== PRILAGODJENA TEMA =====
 function generateThemeColors(primaryColor, themeMode) {
     const hsl = hexToHsl(primaryColor);
     const isDark = themeMode === 'dark';
@@ -464,6 +473,8 @@ function applyCustomTheme() {
         root.style.setProperty(key, value);
     });
 }
+// ===== REZIM I PROMENA TEME =====
+
 function codeRezimOznaka() {
     const s = podaciAplikacije.settings;
     if (s.autoTheme) return 'A';

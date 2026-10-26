@@ -1,4 +1,7 @@
+// Tab kalendara: mesecni pregled, izbor datuma i beleske za izabrani dan.
 'use strict';
+
+// ===== PRIKAZ KALENDARA =====
 function prikaziKalendar() {
     const kontejner = document.getElementById('kalendarWrapper');
     if (!kontejner) return;
@@ -64,6 +67,7 @@ function prikaziKalendar() {
     kontejner.innerHTML = html;
 }
 
+// ===== NAVIGACIJA KALENDAROM =====
 function promeniMesec(smer) {
     stanje.calendarMonth += smer;
     if (stanje.calendarMonth > 11) {
@@ -84,11 +88,13 @@ function kalendarNaDanas() {
 }
 
 function izaberiDatum(godina, mesec, dan) {
-    stanje.selectedDate = new Date(godina, mesec, dan);
+    // Datum se menja kroz store akciju, a ne direktnom dodelom.
+    Store.dispatch({ type: 'DATUM_IZABERI', payload: new Date(godina, mesec, dan) });
     prikaziKalendar();
     prikaziBeleskeIzabraniDatum();
 }
 
+// ===== BELESKE IZABRANOG DATUMA =====
 function prikaziBeleskeIzabraniDatum() {
     const kontejner = document.getElementById('beleskeIzabraniDatum');
     if (!kontejner) return;
@@ -139,6 +145,7 @@ function prikaziBeleskeIzabraniDatum() {
     kontejner.innerHTML = html;
 }
 
+// ===== NADOLAZECI DOGADJAJI =====
 function nadolazeciSortirani() {
     return podaciAplikacije.notes
         .filter(n => !n.completed && danaDoDatuma(n.date) >= 0)

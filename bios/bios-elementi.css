@@ -1,3 +1,4 @@
+/* BIOS: elementi redova i vrednosti, prefiks .bios-. */
 @media (max-width: 1100px) {
     .bios-telo:has(.bios-side:not([hidden])) .bios-info {
         display: none;
@@ -8,6 +9,7 @@
     }
 }
 
+/* ===== GX PREKIDACI ===== */
 .gx-paletta {
     display: inline-flex;
     align-items: center;
@@ -84,6 +86,7 @@
     filter: saturate(.3);
 }
 
+/* ===== POMOC ===== */
 .bios-pomoc {
     list-style: none;
     margin: 0;
@@ -97,6 +100,7 @@
     margin-right: 6px;
 }
 
+/* ===== SKROLBAROVI ===== */
 .bios-redovi,
 .bios-info,
 .bios-nav {

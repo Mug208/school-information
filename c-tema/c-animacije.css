@@ -1,3 +1,5 @@
+/* CODE tema: animacije treperenja i sken linija. */
+/* ===== CRT SLOJ ===== */
 #crtSloj {
     position: fixed;
     inset: 0;
@@ -25,6 +27,7 @@ body.code-tema[data-code-treperenje="1"] #crtSloj {
     90% { opacity: 0.02; }
 }
 
+/* ===== KARTICE U CODE TEMI ===== */
 body.code-tema .kartica,
 body.code-tema .raspored-kontejner {
     position: relative;

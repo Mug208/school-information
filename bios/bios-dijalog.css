@@ -1,3 +1,5 @@
+/* BIOS: dijalozi za unos, prefiks .bios-. */
+/* ===== DIJALOG ===== */
 .bios-dialog {
     position: absolute;
     inset: 0;
@@ -56,6 +58,7 @@
     gap: 10px;
 }
 
+/* ===== DUGMAD DIJALOGA ===== */
 .bios-dugme {
     background: rgba(255, 255, 255, .1);
     color: var(--bios-tekst);
@@ -92,6 +95,7 @@
     background: #ff7d7d;
 }
 
+/* ===== SIDE PANEL ===== */
 .bios-side {
     width: 360px;
     flex: none;
@@ -154,6 +158,7 @@
     letter-spacing: .5px;
 }
 
+/* ===== SADRZAJ SIDE PANELA ===== */
 .sp-sekcija {
     color: var(--bios-tekst-siv);
     font-size: 10.5px;
@@ -236,6 +241,7 @@
     pointer-events: none;
 }
 
+/* ===== HSV BIRAC ===== */
 .gxb-sv {
     position: relative;
     height: 148px;
@@ -356,6 +362,7 @@
     user-select: none;
 }
 
+/* ===== PREGLED ===== */
 .sp-pregled {
     display: flex;
     align-items: stretch;

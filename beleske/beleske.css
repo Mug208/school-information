@@ -1,3 +1,5 @@
+/* Modul beleske: kartice i filteri, prefiksi .beleska- i .filter-. */
+/* ===== STAVKE BELESKI ===== */
 .stavka-beleske {
     padding: 10px 11px;
     border-radius: var(--radius);
@@ -67,6 +69,8 @@
     gap: 2px;
     flex: none;
 }
+/* ===== ZAGLAVLJE ===== */
+
 .beleske-zaglavlje {
     display: flex;
     align-items: center;
@@ -82,6 +86,7 @@
     letter-spacing: -0.01em;
 }
 
+/* ===== FILTRI ===== */
 .filter-dugmad {
     display: flex;
     flex-wrap: wrap;
@@ -111,6 +116,8 @@
     color: var(--primarna-tekst);
     box-shadow: var(--senka-sm);
 }
+/* ===== PRETRAGA ===== */
+
 .pretraga-traka {
     display: flex;
     align-items: center;
@@ -200,6 +207,7 @@
     flex-wrap: wrap;
 }
 
+/* ===== PROGRES ===== */
 .beleske-progres {
     display: flex;
     align-items: center;
@@ -234,6 +242,8 @@
     color: var(--tekst-muted);
     white-space: nowrap;
 }
+/* ===== MREZA KARTICA ===== */
+
 .beleske-mreza {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(252px, 1fr));
@@ -354,6 +364,8 @@
     color: var(--tekst-sekundarni);
     font-variant-numeric: tabular-nums;
 }
+/* ===== PRAZNO STANJE ===== */
+
 .prazno-stanje {
     grid-column: 1 / -1;
     display: flex;
@@ -376,6 +388,7 @@
     max-width: 380px;
 }
 
+/* ===== OZNAKE TIPOVA ===== */
 .oznaka {
     display: inline-flex;
     align-items: center;

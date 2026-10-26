@@ -1,5 +1,7 @@
+// BIOS: renderovanje redova, panela i uzoraka boja.
 'use strict';
 
+// ===== BOJE =====
 function uzorakBoje(hex, fallback) {
     var v = /^#[0-9a-fA-F]{6}$/.test(String(hex)) ? String(hex) : fallback || '#0d9488';
     return '<span class="bios-boja-uzorak" style="background:' + v + '"></span>';
@@ -35,6 +37,7 @@ function gxPaletaHTML() {
     return html;
 }
 
+// ===== VREDNOSTI REDOVA =====
 function labelZaIzbor(red) {
     var v = red.get();
     var nadjen = null;
@@ -93,6 +96,7 @@ function postaviVrednost(vEl, red) {
     }
 }
 
+// ===== DOM REDOVA =====
 function napraviRedDOM(red) {
     var el = document.createElement('div');
 
@@ -142,6 +146,7 @@ function napraviRedDOM(red) {
     return el;
 }
 
+// ===== NAVIGACIJA =====
 function renderNav() {
     var nav = dom('biosNav');
     if (!nav) return;
@@ -166,6 +171,7 @@ function osveziNav() {
     });
 }
 
+// ===== RENDER I OSVEZAVANJE =====
 function renderRedovi() {
     if (!otvorenFlag || !radna) return;
     var kont = dom('biosRedovi');

@@ -1,3 +1,5 @@
+/* BIOS: pravila za CODE varijantu, prepisuje .bios- klase. */
+/* ===== TAMNA CODE TEMA ===== */
 body.code-tema .bios-overlay {
     --bios-bg: var(--gx-bios-bg);
     --bios-bg-tamno: var(--gx-bios-bg-tamno);
@@ -31,6 +33,7 @@ body.code-tema .bios-boja-uzorak {
     border-color: rgba(var(--gx-rgb), 0.45);
 }
 
+/* ===== SVETLA CODE TEMA ===== */
 body.code-tema.code-svetla .bios-overlay {
     box-shadow: inset 0 0 140px rgba(15, 45, 32, 0.13);
 }

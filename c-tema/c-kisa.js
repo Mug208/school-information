@@ -1,5 +1,7 @@
+// CODE tema: kisa znakova preko ekrana.
 'use strict';
 
+// ===== RENDER KISE =====
 function podesaviPlatno() {
     if (!platno) return;
     try {
@@ -72,6 +74,7 @@ function petljaKise(t) {
     }
 }
 
+// ===== POKRETANJE I ZAUSTAVLJANJE =====
 function pokreniKisu() {
     if (!platno || !kontekst) return;
     if (typeof window.requestAnimationFrame !== 'function') return;
@@ -89,6 +92,7 @@ function zaustaviKisu() {
     rafId = 0;
 }
 
+// ===== BOJE KISE =====
 function citajBojeKise() {
     try {
         if (!document.body) return;

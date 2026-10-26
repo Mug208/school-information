@@ -1,3 +1,5 @@
+/* Modul modal: dijalozi, prefiksi .modal- i .gi-. */
+/* ===== MODAL OSNOVA ===== */
 .modal {
     position: fixed;
     inset: 0;
@@ -49,6 +51,7 @@
     max-width: 400px;
 }
 
+/* ===== ZAGLAVLJE I DUGMAD ===== */
 .modal-zaglavlje {
     display: flex;
     align-items: center;
@@ -80,6 +83,7 @@
     color: var(--opasna);
 }
 
+/* ===== TELO I PODNOZJE ===== */
 .modal-telo {
     padding: 4px 20px 10px;
     overflow-y: auto;
@@ -99,8 +103,7 @@
     margin-left: auto;
 }
 
-
-
+/* ===== GRUPNA IZMENA ===== */
 .gi-polje {
     margin-top: 9px;
     display: flex;

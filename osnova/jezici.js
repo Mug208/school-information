@@ -1,5 +1,7 @@
+// Prevodi za engleski i srpski; t(kljuc) za dynamicke i data-i18n za staticke tekstove.
 'use strict';
 
+// ===== RECNIK PREVODA =====
 const PREDVODI = {
     en: {
         'app.opis': 'School information system / class schedule, calendar and notes.',
@@ -1138,6 +1140,7 @@ const PREDVODI = {
     }
 };
 
+// ===== FUNKCIJE ZA PREVOD =====
 function trenutniJezik() {
     try {
         if (typeof podaciAplikacije !== 'undefined' && podaciAplikacije && podaciAplikacije.settings && podaciAplikacije.settings.language === 'sr') return 'sr';
@@ -1180,6 +1183,7 @@ function tekstDana(n) {
     return t('vreme.dana', { n: n });
 }
 
+// ===== PRIMENA JEZIKA =====
 function osveziLokalneKonstante() {
     DANI_LAT = [t('dani.pon'), t('dani.uto'), t('dani.sre'), t('dani.cet'), t('dani.pet'), t('dani.sub'), t('dani.ned')];
     DANI_KRATKO = [t('daniK.pon'), t('daniK.uto'), t('daniK.sre'), t('daniK.cet'), t('daniK.pet'), t('daniK.sub'), t('daniK.ned')];
@@ -1247,6 +1251,7 @@ function postaviJezik(jezik, opcije) {
     return novi;
 }
 
+// ===== JAVNI API =====
 window.Jezici = {
     trenutni: trenutniJezik,
     postavi: postaviJezik,

@@ -1,4 +1,6 @@
+// VirusTema: glavni motor tranzicije, javni API window.VTema.
 'use strict';
+    // ===== TRANZICIJA =====
     function tranzicija(novicode, primeni) {
         var smer = 0;
         if (novicode && !trenutnocode) smer = 1;
@@ -20,6 +22,7 @@
         return true;
     }
 
+    // ===== INICIJALIZACIJA I JAVNI API =====
     function vInit() {
         if (!pripremiSlojeve()) {
             document.addEventListener('DOMContentLoaded', vInit, { once: true });

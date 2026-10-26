@@ -1,3 +1,4 @@
+/* CODE varijanta komandne palete. */
 body.code-tema .kp-panel {
     background: var(--gx-bg-prekrivac, #04120d);
     border: 1px solid rgba(var(--gx-rgb), 0.35);

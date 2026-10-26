@@ -1,3 +1,5 @@
+/* Modul raspored: tabela i mobilni pregled, prefiksi .raspored-, .celija-, .ms-. */
+/* ===== MOBILNI DATUM ===== */
 .mobilni-dan-datum {
     font-family: var(--font-mono);
     font-size: 0.66rem;
@@ -11,6 +13,7 @@
     white-space: nowrap;
 }
 
+/* ===== KONTEJNER I ZAGLAVLJE ===== */
 .raspored-kontejner {
     background: var(--bg-kartica);
     border: 1px solid var(--ivica);
@@ -35,6 +38,7 @@
     margin-top: 2px;
 }
 
+/* ===== NAVIGACIJA DANIMA ===== */
 .mobilni-birac-dana {
     display: none;
     align-items: center;
@@ -60,6 +64,7 @@
     color: var(--primarna);
 }
 
+/* ===== MREZA RASPOREDA ===== */
 .raspored-mreza {
     display: grid;
     grid-template-columns: 64px repeat(5, minmax(0, 1fr));
@@ -67,6 +72,7 @@
     min-width: 0;
 }
 
+/* ===== ZAGLAVLJA DANA ===== */
 .celija-zaglavlja {
     padding: 7px 6px;
     display: flex;
@@ -130,6 +136,7 @@
     vertical-align: 1px;
 }
 
+/* ===== KOLONA VREMENA ===== */
 .celija-vremena {
     display: flex;
     flex-direction: column;
@@ -171,6 +178,7 @@
     animation: puls 1.6s ease-in-out infinite;
 }
 
+/* ===== CELIJE CASOVA ===== */
 .celija-rasporeda {
     position: relative;
     display: flex;
@@ -296,6 +304,7 @@
     text-overflow: ellipsis;
 }
 
+/* ===== TRENUTNI CAS ===== */
 .oznaka-uzivo {
     position: absolute;
     top: 6px;
@@ -339,6 +348,7 @@
     color: var(--primarna-tekst);
 }
 
+/* ===== ODMORI ===== */
 .red-pauze {
     grid-column: 1 / -1;
     display: flex;
@@ -369,6 +379,7 @@
     font-size: 0.9rem;
 }
 
+/* ===== PRETRAGA PREDMETA ===== */
 .pretraga-predmeta {
     display: flex;
     flex-direction: column;
@@ -553,6 +564,7 @@
     padding: 2px 4px;
 }
 
+/* ===== MULTI SELEKCIJA ===== */
 .ms-traka {
     display: flex;
     flex-direction: column;
@@ -716,6 +728,7 @@
     opacity: 0.75;
 }
 
+/* ===== INDIKATORI BELESKI ===== */
 .indikatori-beleski {
     display: flex;
     flex-wrap: wrap;
@@ -738,6 +751,8 @@
     color: var(--tekst-sekundarni);
     border: 1px dashed var(--ivica);
 }
+/* ===== MOBILNI RASPORED ===== */
+
 .raspored-kontejner.mobilni {
     display: none;
 }
@@ -860,6 +875,7 @@
     grid-column: auto;
 }
 
+/* ===== IZBOR KOLONE DANA ===== */
 .celija-zaglavlja.celija-dan {
     cursor: pointer;
     font: inherit;
@@ -921,6 +937,7 @@
     color: var(--primarna);
 }
 
+/* ===== STAMPA ===== */
 .print-zaglavlje {
     display: none;
 }

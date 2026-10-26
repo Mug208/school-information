@@ -1,3 +1,4 @@
+/* Osnovni stilovi, promenljive boja i zajednicke klase za celu aplikaciju. */
 *,
 *::before,
 *::after {
@@ -6,6 +7,7 @@
     padding: 0;
 }
 
+/* ===== RESET I OSNOVA ===== */
 html {
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
@@ -49,6 +51,7 @@ h1, h2, h3, h4 {
     background: var(--primarna-30);
 }
 
+/* ===== PROMENLJIVE BOJA ===== */
 :root {
     --primarna: #0d9488;
     --primarna-hover: #0b7d73;
@@ -91,6 +94,7 @@ h1, h2, h3, h4 {
     --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', Consolas, monospace;
 }
 
+/* ===== REZIM TEME ===== */
 body.tamna {
     color-scheme: dark;
 }
@@ -99,6 +103,7 @@ body:not(.tamna) {
     color-scheme: light;
 }
 
+/* ===== LAYOUT ===== */
 .app-koren {
     position: relative;
     z-index: 1;
@@ -115,6 +120,8 @@ body:not(.tamna) {
     margin: 0 auto;
     padding: 22px 20px 30px;
 }
+
+/* ===== TOOLTIP ===== */
 [data-tooltip] {
     position: relative;
 }
@@ -141,6 +148,7 @@ body:not(.tamna) {
     box-shadow: var(--senka-md);
 }
 
+/* ===== PRISTUPACNOST ===== */
 :focus-visible {
     outline: 2px solid var(--primarna);
     outline-offset: 2px;
@@ -156,6 +164,7 @@ button:focus:not(:focus-visible) {
     scrollbar-color: var(--ivica) transparent;
 }
 
+/* ===== SKROLBAR ===== */
 ::-webkit-scrollbar {
     width: 9px;
     height: 9px;
@@ -176,6 +185,8 @@ button:focus:not(:focus-visible) {
     background: var(--tekst-muted);
     background-clip: content-box;
 }
+
+/* ===== POMOCNE KLASE ===== */
 .sr-only {
     position: absolute;
     width: 1px;

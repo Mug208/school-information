@@ -1,3 +1,5 @@
+/* Modul komande: komandna paleta, prefiks .kp-. */
+/* ===== OVERLAY I PANEL ===== */
 .kp-overlay {
     position: fixed;
     inset: 0;
@@ -41,6 +43,7 @@
     from { opacity: 0; transform: translateY(-10px) scale(0.98); }
 }
 
+/* ===== UNOS KOMANDE ===== */
 .kp-zaglavlje {
     display: flex;
     align-items: center;
@@ -81,6 +84,7 @@
     white-space: nowrap;
 }
 
+/* ===== LISTA STAVKI ===== */
 .kp-lista {
     max-height: min(46vh, 380px);
     overflow-y: auto;
@@ -162,6 +166,7 @@
     color: var(--primarna);
 }
 
+/* ===== PRAZNO STANJE ===== */
 .kp-prazno {
     display: flex;
     flex-direction: column;
@@ -188,6 +193,7 @@
     color: var(--tekst-muted);
 }
 
+/* ===== PODNOZJE ===== */
 .kp-footer {
     display: flex;
     align-items: center;
@@ -219,6 +225,7 @@
     white-space: nowrap;
 }
 
+/* ===== DUGME U ZAGLAVLJU ===== */
 .kp-dugme-tekst {
     font-family: var(--font-mono);
     font-size: 0.92rem;

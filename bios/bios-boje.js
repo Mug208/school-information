@@ -1,5 +1,7 @@
+// BIOS: redovi za izbor boja fosfora i prilagodjenog heksa.
 'use strict';
 
+// ===== GX BOJE =====
 function bezbednaBojaGx(hex) {
     return /^#[0-9a-fA-F]{6}$/.test(String(hex)) ? String(hex) : '#00ff9c';
 }
@@ -69,6 +71,7 @@ function prikazicodeBoju() {
     } catch (e) { }
 }
 
+// ===== KONVERZIJE BOJA =====
 function rgbIzHexa(hex) {
     var m = /^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i.exec(String(hex || ''));
     if (!m) return { r: 0, g: 0, b: 0 };
@@ -136,6 +139,7 @@ function hexNijanse(h) {
     return hexIzRgb(c.r, c.g, c.b);
 }
 
+// ===== HSV BIRAC =====
 function napraviHsvBirac(kontejner, pocetniHex, promena) {
     var poc = rgbIzHexa(pocetniHex);
     var hsv = rgbUHsv(poc.r, poc.g, poc.b);

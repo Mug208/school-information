@@ -1,3 +1,4 @@
+/* CODE tema: svetla varijanta. */
 body.code-tema.code-svetla::before {
     background: repeating-linear-gradient(
         0deg,

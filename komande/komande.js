@@ -1,6 +1,10 @@
+// Komandna paleta (Ctrl+K): registar komandi, pretraga i izvrsavanje.
 'use strict';
+
+// ===== STANJE PALETE =====
 const kpStanje = { otvorena: false, filtrirane: [], indeks: 0 };
 
+// ===== REGISTAR KOMANDI =====
 function kpRegistar() {
     const s = podaciAplikacije.settings;
     const komande = [
@@ -87,6 +91,7 @@ function kpRegistar() {
     return komande;
 }
 
+// ===== OTVARANJE I ZATVARANJE =====
 function kpOtvori() {
     const overlay = document.getElementById('kpOverlay');
     if (!overlay) return;
@@ -107,6 +112,7 @@ function kpZatvori() {
 
 function kpPreklopi() { if (kpStanje.otvorena) kpZatvori(); else kpOtvori(); }
 
+// ===== PRIKAZ I IZVRSAVANJE =====
 function kpRender() {
     const lista = document.getElementById('kpLista');
     if (!lista) return;
@@ -166,6 +172,7 @@ function kpIzvrsi() {
     try { komanda.akcija(); } catch (e) { prikaziToast(t('kp.nijeUspela'), 'greska'); }
 }
 
+// ===== JAVNI API =====
 window.KomandnaPaleta = {
     otvori: kpOtvori,
     zatvori: kpZatvori,

@@ -1,3 +1,4 @@
+// VirusTema: znakovi i zastitice za tranziciju.
 'use strict';
     var ZNAKOVI = '{}<>/*;:=+#$01&%!?~^'.split('');
 
@@ -19,6 +20,7 @@
 
     var sloj, atmos, blesk, svetlost, fx;
 
+    // ===== SLOJEVI I ANIMACIJA =====
     function pripremiSlojeve() {
         if (sloj) return true;
         if (!document.body) return false;

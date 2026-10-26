@@ -1,3 +1,5 @@
+/* Modul dugmad: zajednicki stilovi dugmica, prefiks .dugme-. */
+/* ===== STANJA POSEBNIH DUGMADI ===== */
 .dugme-multi-select.aktivan {
     background: var(--primarna);
     color: var(--primarna-tekst);
@@ -22,6 +24,8 @@
 .stampa-dugme:hover {
     opacity: 1;
 }
+
+/* ===== OSNOVNO DUGME ===== */
 .dugme {
     display: inline-flex;
     align-items: center;

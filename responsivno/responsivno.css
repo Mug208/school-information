@@ -1,3 +1,5 @@
+/* Responzivna pravila za sve module, usmerena preklopcima. */
+/* ===== ISPOD 560px ===== */
 @media (max-width: 560px) {
     .ms-tekst {
         flex: 1;
@@ -10,6 +12,8 @@
         justify-content: flex-end;
     }
 }
+
+/* ===== ISPOD 460px ===== */
 @media (max-width: 460px) {
     .birac-predmeta {
         grid-template-columns: 1fr;
@@ -47,11 +51,15 @@
         max-width: 108px;
     }
 }
+/* ===== NAD 900px ===== */
+
 @media (min-width: 900px) {
     .podnozje-prečice.samo-desktop {
         display: inline-flex;
     }
 }
+/* ===== ISPOD 1024px ===== */
+
 @media (max-width: 1024px) {
     .kalendar-raspored {
         grid-template-columns: 1fr;
@@ -62,7 +70,7 @@
     }
 }
 
-
+/* ===== ISPOD 899px: RASPORED ===== */
 @media (max-width: 899px) {
     .raspored-kontejner.desktop {
         display: none;
@@ -82,13 +90,14 @@
     }
 }
 
+/* ===== ISPOD 899px: KOMANDE ===== */
 @media (max-width: 899px) {
     .kp-stavka-taster {
         display: none;
     }
 }
 
-
+/* ===== ISPOD 768px ===== */
 @media (max-width: 768px) {
     .desktop-nav {
         display: none;
@@ -161,6 +170,7 @@
     }
 }
 
+/* ===== ISPOD 520px ===== */
 @media (max-width: 520px) {
     body {
         font-size: 14px;
@@ -246,6 +256,8 @@
         min-width: 130px;
     }
 }
+/* ===== ISPOD 640px ===== */
+
 @media (max-width: 640px) {
     .kp-overlay { padding-top: clamp(14px, 9vh, 70px); }
     .kp-lista { max-height: 52vh; }
@@ -253,6 +265,7 @@
     .kp-footer { display: none; }
 }
 
+/* ===== ISPOD 380px ===== */
 @media (max-width: 380px) {
     .ikonica-dugme {
         width: 36px;
@@ -274,6 +287,7 @@
     }
 }
 
+/* ===== NAD 769px ===== */
 @media (min-width: 769px) {
     .mobilni-meni,
     .mobilni-meni-prekrivac {

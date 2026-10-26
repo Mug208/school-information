@@ -1,3 +1,5 @@
+/* VirusTema: osnova tranzicije, prefiks .vt-. */
+/* ===== SLOJEVI EFEKATA ===== */
 #vt-sloj {
     position: fixed;
     inset: 0;
@@ -85,6 +87,7 @@
     100% { opacity: 0;    transform: translateY(-8%); }
 }
 
+/* ===== SPORE ===== */
 .vt-spore {
     position: absolute;
     color: #00ff9c;
@@ -115,6 +118,7 @@
     100% { opacity: 0; transform: translateY(24px) rotate(20deg); }
 }
 
+/* ===== ANIMACIJE ZARAZE ===== */
 .vt-inficira {
     animation: vt-tres .14s steps(2) infinite;
 }

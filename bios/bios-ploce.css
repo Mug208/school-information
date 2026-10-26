@@ -1,3 +1,5 @@
+/* BIOS: izgled ploca i redova, prefiks .bios-. */
+/* ===== TELO I PANEL ===== */
 .bios-telo {
     display: flex;
     gap: 14px;
@@ -37,6 +39,7 @@
     min-height: 0;
 }
 
+/* ===== REDOVI ===== */
 .bios-red {
     display: flex;
     justify-content: space-between;
@@ -137,6 +140,7 @@
     opacity: .75;
 }
 
+/* ===== UZORCI BOJA ===== */
 .bios-boja-uzorak {
     display: inline-block;
     width: 12px;
@@ -146,6 +150,7 @@
     margin-right: 6px;
 }
 
+/* ===== INFO PANEL ===== */
 .bios-info {
     width: 280px;
     flex: none;
@@ -223,6 +228,7 @@
     line-height: 1.4;
 }
 
+/* ===== PODNOZJE ===== */
 .bios-footer {
     border-top: 3px double var(--bios-panel-ivica);
     padding: 8px 4px;
@@ -243,6 +249,7 @@
     display: none;
 }
 
+/* ===== UNOS POLJA ===== */
 .bios-unos {
 
     background: var(--bios-bg-tamno);

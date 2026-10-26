@@ -186,7 +186,8 @@ Pošto localStorage pripada pregledaču i profilu, redovno izvozite backup, pose
 ```text
 skolski-sistem/
 ├── index.html          # Jedina HTML stranica, učitava sve module
-├── osnova/             # Jezgro: podaci, stanje, pomoćne funkcije, ikonice, skladište, App API
+├── osnova/             # Jezgro: podaci, stanje, store, logika, ikonice, skladište, App API
+├── testovi/            # Node.js testovi
 ├── zaglavlje/          # Zaglavlje sa navigacijom, zvonom i statusnom trakom
 ├── kocke               # Za pronalaženje tajne teme
 ├── raspored/           # Tab rasporeda (desktop tabela i mobilni pregled)
@@ -197,14 +198,14 @@ skolski-sistem/
 ├── novine/             # Prozor „Šta je novo” i zapamćena viđena verzija
 ├── toast/              # Sistemska obaveštenja u uglu ekrana
 ├── komande/            # Komandna paleta (Ctrl+K)
-├── novine/            # Za prikaz "Šta je novo" modal kada se ažurira web aplikacija
+├── novine/             # Za prikaz "Šta je novo" modal kada se ažurira web aplikacija
 ├── podnozje/           # Podnožje sa prečicama i statusom
 ├── responsivno/        # Preklopcima usmerena responzivna pravila
 ├── tema/               # Logika svetle i tamne teme i aktivacija tajni
 ├── smene/              # Režimi smena i rotacija
 ├── dogadjaji/          # Nadolazeći događaji i obaveštenja
 ├── c-tema/             # CODE tema: motor, efekti, kiša znakova, boje
-├── v-tema/             # VirusTema: animirane tranzicije između tema
+├── v-tema/             # VirusTema: animirane tranzicije između tema(Nije zapravo virus)
 ├── bios/               # BIOS utility: redovi, navigacija, boot, dijalozi
 └── dugmad/             # Stilovi dugmića
 ```
@@ -212,26 +213,47 @@ skolski-sistem/
 Konvencija imenovanja: svaki folder je samostalan modul sa svojim JS i CSS fajlovima. Datoteke sa sufiksom `-c.css` (na primer `bios-c.css`, `c-osnova.css`) sadrže stilove za CODE varijantu tog modula. Skripte se učitavaju redosledom definisanim na dnu `index.html`, bez modula u ES smislu kao kod react-a, pa globalni objekti služe kao javni API:
 
 - `window.App`: pristup podacima, podešavanjima, temi, izvozu i statistici.
-- `window.BIOS`: otvaranje i stanje BIOS utilityja.
+- `window.Store`: centralni store, jedno mesto za stanje aplikacije.
+- `window.Logika`: čiste funkcije bez DOM-a, testabilne u Node.js.
+- `window.BIOS`: otvaranje i stanje BIOS utility-a.
 - `window.KomandnaPaleta`: otvaranje i zatvaranje komandne palete.
 - `window.Novine`: otvaranje prozora „Šta je novo” (`otvori`, `zatvori`, `zaboravi`).
 - `window.VTema` i `window.codeEngine`: motori animacija i efekata.
+
+## Arhitektura
+
+### Centralni store
+
+`osnova/store.js` je minimalistički store po Redux: jedno stanje, `dispatch(akcija)` menja stanje kroz registrovane akcije, `subscribe(slušaoc)` obaveštava pretplatnike. Stanje iz `osnova/stanje.js` živi u njemu, a globalne promenljive `podaciAplikacije` i `stanje` su samo most za stari kod. Novi kod umesto direktne dodele koristi `Store.dispatch`, pa je tok promena vidljiv na jednom mestu. Postojeće akcije: `PODACI_ZAMENI`, `TAB_PROMENI`, `DATUM_IZABERI`, `SMENA_POSTAVI`. Nove akcije se dodaju sa `Store.registruj(tip, handler)`.
+
+### Čista logika i testiranje
+
+`osnova/logika.js` sadrži funkcije bez DOM-a i bez globalnog stanja: formatiranje datuma i vremena, proračun vremena časova i odmora, određivanje smene po režimu rada. Sve funkcije primaju argumente i vraćaju rezultat, pa se testiraju bez pregledača. Testovi su u `testovi/test-logika.mjs` i pokreću se sa `npm test` ili `node testovi/test-logika.mjs`, ili preko terminalu vsc `npm.cmd test`.
+
+### ES moduli (Sa upotrebu u buduće)
+
+Novi moduli se postepeno pišu kao ES moduli. Pošto pregledači blokiraju module preko `file://` protokola, glavne skripte ostaju "klasične" i aplikacija i dalje radi duplim klikom na `index.html`. Na dnu `index.html` je ESM most koji preko `http` i `https` uvozi `osnova/dijagnostika.js`, pravi ES modul za praćenje akcija store-a u konzoli (uključi se sa `localStorage` ključem `skolski-info-dijagnostika=1`). Kad projekat radi samo preko servera, ostali moduli se prebacuju na `import` jedan po jedan.
+
+### Konvencija CSS imena
+
+Svaki CSS fajl na vrhu ima komentar sa rezervisanim prefiksom modula (na primer `.toast-`, `.kp-`, `.bios-`, `.vt-`, `.kk-`). Nova klasa u modulu obavezno nosi prefiks modula, čime se sprečavaju kolizije imena i curenje stilova između modula. Za varijante i stanja koristi se BEM obrazac `blok__element--modifikator` gde je prirodno. Fajlovi sa sufiksom `-c.css` prepisuju klase svog modula za CODE temu i učitavaju se posle osnovnih.
+
 
 ## Tehničke napomene
 
 - Ukupno oko 17 000 linija koda u 20 modula, bez ijedne spoljne JavaScript biblioteke.
 - Jedina spoljna zavisnost su Google fontovi Inter i JetBrains Mono, učitani sa CDN-a uz rezervne sistemske fontove radi efikasnosti.
-- Interfejs je prilagođen ekranima svih veličina: tabela na desktopu, pregled po danu na mobilnom, bočni fioka-meni na telefonu, kompaktan kalendar na uskim ekranima i dodiru prilagođeni biraci.
+- Interfejs je prilagođen ekranima svih veličina: tabela na desktopu, pregled po danu na mobilnom, side-meni na telefonu, kompaktan kalendar na uskim ekranima i dodiru prilagođeni biraci.
 - Višejezičnost: engleski (podrazumevan) i srpski, preko `osnova/jezici.js` statički tekstovi koriste `data-i18n` atribute, a dinamički pozivaju `t('kljuc')`.
 - Sopstveni set ikonica umesto emoji: crteži na mreži 24 x 24 u `osnova/ikone.js`, ugrađeni u dokument kao SVG simboli, pa rade i offline i pri otvaranju preko `file://`. Boju uzimaju iz `currentColor`, pa sami prate svetlu/tamnu temu i izabranu boju akcenta. U CODE temi se crteži sklanjaju i prikazuje se ASCII zamena iz `data-a`, tako da terminal ostaje čitak bez slika ~i bez mučenja~.
 - Sadržaj prati "Accessible Rich Internet Applications" uloge i oznake za čitače ekrana (dialog, listbox, search, progressbar).
 - Postoji poseban stil za štampu koji priprema celu nedelju, ili izabrani dan na jednom listu.
 - Podaci se serializuju u JSON pri svakoj izmeni, sa zaštitom od oštećenog sadržaja: aplikacija uvek pada na podrazumevane vrednosti umesto da se sruši.
-- Podržani su svi savremeni pregledači (Chrome, Firefox, Edge, Safari) jer se koriste samo standardni API pregledača: localStorage, FileReader, Blob i URL.
+- Podržani su svi savremeni pregledači (Chrome, Firefox, Edge, Zen, itd da ne nabrojavam...) jer se koriste samo standardni API pregledača: localStorage, FileReader, Blob i URL.
 
 ## Nadogradnja
 
-Projekat je namerno držan u vanilin JavaScriptu da ostane čitljiv i modifikovao ga svako ko zna osnove web razvoja. Tipične izmene:
+Projekat je namerno držan u vanila JavaScriptu da ostane čitljiv i modifikovao ga svako ko zna osnove web razvoja. Tipične izmene:
 
 - Novi predmeti se dodaju u BIOS-u pod kategorijom Predmeti, sa bojom i nastavnikom.
 - Trajanje časova i odmora podešavaju se u BIOS-u pod Glavno.

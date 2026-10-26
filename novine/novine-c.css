@@ -1,3 +1,4 @@
+/* CODE varijanta novina. */
 body.code-tema .novine-kartica::before {
     height: 1px;
     background: var(--primarna);

@@ -1,4 +1,7 @@
+// Tab rasporeda: desktop tabela, mobilni pregled po danu, pretraga i visestruki izbor.
 'use strict';
+
+// ===== BELESKE I DATUMI =====
 function pronadjiBeleskuZaDatum(subjectId, datumStr) {
     if (!subjectId) return null;
     return podaciAplikacije.notes.find(n =>
@@ -67,6 +70,8 @@ function generisiIndikatorBeleske(subjectId, dayIndex) {
 
     return html ? `<div class="indikatori-beleski">${html}</div>` : '';
 }
+// ===== PODACI RASPOREDA I TRENUTNI CAS =====
+
 function dobijStavkuRasporeda(dan, cas, smena = null) {
     const trenutnaSmena = smena || podaciAplikacije.settings.currentShift;
     return podaciAplikacije.schedule.find(s => s.day === dan && s.period === cas && s.shift === trenutnaSmena);
@@ -122,6 +127,7 @@ function formatirajTrajanje(minuta) {
     return `${minuti}min`;
 }
 
+// ===== IZBOR KOLONE DANA =====
 function izaberiKolonuDana(d) {
     if (stanje.izabranaKolona === d) {
         stanje.izabranaKolona = null;
@@ -144,6 +150,7 @@ function postaviKolonuDana(d) {
     prikaziDesktopRaspored();
 }
 
+// ===== PRETRAGA PREDMETA =====
 function otvoriPretraguPredmeta() {
     if (stanje.currentTab !== 'raspored') prebaciTab('raspored');
     const kont = document.getElementById('pretragaPredmetaBar');
@@ -239,6 +246,7 @@ function azurirajPretraguPredmeta() {
     prikaziMobilniRaspored();
 }
 
+// ===== STAMPA =====
 function ponedeljakZaPrikaz() {
     const sad = new Date();
     const danUSedmici = (sad.getDay() + 6) % 7;
@@ -282,6 +290,7 @@ function azurirajPrintZaglavlje() {
         </div>`;
 }
 
+// ===== PRIKAZ DESKTOP RASPOREDA =====
 function prikaziDesktopRaspored() {
     const kontejner = document.getElementById('desktopRaspored');
     if (!kontejner) return;
@@ -381,6 +390,7 @@ function prikaziDesktopRaspored() {
     kontejner.innerHTML = html;
 }
 
+// ===== PRIKAZ MOBILNOG RASPOREDA =====
 function prikaziMobilniRaspored() {
     const kontejner = document.getElementById('mobilniRaspored');
     if (!kontejner) return;
@@ -477,6 +487,7 @@ function prikaziMobilniRaspored() {
     kontejner.innerHTML = html;
 }
 
+// ===== PROMENA DANA =====
 function promeniDan(smer) {
     stanje.selectedDay = (stanje.selectedDay + smer + 5) % 5;
     stanje.izabranaKolona = stanje.selectedDay;
@@ -484,6 +495,7 @@ function promeniDan(smer) {
     prikaziDesktopRaspored();
 }
 
+// ===== MULTI SELEKCIJA =====
 function preklopiMultiSelect(ukljuci) {
     stanje.multiSelect = arguments.length > 0 ? !!ukljuci : !stanje.multiSelect;
     stanje.izabraniSlotovi.clear();
@@ -556,6 +568,7 @@ function azurirajMultiSelectUI() {
     if (dugmeSacuvaj) dugmeSacuvaj.textContent = broj > 0 ? t('ms.primeniNa', { n: broj, plural: pluralCasovi(broj) }) : t('ms.primeni');
 }
 
+// ===== BRISANJE CASOVA =====
 function obrisiIzabraneSlotove() {
     const smena = podaciAplikacije.settings.currentShift;
     const n = stanje.izabraniSlotovi.size;

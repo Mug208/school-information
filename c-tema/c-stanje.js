@@ -1,5 +1,7 @@
+// CODE tema: deljeno stanje i podesavanja efekata.
 'use strict';
 
+// ===== PODESAVANJA I STANJE =====
 var cfg = {
     omogucen: false,
     intenzitet: 5,
@@ -50,6 +52,7 @@ var kisaBoje = {
     pozadinaAlfa: 'rgba(3,9,6,0.08)'
 };
 
+// ===== FUNKCIJE STANJA I TIMEROVA =====
 function podesavanjaSmanjenogPomeranja() {
     return !!(medijaSmanjeno && medijaSmanjeno.matches);
 }

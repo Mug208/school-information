@@ -1,4 +1,6 @@
+// Tab beleski: kartice, filteri po tipu, pretraga i traka napretka.
 'use strict';
+// ===== POMOCNE FUNKCIJE =====
 function normalizujTekst(t) {
     return String(t == null ? '' : t).toLowerCase()
         .replace(/č/g, 'c').replace(/ć/g, 'c').replace(/š/g, 's')
@@ -6,6 +8,7 @@ function normalizujTekst(t) {
         .replace(/\s+/g, ' ').trim();
 }
 
+// ===== PRIKAZ BELESKI =====
 function prikaziBeleske() {
     const kontejner = document.getElementById('mrezaBeleski');
     if (!kontejner) return;
@@ -93,6 +96,7 @@ function prikaziBeleske() {
     kontejner.innerHTML = html;
 }
 
+// ===== STATUS, KACENJE, BRISANJE =====
 function promeniStatusBeleske(id) {
     const beleska = podaciAplikacije.notes.find(n => n.id === id);
     if (beleska) {
@@ -121,6 +125,7 @@ function obrisiBelesku(id) {
     });
 }
 
+// ===== FILTRI =====
 function azurirajPrikazeBeleski() {
     prikaziBeleske();
     prikaziBeleskeIzabraniDatum();
@@ -139,6 +144,7 @@ function postaviFilter(filter) {
     prikaziBeleske();
 }
 
+// ===== PROGRES =====
 function azurirajProgresBeleski() {
     const wrap = document.getElementById('beleskeProgres');
     const traka = document.getElementById('beleskeProgresPopunjeno');
@@ -164,6 +170,7 @@ function azurirajProgresBeleski() {
     }
 }
 
+// ===== PRETRAGA =====
 function azurirajPretraguPrikaz(brojRezultata) {
     const brojEl = document.getElementById('pretragaBroj');
     const ocistiEl = document.getElementById('dugmeOcistiPretragu');

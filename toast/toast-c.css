@@ -1,3 +1,4 @@
+/* CODE varijanta toastova. */
 body.code-tema .toast {
     background: var(--bg-zaglavlje);
     color: var(--tekst-primarni);

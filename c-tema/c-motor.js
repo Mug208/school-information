@@ -1,4 +1,6 @@
+// CODE tema: glavni motor, javni API window.codeEngine.
 'use strict';
+    // ===== TAJMERI I POKRETANJE =====
     function pokreniSveTajmere() {
         planirajPrasak();
         planirajInverziju();
@@ -33,6 +35,7 @@
         }
     }
 
+    // ===== PRIMENA PODESAVANJA =====
     function primeniAtribute() {
         var telo = document.body;
         if (!telo) return;
@@ -89,6 +92,7 @@
         }
     }
 
+    // ===== SLUSACI I INICIJALIZACIJA =====
     function podesaviSlusace() {
 
         window.addEventListener('resize', function () {
@@ -135,6 +139,7 @@
         }
     }
 
+    // ===== JAVNI API =====
     window.codeEngine = {
         init: cInit,
         primeni: primeni,

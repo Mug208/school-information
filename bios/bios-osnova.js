@@ -1,5 +1,7 @@
+// BIOS: kategorije, otvaranje, stanje izmena i javni API window.BIOS.
 'use strict';
 
+// ===== KATEGORIJE =====
 var KATEGORIJE = [
     { id: 'glavno', naziv: 'Glavno' },
     { id: 'predmeti', naziv: 'Predmeti' },
@@ -11,6 +13,7 @@ var KATEGORIJE = [
 
 var BOJE_PRESETA = ['#ef4444', '#f59e0b', '#eab308', '#22c55e', '#0d9488', '#3b82f6', '#8b5cf6', '#ec4899'];
 
+// ===== STANJE BIOS-A =====
 var otvorenFlag = false;
 var faza = 'zatvoren';
 var radna = null;
@@ -26,6 +29,7 @@ var dialogOtvoren = false;
 var dijalogDugmad = [];
 var sideOtvoren = false;
 
+// ===== DOM POMOCNE =====
 function dom(id) {
     return document.getElementById(id);
 }
@@ -47,6 +51,7 @@ function dvoje(n) {
     return String(n).padStart(2, '0');
 }
 
+// ===== VREME I DATUM =====
 function trenutnoVreme() {
     var d = new Date();
     return dvoje(d.getHours()) + ':' + dvoje(d.getMinutes()) + ':' + dvoje(d.getSeconds());
@@ -57,6 +62,7 @@ function trenutniDatum() {
     return dvoje(d.getDate()) + '.' + dvoje(d.getMonth() + 1) + '.' + d.getFullYear();
 }
 
+// ===== OSTALE POMOCNE =====
 function bezbednaBoja(hex) {
     return /^#[0-9a-fA-F]{6}$/.test(String(hex)) ? String(hex) : '#0d9488';
 }
@@ -84,6 +90,7 @@ function toast(poruka, tip) {
     } catch (e) {}
 }
 
+// ===== VREDNOSTI I BROJEVI =====
 function uzmiVrednost(red) {
     return typeof red.get === 'function' ? red.get() : red.get;
 }
@@ -94,6 +101,7 @@ function broj(v, podrazumevano, min, max) {
     return Math.min(max, Math.max(min, n));
 }
 
+// ===== NORMALIZACIJA I VALIDACIJA =====
 function normalizuj(p) {
     var n = {};
     try {
@@ -194,6 +202,7 @@ function validiraj() {
     return true;
 }
 
+// ===== PROVERE I RACUN =====
 function imaIzmena() {
     if (radna === null || snimak === null) return false;
     try {

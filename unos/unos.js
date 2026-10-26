@@ -1,4 +1,6 @@
+// Biraci predmeta sa pretragom, koriste ih modalni dijalozi.
 'use strict';
+// ===== POMOCNE FUNKCIJE =====
 function bezDijakritika(tekst) {
     return String(tekst || '')
         .toLowerCase()
@@ -26,6 +28,7 @@ function azurirajInfoSlota() {
     `;
 }
 
+// ===== BIRAC PREDMETA =====
 function renderujBiracPredmeta() {
     const kont = document.getElementById('biracPredmeta');
     if (!kont) return;
@@ -102,6 +105,7 @@ function ocistiPretraguPredmeta() {
     if (el) el.focus();
 }
 
+// ===== GRUPNA IZMENA =====
 function azurirajGiInfo() {
     const el = document.getElementById('giInfo');
     if (!el) return;

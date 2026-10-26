@@ -1,3 +1,5 @@
+/* CODE tema: osnovni terminalski izgled. */
+/* ===== KISA PLATNO ===== */
 #codeRain {
     position: fixed;
     inset: 0;
@@ -13,6 +15,7 @@ body.code-tema[data-code-kisa="1"] #codeRain {
     display: block;
 }
 
+/* ===== TELO U CODE TEMI ===== */
 body.code-tema {
     --gx-rgb: 0, 255, 156;
     --primarna: #00ff9c;

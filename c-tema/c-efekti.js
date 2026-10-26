@@ -1,5 +1,7 @@
+// CODE tema: sken linije, treperenje i korupcija.
 'use strict';
 
+// ===== PRASAK =====
 function skupiBazen() {
     var bazen = [];
     if (!koren || !koren.isConnected) return bazen;
@@ -131,6 +133,7 @@ function planirajPrasak() {
     }, Math.max(400, kasnjenje * 1000));
 }
 
+// ===== INVERZIJA =====
 function zaustaviInverziju() {
     ocisti('inverzija-kraj');
     if (koren && koren.isConnected) koren.classList.remove('invert-flash');
@@ -170,6 +173,7 @@ function planirajInverziju() {
     }, Math.max(500, kasnjenje * 1000));
 }
 
+// ===== KORUPCIJA TEKSTA =====
 function izmesajTekst(tekst) {
     var procenat = 0.35 + Math.random() * 0.25;
     var znakovi = tekst.split('');

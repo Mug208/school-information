@@ -1,3 +1,5 @@
+/* Modul toast: obavestenja, prefiks .toast-. */
+/* ===== KONTEJNER ===== */
 .toast-kontejner {
     position: fixed;
     bottom: 22px;
@@ -13,6 +15,7 @@
     max-width: calc(100vw - 32px);
 }
 
+/* ===== TOAST I TIPOVI ===== */
 .toast {
     padding: 11px 22px;
     border-radius: var(--radius);

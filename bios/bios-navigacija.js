@@ -1,5 +1,7 @@
+// BIOS: kretanje na tastaturi kroz redove i kategorije.
 'use strict';
 
+// ===== NAVIGACIJA REDOVIMA =====
 function pomeri(smer) {
     var navig = trenutniRedoviModel.filter(function (r) {
         return r.izbor && !redIskljucen(r);
@@ -21,6 +23,7 @@ function pomeri(smer) {
     if (el) el.focus();
 }
 
+// ===== KATEGORIJE =====
 function promeniKategoriju(kat) {
     if (aktivnaKategorija === kat) return;
     if (sideOtvoren) zatvoriSidePanel();
@@ -44,6 +47,7 @@ function skociNaKategoriju(indeks) {
     promeniKategoriju(KATEGORIJE[indeks].id);
 }
 
+// ===== IZBOR I VREDNOSTI =====
 function promeniIzbor(red, smer) {
     var vred = red.get();
     var i = -1;
@@ -100,6 +104,7 @@ function promeniVrednost(smer) {
     osveziPrikaz();
 }
 
+// ===== AKTIVACIJA I UNOS =====
 function tresi(id) {
     var el = redElement(id);
     if (!el) return;
@@ -306,6 +311,7 @@ function zameniUnosom(red) {
     input.addEventListener('blur', potvrdi);
 }
 
+// ===== SIDE PANEL =====
 function otvoriSidePanel(podaci) {
     var side = dom('biosSide');
     if (!side) return;

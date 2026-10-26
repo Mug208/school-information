@@ -1,6 +1,10 @@
+// Zaglavlje: navigacija, mobilni meni, zvono sa obavestenjima i statusna traka.
 'use strict';
+
+// ===== NAVIGACIJA PO TABOVIMA =====
 function prebaciTab(tab) {
-    stanje.currentTab = tab;
+    // Tok je vidljiv: akcija menja stanje u store-u, ostatak je reakcija.
+    Store.dispatch({ type: 'TAB_PROMENI', payload: tab });
 
     document.querySelectorAll('.nav-dugme, .mobilni-nav-dugme').forEach(dugme => {
         dugme.classList.toggle('aktivan', dugme.dataset.tab === tab);
@@ -13,6 +17,7 @@ function prebaciTab(tab) {
     zatvoriMobilniMeni();
 }
 
+// ===== MOBILNI MENI =====
 function prebaciMobilniMeni() {
     const meni = document.getElementById('mobilniMeni');
     if (!meni) return;
@@ -55,6 +60,7 @@ function zatvoriMobilniMeni() {
     }
 }
 
+// ===== OBAVESTENJA =====
 function prikaziObavestenja() {
     const kontejner = document.getElementById('listaObavestenja');
     const oznaka = document.getElementById('brojObavestenja');
@@ -100,6 +106,7 @@ function zatvoriObavestenja() {
     if (dugme) dugme.setAttribute('aria-expanded', 'false');
 }
 
+// ===== SMENA I STATUS =====
 function prikaziOznakuSmene() {
     const smena = podaciAplikacije.settings.currentShift;
     const podesavanjaSmene = podaciAplikacije.settings.shifts[smena];
@@ -161,6 +168,7 @@ function azurirajStatusTekst() {
     el.innerHTML = `${ikonica('plej', '>')} ${esc(t('status.cas', { n: info.period }))}${predmet ? ' / ' + esc(predmet.name) : ''} (${info.start}–${info.end})`;
 }
 
+// ===== SAT I PODNOZJE =====
 function pokreniSat() {
     const satEl = document.getElementById('livSat');
     const datumEl = document.getElementById('livDatum');

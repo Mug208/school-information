@@ -1,5 +1,7 @@
+// BIOS: boot sekvenca pri pokretanju.
 'use strict';
 
+// ===== BOOT LOG =====
 function bootRed(tekst, vrednostHtml) {
     var t = String(tekst);
     var tacke = '.'.repeat(Math.max(33 - t.length, 6));
@@ -41,6 +43,7 @@ function dodajMemRed() {
     }, 45);
 }
 
+// ===== POKRETANJE BOOT-A =====
 function kasnjenje(baza) {
     return Math.round(baza + Math.random() * 60);
 }
@@ -129,6 +132,7 @@ function preskociBoot() {
     prikaziBIOSUI();
 }
 
+// ===== UI I SAT =====
 function prikaziBIOSUI() {
     faza = 'ui';
     otkaziBoot();

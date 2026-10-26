@@ -1,7 +1,10 @@
+// Pretrazivaci na tastaturi, tajna sekvenca, sat i inicijalizacija aplikacije.
 'use strict';
 function initDogadjaji() {
+    // ===== TAJNA AKTIVACIJA =====
     inicijalizujTajnuAktivaciju();
 
+        // ===== NAVIGACIJA I MOBILNI MENI =====
         document.querySelectorAll('.nav-dugme, .mobilni-nav-dugme').forEach(dugme => {
         dugme.addEventListener('click', () => prebaciTab(dugme.dataset.tab));
     });
@@ -45,6 +48,7 @@ function initDogadjaji() {
         if (window.innerWidth > 768) zatvoriMobilniMeni();
     });
 
+        // ===== DUGMAD ZAGLAVLJA =====
         document.getElementById('dugmePodesavanja').addEventListener('click', () => {
         if (window.BIOS && typeof window.BIOS.otvori === 'function') {
             window.BIOS.otvori();
@@ -56,6 +60,7 @@ function initDogadjaji() {
         const dugmeKomande = document.getElementById('dugmeKomande');
     if (dugmeKomande) dugmeKomande.addEventListener('click', kpPreklopi);
 
+    // ===== KOMANDNA PALETA =====
     const kpUnos = document.getElementById('kpUnos');
     if (kpUnos) {
         kpUnos.addEventListener('input', () => { kpStanje.indeks = 0; kpRender(); });
@@ -98,6 +103,7 @@ function initDogadjaji() {
         });
     }
 
+        // ===== RASPORED: DANI I PRETRAGA =====
         document.getElementById('dugmePredhodniDan').addEventListener('click', () => promeniDan(-1));
     document.getElementById('dugmeSledeciDan').addEventListener('click', () => promeniDan(1));
     document.getElementById('selektorDana').addEventListener('change', (e) => {
@@ -128,6 +134,7 @@ function initDogadjaji() {
         d.addEventListener('click', preklopiPretraguPredmeta);
     });
 
+        // ===== MODAL RASPOREDA =====
         document.getElementById('zatvoriModalRaspored').addEventListener('click', zatvoriModalRaspored);
     document.getElementById('dugmeOtkaziRaspored').addEventListener('click', zatvoriModalRaspored);
     document.getElementById('dugmeSacuvajRaspored').addEventListener('click', sacuvajRaspored);
@@ -138,6 +145,7 @@ function initDogadjaji() {
         });
     });
 
+    // ===== MULTI SELEKCIJA I GRUPNA IZMENA =====
     document.querySelectorAll('#dugmeMultiSelect, .dugmeMultiSelectMobilni').forEach(d => {
         d.addEventListener('click', () => preklopiMultiSelect());
     });
@@ -171,6 +179,7 @@ function initDogadjaji() {
         });
     }
 
+        // ===== BIRAC PREDMETA U MODALU =====
         const pretragaPredmetaEl = document.getElementById('pretragaPredmeta');
     if (pretragaPredmetaEl) {
         pretragaPredmetaEl.addEventListener('input', renderujBiracPredmeta);
@@ -186,6 +195,7 @@ function initDogadjaji() {
     document.getElementById('rasporedDan').addEventListener('change', azurirajInfoSlota);
     document.getElementById('rasporedCas').addEventListener('change', azurirajInfoSlota);
 
+        // ===== BELESKE =====
         document.getElementById('dugmeDodajBelesku').addEventListener('click', () => otvoriModalBeleska());
     document.getElementById('dugmeNovaBeleska').addEventListener('click', () => otvoriModalBeleska());
     document.getElementById('zatvoriModalBeleska').addEventListener('click', zatvoriModalBeleska);
@@ -229,6 +239,7 @@ function initDogadjaji() {
         });
     }
 
+            // ===== STAMPA =====
             ['#dugmeStampaj', '.dugmeStampajMobilni'].forEach(sel => {
         const dugme = document.querySelector(sel);
         if (dugme) {
@@ -239,6 +250,7 @@ function initDogadjaji() {
         }
     });
 
+        // ===== PREDMETI I UVOZ =====
         document.getElementById('dugmeObrisiPredmet').addEventListener('click', obrisiPredmet);
     document.getElementById('zatvoriModalPredmet').addEventListener('click', zatvoriModalPredmet);
     document.getElementById('dugmeOtkaziPredmet').addEventListener('click', zatvoriModalPredmet);
@@ -258,6 +270,7 @@ function initDogadjaji() {
         }
     });
 
+        // ===== POTVRDA I OBAVESTENJA =====
         document.getElementById('dugmePotvrdaOtkazi').addEventListener('click', () => {
         const cb = stanje.confirmCallback;
         zatvoriModalPotvrde();
@@ -288,6 +301,7 @@ function initDogadjaji() {
         }
     });
 
+        // ===== ZATVARANJE MODALA KLIKOM =====
         document.querySelectorAll('.modal-prekrivac').forEach(prekrivac => {
         prekrivac.addEventListener('click', () => {
             const modal = prekrivac.closest('.modal');
@@ -301,6 +315,7 @@ function initDogadjaji() {
         });
     });
 
+        // ===== TASTATURSKE PRECICE =====
         document.addEventListener('keydown', (e) => {
         const biosOtvoren = window.BIOS && typeof window.BIOS.otvoren === 'function' && window.BIOS.otvoren();
         if (biosOtvoren) return;
@@ -398,6 +413,7 @@ function initDogadjaji() {
     });
 }
 
+// ===== INICIJALIZACIJA APLIKACIJE =====
 document.addEventListener('DOMContentLoaded', () => {
     ucitajPodatke();
     if (typeof postaviJezik === 'function') {

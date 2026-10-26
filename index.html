@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- ===== STILOVI ===== -->
     <link rel="stylesheet" href="./osnova/osnova.css">
     <link rel="stylesheet" href="./osnova/ikone.css">
     <link rel="stylesheet" href="./zaglavlje/zaglavlje.css">
@@ -53,12 +54,15 @@
 
 </head>
 <body>
+    <!-- ===== SLOJEVI EFEKATA ===== -->
     <canvas id="codeRain" class="code-kisa" aria-hidden="true"></canvas>
 
     <div id="crtSloj" aria-hidden="true"></div>
 
+    <!-- ===== GLAVNI KONTEJNER ===== -->
     <div id="appKoren" class="app-koren">
 
+        <!-- ===== ZAGLAVLJE: LOGO, NAVIGACIJA, DUGMAD ===== -->
         <header class="zaglavlje">
             <div class="zaglavlje-sadrzaj">
                 <div class="logo">
@@ -131,6 +135,7 @@
         </header>
 
         <div class="mobilni-meni-prekrivac" id="mobilniMeniPrekrivac" aria-hidden="true"></div>
+        <!-- ===== MOBILNI MENI ===== -->
         <aside class="mobilni-meni" id="mobilniMeni" aria-label="Menu" data-i18n-aria-label="meni.arialabel">
             <div class="mobilni-meni-zaglavlje">
                 <span class="mobilni-meni-naslov" data-i18n="meni.naslov">MENU</span>
@@ -169,10 +174,14 @@
             </div>
             <div class="mobilni-meni-podnozje" data-i18n="meni.info">Data is stored locally in your browser.</div>
         </aside>
+        <!-- ===== GLAVNI SADRZAJ ===== -->
         <main class="glavni">
+            <!-- ===== TAB: RASPORED ===== -->
+
             <section class="tab-sadrzaj aktivan" id="tabRaspored" aria-label="Class Schedule" data-i18n-aria-label="raspored.arialabel">
                 <div class="print-zaglavlje" id="printZaglavlje" aria-hidden="true"></div>
 
+                <!-- ===== BIRAC DANA ===== -->
                 <div class="mobilni-birac-dana">
                     <button class="dugme-nav-dana" id="dugmePredhodniDan" aria-label="Previous day" data-i18n-aria-label="raspored.prethodniDan"><span class="ik" data-ik="strelica_levo" data-a="&lt;" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-strelica_levo"></use></svg></span></button>
                     <select id="selektorDana" aria-label="Day of the week" data-i18n-aria-label="raspored.biracDana">
@@ -185,6 +194,7 @@
                     <button class="dugme-nav-dana" id="dugmeSledeciDan" aria-label="Next day" data-i18n-aria-label="raspored.sledeciDan"><span class="ik" data-ik="strelica_desno" data-a="&gt;" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-strelica_desno"></use></svg></span></button>
                 </div>
 
+                <!-- ===== PRETRAGA PREDMETA ===== -->
                 <div class="pretraga-predmeta" id="pretragaPredmetaBar" role="search" aria-label="Subject search in the schedule" data-i18n-aria-label="pp.barAria" hidden>
                     <div class="pp-red">
                         <span class="pp-ikona" aria-hidden="true"><span class="ik" data-ik="lupa" data-a="[&gt;]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-lupa"></use></svg></span></span>
@@ -199,6 +209,7 @@
                     <div class="pp-pogodci" id="ppPogodci" aria-label="Found subjects" data-i18n-aria-label="pp.pogodciAria"></div>
                 </div>
 
+                <!-- ===== MULTI SELEKCIJA ===== -->
                 <div class="ms-traka" id="multiSelectBar" role="toolbar" aria-label="Multi-select periods" data-i18n-aria-label="ms.arialabel" hidden>
                     <div class="ms-red">
                         <span class="ms-ikona" aria-hidden="true"><span class="ik" data-ik="kvacica_kvadrat" data-a="[M]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-kvacica_kvadrat"></use></svg></span></span>
@@ -217,6 +228,7 @@
                     <p class="ms-napomena" data-i18n="ms.napomena">Click periods in the table to select them (active shift) / then "Edit" for a bulk change.</p>
                 </div>
 
+                <!-- ===== DESKTOP RASPORED ===== -->
                 <div class="raspored-kontejner desktop">
                     <div class="raspored-zaglavlje">
                         <div class="raspored-zaglavlje-red">
@@ -235,6 +247,7 @@
                     </div>
                 </div>
 
+                <!-- ===== MOBILNI RASPORED ===== -->
                 <div class="raspored-kontejner mobilni">
                     <div class="raspored-zaglavlje">
                         <div class="raspored-zaglavlje-red">
@@ -254,6 +267,7 @@
                 </div>
             </section>
 
+            <!-- ===== TAB: KALENDAR ===== -->
             <section class="tab-sadrzaj" id="tabKalendar" aria-label="Calendar" data-i18n-aria-label="kal.arialabel">
                 <div class="kalendar-raspored">
                     <div class="kalendar-kontejner">
@@ -292,6 +306,7 @@
                 </div>
             </section>
 
+            <!-- ===== TAB: BELESKE ===== -->
             <section class="tab-sadrzaj" id="tabBeleske" aria-label="Notes" data-i18n-aria-label="bel.arialabel">
                 <div class="beleske-zaglavlje">
                     <div class="beleske-naslov-wrap">
@@ -308,6 +323,7 @@
                     </button>
                 </div>
 
+                <!-- ===== FILTRI BELESKI ===== -->
                 <div class="filter-dugmad" role="toolbar" aria-label="Note filters" data-i18n-aria-label="bel.filterAria">
                     <button class="filter-dugme aktivan" data-filter="sve"><span data-i18n="filter.sve">All</span> (<span id="brojSve">0</span>)</button>
                     <button class="filter-dugme" data-filter="kontrolni"><span class="ik" data-ik="tacka" data-a="!!" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-tacka"></use></svg></span> <span data-i18n="tip.kontrolni">Test</span> (<span id="brojKontrolni">0</span>)</button>
@@ -317,6 +333,7 @@
                     <button class="filter-dugme" data-filter="domaci"><span class="ik" data-ik="tacka" data-a="[HW]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-tacka"></use></svg></span> <span data-i18n="tip.domaci">Homework</span> (<span id="brojDomaci">0</span>)</button>
                     <button class="filter-dugme" data-filter="ostalo"><span class="ik" data-ik="tacka" data-a="[O]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-tacka"></use></svg></span> <span data-i18n="tip.ostalo">Other</span> (<span id="brojOstalo">0</span>)</button>
                 </div>
+                <!-- ===== PRETRAGA BELESKI ===== -->
                 <div class="pretraga-traka" role="search">
                     <div class="pretraga-kutija">
                         <span class="pretraga-ikona" aria-hidden="true">&gt;_</span>
@@ -331,6 +348,7 @@
             </section>
         </main>
 
+        <!-- ===== PODNOZJE ===== -->
         <footer class="podnozje">
             <div class="podnozje-sadrzaj">
                 <div class="podnozje-levo">
@@ -346,6 +364,7 @@
             </div>
         </footer>
 
+        <!-- ===== MODAL: DODAVANJE I IZMENA CASA ===== -->
         <div class="modal" id="modalRaspored" role="dialog" aria-modal="true" aria-labelledby="naslovModalRaspored">
             <div class="modal-prekrivac" data-zatvori="modalRaspored"></div>
             <div class="modal-kartica">
@@ -396,6 +415,7 @@
             </div>
         </div>
 
+        <!-- ===== MODAL: GRUPNA IZMENA ===== -->
         <div class="modal" id="modalGrupnaIzmena" role="dialog" aria-modal="true" aria-labelledby="naslovModalGrupnaIzmena">
             <div class="modal-prekrivac" data-zatvori="modalGrupnaIzmena"></div>
             <div class="modal-kartica">
@@ -440,6 +460,7 @@
                 </div>
             </div>
         </div>
+        <!-- ===== MODAL: BELESKA ===== -->
         <div class="modal" id="modalBeleska" role="dialog" aria-modal="true" aria-labelledby="naslovModalBeleska">
             <div class="modal-prekrivac" data-zatvori="modalBeleska"></div>
             <div class="modal-kartica">
@@ -497,6 +518,7 @@
             </div>
         </div>
 
+        <!-- ===== MODAL: PREDMET ===== -->
         <div class="modal" id="modalPredmet" role="dialog" aria-modal="true" aria-labelledby="naslovModalPredmet">
             <div class="modal-prekrivac" data-zatvori="modalPredmet"></div>
             <div class="modal-kartica modal-mali">
@@ -540,6 +562,7 @@
             </div>
         </div>
 
+        <!-- ===== MODAL: POTVRDA ===== -->
         <div class="modal" id="modalPotvrda" role="alertdialog" aria-modal="true" aria-labelledby="naslovModalPotvrda">
             <div class="modal-prekrivac" data-zatvori="modalPotvrda"></div>
             <div class="modal-kartica modal-mali">
@@ -558,6 +581,7 @@
             </div>
         </div>
 
+        <!-- ===== MODAL: NOVINE ===== -->
         <div class="modal novine" id="modalNovine" role="dialog" aria-modal="true" aria-labelledby="novineNaslov" aria-describedby="novinePodnaslov">
             <div class="modal-prekrivac" data-zatvori="modalNovine"></div>
             <div class="modal-kartica novine-kartica">
@@ -582,6 +606,7 @@
 
         <input type="file" id="inputUvoz" accept=".json" style="display:none;" aria-hidden="true">
 
+        <!-- ===== KOMANDNA PALETA ===== -->
         <div class="kp-overlay" id="kpOverlay" hidden>
             <div class="kp-prekrivac" data-kp-zatvori></div>
             <div class="kp-panel" role="dialog" aria-modal="true" aria-label="Command palette" data-i18n-aria-label="kp.arialabelPanel">
@@ -599,8 +624,10 @@
         </div>
     </div>
 
+    <!-- ===== TOAST ===== -->
     <div class="toast-kontejner" id="toastKontejner" aria-live="polite" aria-atomic="false"></div>
 
+    <!-- ===== BIOS ===== -->
     <div class="bios-overlay" id="biosOverlay" role="dialog" aria-modal="true" aria-label="BIOS settings" data-i18n-aria-label="bios.arialabel" hidden>
         <div class="bios-boot" id="biosBoot" hidden>
             <div class="bios-boot-logo" aria-hidden="true" data-i18n="bios.boot.logo">SCHOOL BIOS</div>
@@ -609,6 +636,7 @@
         </div>
 
         <div class="bios-ui" id="biosUI" hidden>
+            <!-- ===== BIOS ZAGLAVLJE ===== -->
             <header class="bios-header">
                 <div class="bios-header-levo">
                     <span class="bios-naziv"><span data-i18n="bios.naziv">SCHOOL BIOS</span> <span class="bios-verzija">v2.03</span></span>
@@ -620,9 +648,11 @@
                 </div>
             </header>
 
+            <!-- ===== BIOS NAVIGACIJA ===== -->
             <nav class="bios-nav" id="biosNav" role="tablist" aria-label="BIOS categories" data-i18n-aria-label="bios.kategorijeAria">
             </nav>
 
+            <!-- ===== BIOS TELO ===== -->
             <div class="bios-telo">
                 <div class="bios-panel">
                     <div class="bios-kategorija-naslov" id="biosKategorijaNaslov"></div>
@@ -654,6 +684,7 @@
                 </aside>
             </div>
 
+            <!-- ===== BIOS PODNOZJE ===== -->
             <footer class="bios-footer">
                 <span><kbd>↑↓</kbd> <span data-i18n="bios.f.stavka">Item</span></span>
                 <span><kbd>←→</kbd> <span data-i18n="bios.f.kategorija">Category</span></span>
@@ -666,6 +697,7 @@
             </footer>
         </div>
 
+        <!-- ===== BIOS DIJALOG ===== -->
         <div class="bios-dialog" id="biosDialog" hidden>
             <div class="bios-dialog-kutija" role="alertdialog" aria-labelledby="biosDialogNaslov">
                 <div class="bios-dialog-naslov" id="biosDialogNaslov"></div>
@@ -676,7 +708,12 @@
     </div>
 
 
+    <!-- Cista logika i store se ucitavaju prvi da ostali moduli mogu da
+         ih koriste. Redosled ostaje eksplicitan dok se moduli ne prebace na ES import. -->
+    <!-- ===== SKRIPTE ===== -->
+    <script src="./osnova/logika.js"></script>
     <script src="./osnova/podaci.js"></script>
+    <script src="./osnova/store.js"></script>
     <script src="./osnova/stanje.js"></script>
     <script src="./osnova/pomocne.js"></script>
     <script src="./osnova/ikone.js"></script>
@@ -715,5 +752,17 @@
     <script src="./v-tema/v-xray.js"></script>
     <script src="./v-tema/v-panel.js"></script>
     <script src="./v-tema/v-motor.js"></script>
+
+    <!-- ESM most: novi moduli pisani kao ES moduli uvoze se ovde.
+         Preko file:// pregledaci blokiraju module pa se ucitavaju samo
+         preko http i https, a "klasicne" skripte sve vuce i bez ovog bloka. -->
+    <script type="module">
+        if (location.protocol !== 'file:') {
+            try {
+                const dijagnostika = await import('./osnova/dijagnostika.js');
+                dijagnostika.pokreni(window.Store);
+            } catch (e) { }
+        }
+    </script>
 </body>
 </html>

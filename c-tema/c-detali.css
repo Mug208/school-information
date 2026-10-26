@@ -1,3 +1,5 @@
+/* CODE tema: dorade detalja postojecih modula. */
+/* ===== SKROLBAR I SELEKCIJA ===== */
 body.code-tema ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
@@ -27,6 +29,7 @@ body.code-tema :focus-visible {
     outline-offset: 2px;
 }
 
+/* ===== IKONE ===== */
 body.code-tema .ik::before {
     color: var(--primarna);
     text-shadow: 0 0 7px rgba(var(--gx-rgb), 0.45);

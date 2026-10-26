@@ -1,3 +1,5 @@
+/* Modul zaglavlje: navigacija, zvono i statusna traka. */
+/* ===== ZAGLAVLJE ===== */
 .zaglavlje {
     position: sticky;
     top: 0;
@@ -18,6 +20,7 @@
     padding: 10px 20px;
 }
 
+/* ===== LOGO ===== */
 .logo {
     display: flex;
     align-items: center;
@@ -58,7 +61,7 @@
     margin-top: 1px;
 }
 
-
+/* ===== DESKTOP NAVIGACIJA ===== */
 .desktop-nav {
     display: flex;
     gap: 4px;
@@ -97,7 +100,7 @@
     line-height: 1;
 }
 
-
+/* ===== DUGMAD ZAGLAVLJA ===== */
 .zaglavlje-akcije {
     display: flex;
     align-items: center;
@@ -148,6 +151,7 @@
     pointer-events: none;
 }
 
+/* ===== OBAVESTENJA ===== */
 .obavestenje-wrapper {
     position: relative;
 }
@@ -249,7 +253,7 @@
     flex-wrap: wrap;
 }
 
-
+/* ===== STATUSNA TRAKA ===== */
 .statusna-traka {
     display: flex;
     justify-content: space-between;
@@ -302,6 +306,7 @@
     font-variant-numeric: tabular-nums;
 }
 
+/* ===== MOBILNI MENI ===== */
 .mobilni-meni-prekrivac {
     position: fixed;
     inset: 0;
@@ -502,6 +507,7 @@ body.meni-otvoren #dugmeMobilniMeni .ik-svg {
     }
 }
 
+/* ===== TABOVI ===== */
 .tab-sadrzaj {
     display: none;
 }

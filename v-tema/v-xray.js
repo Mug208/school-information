@@ -1,3 +1,4 @@
+// VirusTema: rendgen prikaz elemenata.
 'use strict';
     var DomRengen = (function () {
 
@@ -25,6 +26,7 @@
         var aktivan = false;
         var poslednjiTekst = '';
 
+        // ===== OZNAKE ELEMENATA =====
         function tekstOznake(el) {
             if (el.id) return '#' + el.id;
             var klase = (el.className || '').toString().split(/\s+/).filter(Boolean);
@@ -36,6 +38,7 @@
             return document.body.classList.contains('code-tema');
         }
 
+        // ===== PRIKAZ I DOGADJAJI =====
         function postavi() {
             if (!cvor || !cilj || !fx) return;
             var s = fx.getBoundingClientRect();

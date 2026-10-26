@@ -1,3 +1,5 @@
+/* Stilovi ikonica; selektori doticu klase drugih modula samo radi velicine ikona. */
+/* ===== SPRITE I OSNOVA ===== */
 .ikone-sprite {
     position: absolute;
     width: 0;
@@ -22,6 +24,7 @@
     pointer-events: none;
 }
 
+/* ===== CODE TEMA ===== */
 body.code-tema .ik-svg {
     display: none;
 }
@@ -38,6 +41,7 @@ body.code-tema .ik-tekst::before {
     content: none;
 }
 
+/* ===== VELICINE PO KONTEKSTU ===== */
 .logo-ikona .ik,
 .ikonica-dugme .ik,
 .nav-ikona .ik,

@@ -1,8 +1,11 @@
+// Konstante: kljuc skladista, verzija, tipovi beleski, podrazumevani predmeti i podesavanja.
 'use strict';
 
+// ===== OSNOVNE KONSTANTE =====
 const KLJUC_SKLADISTA = 'skolski-info-podaci';
 const VERZIJA = '2.03';
 
+// ===== DANI I MESECI =====
 let DANI_LAT = ['Ponedeljak', 'Utorak', 'Sreda', 'Četvrtak', 'Petak', 'Subota', 'Nedelja'];
 let DANI_KRATKO = ['Pon', 'Uto', 'Sre', 'Čet', 'Pet', 'Sub', 'Ned'];
 let MESECI_LAT = ['Januar', 'Februar', 'Mart', 'April', 'Maj', 'Jun', 'Jul', 'Avgust', 'Septembar', 'Oktobar', 'Novembar', 'Decembar'];
@@ -18,6 +21,7 @@ let TEKST_PRECICA =
     'DEL / BIOS podešavanja\n' +
     'T / promena teme';
 
+// ===== TIPOVI BELESKI =====
 const TIPOVI_BELESKE = {
     kontrolni: { label: 'Kontrolni', color: '#ef4444', icon: 'upozorenje', iconA: '!!', shortLabel: 'KONT' },
     pismeni: { label: 'Pismeni', color: '#8b5cf6', icon: 'beleske', iconA: '[W]', shortLabel: 'PIS' },
@@ -27,6 +31,7 @@ const TIPOVI_BELESKE = {
     ostalo: { label: 'Ostalo', color: '#6b7280', icon: 'cackalica', iconA: '[O]', shortLabel: 'OST' }
 };
 
+// ===== PODRAZUMEVANI PREDMETI =====
 const PREDMETI_PODRAZUMEVANI = [
     { id: '1', name: 'Serbian language', color: '#ef4444', teacher: '' },
     { id: '2', name: 'Mathematics', color: '#3b82f6', teacher: '' },
@@ -44,6 +49,7 @@ const PREDMETI_PODRAZUMEVANI = [
     { id: '14', name: 'Discrimination', color: '#db2777', teacher: '' }
 ];
 
+// ===== PODESAVANJA PODRAZUMEVANA =====
 const PODESAVANJA_PODRAZUMEVANA = {
     schoolName: 'Your School Name',
     className: 'IV-3',

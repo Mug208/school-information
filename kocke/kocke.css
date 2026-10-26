@@ -1,3 +1,5 @@
+/* Modul kocke: sakrivena slova, prefiks .kk-. */
+/* ===== KOCKA ===== */
 .kk-kocka {
     position: absolute;
     z-index: 8;
@@ -44,6 +46,7 @@
     animation: kk-trzaj 0.5s steps(2, end) forwards;
 }
 
+/* ===== EFEKAT POGOTKA ===== */
 .kk-fx {
     position: fixed;
     inset: 0;
@@ -111,6 +114,7 @@
     100% { opacity: 0; transform: translate(var(--kk-dx, 0), var(--kk-dy, 0)); }
 }
 
+/* ===== SMANJENO POMERANJE ===== */
 @media (prefers-reduced-motion: reduce) {
     .kk-prsten,
     .kk-linija,
@@ -123,6 +127,7 @@
     }
 }
 
+/* ===== STAMPA ===== */
 @media print {
     .kk-kocka,
     .kk-fx {

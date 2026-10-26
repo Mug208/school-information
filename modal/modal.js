@@ -1,4 +1,7 @@
+// Modalni dijalozi: cas, grupna izmena, beleska, predmet i potvrda.
 'use strict';
+
+// ===== OSNOVNE MODAL FUNKCIJE =====
 function otvoriModal(id) {
     document.getElementById(id).classList.add('prikazi');
 }
@@ -7,6 +10,7 @@ function zatvoriModal(id) {
     document.getElementById(id).classList.remove('prikazi');
 }
 
+// ===== CAS: OTVARANJE MODALA =====
 function otvoriModalPredmetSaRasporeda() {
     zatvoriModalRaspored();
     otvoriModalPredmet();
@@ -42,6 +46,7 @@ function otvoriModalRaspored(dan, cas) {
     otvoriModal('modalRaspored');
 }
 
+// ===== CAS: ZATVARANJE I CUVANJE =====
 function zatvoriModalRaspored() {
     zatvoriModal('modalRaspored');
     stanje.editingSchedule = null;
@@ -88,6 +93,7 @@ function sacuvajRaspored() {
     prikaziToast(t('mod.toastCasSacuvan'), 'uspeh');
 }
 
+// ===== CAS: BRISANJE =====
 function obrisiStavkuRasporeda() {
     if (stanje.editingSchedule && stanje.editingSchedule.id) {
         podaciAplikacije.schedule = podaciAplikacije.schedule.filter(s => s.id !== stanje.editingSchedule.id);
@@ -102,6 +108,7 @@ function obrisiStavkuRasporeda() {
     }
 }
 
+// ===== GRUPNA IZMENA =====
 function otvoriModalGrupnaIzmena() {
     if (!stanje.izabraniSlotovi.size) {
         prikaziToast(t('mod.toastPrvoIzaberite'), 'greska');
@@ -187,6 +194,7 @@ function sacuvajGrupnuIzmenu() {
     prikaziToast(t('mod.toastAzurirano', { n: promenjeno, plural: pluralCasovi(promenjeno) }), 'uspeh');
 }
 
+// ===== BELESKA: MODAL =====
 function otvoriModalBeleska(id = null) {
     const beleska = id ? podaciAplikacije.notes.find(n => n.id === id) : null;
     stanje.editingNote = beleska || {
@@ -254,6 +262,7 @@ function sacuvajBelesku() {
     prikaziToast(t('bel.toastSacuvana'), 'uspeh');
 }
 
+// ===== PREDMET: MODAL =====
 function otvoriModalPredmet(id = null) {
     const predmet = id ? dobijPredmet(id) : null;
     stanje.editingSubject = predmet || { id: '', name: '', color: '#0d9488', teacher: '' };
@@ -330,6 +339,7 @@ function obrisiPredmet() {
     });
 }
 
+// ===== POTVRDA =====
 function prikaziPotvrdu(poruka, callback) {
     document.getElementById('tekstPotvrde').textContent = poruka;
     stanje.confirmCallback = callback;

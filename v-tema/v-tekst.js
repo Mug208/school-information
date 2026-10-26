@@ -1,6 +1,8 @@
+// VirusTema: skrambl efekti nad tekstom.
 'use strict';
     var skramblId = 0;
 
+    // ===== EFEKTI TEKSTA =====
     function skrambl(el, krajnje, trajanje) {
         var token = ++skramblId;
         el._vtSk = token;

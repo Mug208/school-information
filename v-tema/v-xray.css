@@ -1,3 +1,5 @@
+/* VirusTema: rendgen efekat, prefiks .vt-. */
+/* ===== DOM TAG ===== */
 .dom-tag {
     position: absolute;
     z-index: 5;
@@ -44,6 +46,7 @@
     transform: translateY(0);
 }
 
+/* ===== INSPEKCIJA ===== */
 .dom-inspekcija {
     outline: 1.5px dashed var(--gx-xray-okvir, rgba(0, 255, 156, .75));
     outline-offset: 3px;
