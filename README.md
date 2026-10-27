@@ -1,4 +1,4 @@
-# Školski sistem (Školska Informacija v2.03)
+# <img width="40" height="40" alt="Mug208SI" src="https://github.com/user-attachments/assets/2cb1723a-764f-40b1-9a26-ed26d429df00" /> Školski sistem (Školska Informacija v2.03)
 
 Školski Informacija je potpuno samostalan Informacioni sistem namenjeno za učenike(poput mene): raspored časova, kalendar sa događajima i beleške, sve u jednom preglednom interfejsu. Aplikacija radi u bilo kom modernom pregledaču, ne zahteva instalaciju, server ni bazu podataka, a svi podaci ostaju lokalno na vašem računaru.
 
@@ -16,7 +16,6 @@ Projekat je napisan samo u HTML, CSS i JavaScriptu, bez ikakvih frameworka, bund
 - **README.md na engleskom jeziku**, imače jedan PROCITAJME.md na srpskom jeziku i README.md na engleskom kasnije
 - **Restyle**: Van podešavanja, gledaću da izmenim dizajn web aplikacije jer izgleda previše moderno, pogotovo u rasporedu, sa sada nisam ismislio kako da to izmenim i već sam razmišljao mesecima kako bi bio više prilagođen dizajn u odnosu ostalih
 - **Login sistem i online sistem**: Malo izazovno, treba će mi server i da malo promenim logiku, i da se snalazim gde bih mogao staviti login/register u sajtu. Mada napraviću logiku ako ne može se povezivati za serverom onda ideš offline za upotrebom json fajla
--**Svoj logo i loading screen**: Gledaću da nešto naučim kako da napravim dizajn i već imam nešto u glavi kako bih izgledalo, samo treba vremena i bolju sliku kako bih stojao uz sajt. Loading screen je za pokušaj priključenje servera ako za to se koristi
 
 ## Funkcionalnosti
 
