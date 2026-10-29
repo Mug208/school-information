@@ -15,7 +15,6 @@
     align-items: center;
     gap: 18px;
     width: 100%;
-    max-width: 1280px;
     margin: 0 auto;
     padding: 10px 20px;
 }
@@ -261,7 +260,6 @@
     gap: 10px;
     flex-wrap: wrap;
     width: 100%;
-    max-width: 1280px;
     margin: 0 auto;
     padding: 6px 20px;
     border-top: 1px solid var(--ivica-svetla);
