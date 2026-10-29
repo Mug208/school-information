@@ -1,4 +1,4 @@
-# <img width="40" height="40" alt="Mug208SI" src="https://github.com/user-attachments/assets/2cb1723a-764f-40b1-9a26-ed26d429df00" /> Školski sistem (Školska Informacija v2.1)
+# <img width="40" height="40" alt="Mug208SI" src="https://github.com/user-attachments/assets/2cb1723a-764f-40b1-9a26-ed26d429df00" /> Školski sistem (Školska Informacija v2.03)
 
 Školski Informacija je potpuno samostalan Informacioni sistem namenjeno za učenike(poput mene): raspored časova, kalendar sa događajima i beleške, sve u jednom preglednom interfejsu. Aplikacija radi u bilo kom modernom pregledaču, ne zahteva instalaciju, server ni bazu podataka, a svi podaci ostaju lokalno na vašem računaru.
 
