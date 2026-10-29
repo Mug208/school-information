@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Školska Informacija v2.03</title>
+    <title>Školska Informacija v2.1</title>
     <meta name="description" content="School information system / class schedule, calendar and notes.">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%2304120d'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='%2300ff9c' font-family='monospace' font-weight='700'>&gt;_</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="./modal/modal.css">
     <link rel="stylesheet" href="./novine/novine.css">
     <link rel="stylesheet" href="./komande/komande.css">
+    <link rel="stylesheet" href="./nalog/nalog.css">
     <link rel="stylesheet" href="./toast/toast.css">
     <link rel="stylesheet" href="./podnozje/podnozje.css">
     <link rel="stylesheet" href="./responsivno/responsivno.css">
@@ -38,6 +39,7 @@
     <link rel="stylesheet" href="./modal/modal-c.css">
     <link rel="stylesheet" href="./novine/novine-c.css">
     <link rel="stylesheet" href="./komande/komande-c.css">
+    <link rel="stylesheet" href="./nalog/nalog-c.css">
     <link rel="stylesheet" href="./toast/toast-c.css">
     <link rel="stylesheet" href="./podnozje/podnozje-c.css">
     <link rel="stylesheet" href="./bios/bios-okvir.css">
@@ -89,6 +91,11 @@
                 </nav>
 
                 <div class="zaglavlje-akcije">
+                    <button class="ikonica-dugme" id="dugmeNalog" aria-label="Account / log in" data-i18n-aria-label="nal.headerPrijava">
+                        <span aria-hidden="true"><span class="ik" data-ik="nalog" data-a="[U]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-nalog"></use></svg></span></span>
+                        <span class="nal-tacka" aria-hidden="true"></span>
+                    </button>
+
                     <div class="obavestenje-wrapper">
                         <button class="ikonica-dugme" id="dugmeObavestenja" aria-label="Notifications" data-i18n-aria-label="header.obavestenja" aria-expanded="false">
                             <span class="ikona-zvono" aria-hidden="true"><span class="ik" data-ik="zvono" data-a="[!]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-zvono"></use></svg></span></span>
@@ -126,6 +133,8 @@
                     <span id="nazivSmene">Morning shift</span>
                     <span class="status-separator" aria-hidden="true">│</span>
                     <span id="statusTekst">Free</span>
+                    <span class="status-separator" id="nalCipSep" hidden aria-hidden="true">│</span>
+                    <span class="nal-cip" id="nalCip" hidden></span>
                 </div>
                 <div class="status-desno">
                     <span id="livDatum" class="liv-datum">/</span>
@@ -159,6 +168,10 @@
             </nav>
             <div class="mobilni-meni-sekcija" data-i18n="meni.akcije">ACTIONS</div>
             <div class="mobilni-meni-akcije">
+                <button type="button" id="meniNalog">
+                    <span data-i18n="meni.nalog">Account / log in</span>
+                    <span class="meni-akcija-ikona" aria-hidden="true"><span class="ik" data-ik="nalog" data-a="[U]"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-nalog"></use></svg></span></span>
+                </button>
                 <button type="button" id="meniKomande">
                     <span data-i18n="meni.komande">Commands</span>
                     <span class="meni-akcija-ikona" aria-hidden="true">&gt;_</span>
@@ -353,7 +366,7 @@
             <div class="podnozje-sadrzaj">
                 <div class="podnozje-levo">
                     <span class="podnozje-logo" aria-hidden="true">&gt;_</span>
-                    <span>Školska Informacija <strong>v2.03</strong></span>
+                    <span>Školska Informacija <strong>v2.1</strong></span>
                     <span class="podnozje-tacka" aria-hidden="true">•</span>
                     <span>Official version</span>
                 </div>
@@ -588,7 +601,7 @@
                 <div class="novine-zaglavlje">
                     <span class="novine-znak" id="novineZnak" aria-hidden="true"><span class="ik" data-ik="iskre" data-a="[*]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-iskre"></use></svg></span></span>
                     <div class="novine-naslovi">
-                        <span class="novine-verzija" id="novineVerzija">v2.03</span>
+                        <span class="novine-verzija" id="novineVerzija">v2.1</span>
                         <h3 class="novine-naslov" id="novineNaslov">What's new</h3>
                         <p class="novine-podnaslov" id="novinePodnaslov">A quick overview of the most important changes in this version.</p>
                     </div>
@@ -606,6 +619,160 @@
 
         <input type="file" id="inputUvoz" accept=".json" style="display:none;" aria-hidden="true">
 
+        <!-- ===== MODAL: NALOG (PRIJAVA / REGISTRACIJA / PREGLED) ===== -->
+        <div class="modal" id="modalNalog" role="dialog" aria-modal="true" aria-labelledby="naslovModalNalog">
+            <div class="modal-prekrivac" data-zatvori="modalNalog"></div>
+            <div class="modal-kartica modal-mali nal-kartica">
+                <div class="modal-zaglavlje">
+                    <h3 id="naslovModalNalog"><span class="ik" data-ik="nalog" data-a="[U]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-nalog"></use></svg></span> <span id="naslovNalogTekst" data-i18n="nal.naslov">Account</span></h3>
+                    <button type="button" class="modal-zatvori" id="zatvoriModalNalog" aria-label="Close" data-i18n-aria-label="mod.zatvori"><span class="ik" data-ik="zatvori" data-a="X" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-zatvori"></use></svg></span></button>
+                </div>
+                <div class="modal-telo">
+
+                    <div class="nal-status" id="nalStatus">
+                        <span class="nal-status-tacka" id="nalStatusTacka" aria-hidden="true"></span>
+                        <span id="nalStatusTekst" data-i18n="nal.statusProvera">Checking the server…</span>
+                    </div>
+
+                    <!-- Pregled naloga (kad je prijavljen) -->
+                    <div class="nal-pregled" id="nalPregled" hidden>
+                        <div class="nal-pregled-zaglavlje">
+                            <span class="nal-pregled-avatar" id="nalPregledAvatar">?</span>
+                            <div>
+                                <div class="nal-pregled-ime" id="nalPregledIme">/</div>
+                                <div class="nal-pregled-podnaslov" data-i18n="nal.pregledNaServeru">on the server</div>
+                            </div>
+                        </div>
+                        <dl class="nal-pregled-lista">
+                            <dt data-i18n="nal.pregledPoslednja">Last sync:</dt>
+                            <dd id="nalPregledPoslednja">—</dd>
+                            <dt data-i18n="nal.pregledServer">Server:</dt>
+                            <dd id="nalPregledServer">—</dd>
+                            <dt data-i18n="nal.pregledVelicina">Data on server:</dt>
+                            <dd id="nalPregledVelicina">—</dd>
+                        </dl>
+                        <div class="nal-pregled-dugmad">
+                            <button type="button" class="dugme dugme-glavno" id="nalPregledSinhronizuj"><span class="ik" data-ik="sinhro" data-a="[~]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-sinhro"></use></svg></span> <span data-i18n="nal.pregledSinhronizuj">Sync now</span></button>
+                            <button type="button" class="dugme dugme-sekundarno" id="nalPregledOdjavi"><span class="ik" data-ik="zatvori" data-a="X" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-zatvori"></use></svg></span> <span data-i18n="bios.nal.odjava">Log out</span></button>
+                        </div>
+                    </div>
+
+                    <!-- Tabovi prijava/registracija -->
+                    <div class="nal-tabovi" id="nalTabovi" role="tablist">
+                        <button type="button" class="nal-tab aktivan" id="nalTabPrijava" role="tab" aria-selected="true" data-i18n="nal.prijava">Log in</button>
+                        <button type="button" class="nal-tab" id="nalTabRegistracija" role="tab" aria-selected="false" data-i18n="nal.registracija">Register</button>
+                    </div>
+
+                    <!-- Forma: prijava -->
+                    <form class="nal-forma" id="nalFormaPrijava" autocomplete="on">
+                        <div class="form-grupa">
+                            <label for="nalPrijavaIme" data-i18n="nal.ime">Username</label>
+                            <input type="text" id="nalPrijavaIme" placeholder="e.g. mug208" data-i18n-placeholder="nal.imePlaceholder" autocomplete="username" maxlength="24">
+                        </div>
+                        <div class="form-grupa">
+                            <label for="nalPrijavaLozinka" data-i18n="nal.lozinka">Password</label>
+                            <input type="password" id="nalPrijavaLozinka" autocomplete="current-password" maxlength="128">
+                        </div>
+                        <p class="nal-greska" id="nalGreskaPrijava" hidden></p>
+                        <button type="submit" class="dugme dugme-glavno nal-siroko" id="nalDugmePrijava" data-i18n="nal.prijaviSe">Log in</button>
+                    </form>
+
+                    <!-- Forma: registracija -->
+                    <form class="nal-forma" id="nalFormaRegistracija" hidden autocomplete="off">
+                        <div class="form-grupa">
+                            <label for="nalRegIme" data-i18n="nal.ime">Username</label>
+                            <input type="text" id="nalRegIme" placeholder="e.g. mug208" data-i18n-placeholder="nal.imePlaceholder" autocomplete="off" maxlength="24">
+                            <p class="form-hint" data-i18n="nal.registracijaHint">Username: 3–24 characters (lowercase letters, numbers, - _ .). Password: at least 6 characters.</p>
+                        </div>
+                        <div class="form-grupa">
+                            <label for="nalRegLozinka" data-i18n="nal.lozinka">Password</label>
+                            <input type="password" id="nalRegLozinka" autocomplete="new-password" maxlength="128">
+                        </div>
+                        <div class="form-grupa">
+                            <label for="nalRegLozinka2" data-i18n="nal.lozinkaPonovi">Repeat password</label>
+                            <input type="password" id="nalRegLozinka2" autocomplete="new-password" maxlength="128">
+                        </div>
+                        <p class="nal-greska" id="nalGreskaRegistracija" hidden></p>
+                        <button type="submit" class="dugme dugme-glavno nal-siroko" id="nalDugmeRegistracija" data-i18n="nal.napraviNalog">Create account</button>
+                    </form>
+
+                    <!-- Podešavanja servera -->
+                    <div class="nal-server-sekcija">
+                        <button type="button" class="nal-server-preklop" id="nalPreklopServer" aria-expanded="false">
+                            <span class="ik" data-ik="podesavanja" data-a="[S]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-podesavanja"></use></svg></span>
+                            <span data-i18n="nal.serverPodesavanja">Server settings</span>
+                        </button>
+                        <div class="nal-server-telo" id="nalServerTelo" hidden>
+                            <div class="form-grupa">
+                                <label for="nalServerUrl" data-i18n="nal.serverAdresa">Server address</label>
+                                <div class="nal-server-red">
+                                    <input type="text" id="nalServerUrl" placeholder="http://192.168.1.20:8080" data-i18n-placeholder="nal.serverPlaceholder" autocomplete="off" spellcheck="false">
+                                    <button type="button" class="dugme dugme-sekundarno" id="nalDugmeSacuvajServer" data-i18n="nal.sacuvajServer">Save address</button>
+                                </div>
+                                <p class="form-hint" data-i18n="nal.serverHint">Leave empty if you opened the app from the server itself. Otherwise type the server address, e.g. http://192.168.1.20:8080. If you opened the app directly from disk (file://), the address cannot be detected automatically, so enter it here manually.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Oflajn objašnjenje -->
+                    <div class="nal-oflajn" id="nalOflajnObjasnjenje" hidden>
+                        <span class="ik" data-ik="upozorenje" data-a="[!]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-upozorenje"></use></svg></span>
+                        <div data-i18n-html="nal.oflajnObjasnjenje">The server is unreachable, so logging in is not possible right now. You can keep using the app normally — data is saved locally, and you can export a JSON backup from BIOS → Data. When the server is back, log in and everything will synchronize.</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <span class="nal-footer-napomena" data-i18n="nal.footerNapomena">Without an account the app works completely offline.</span>
+                    <div class="modal-footer-desno">
+                        <button type="button" class="dugme dugme-sekundarno" id="nalDugmeNastavi" data-i18n="nal.nastaviBez">Continue without account</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== MODAL: SUKOB SINHRONIZACIJE ===== -->
+        <div class="modal" id="modalNalogSukob" role="alertdialog" aria-modal="true" aria-labelledby="naslovModalSukob">
+            <div class="nal-sukob-prekrivac"></div>
+            <div class="modal-kartica nal-sukob-kartica">
+                <div class="modal-zaglavlje">
+                    <h3 id="naslovModalSukob"><span class="ik" data-ik="upozorenje" data-a="[!]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-upozorenje"></use></svg></span> <span data-i18n="nal.sukobNaslov">Data conflict</span></h3>
+                </div>
+                <div class="modal-telo">
+                    <p class="nal-sukob-uvod" data-i18n-html="nal.sukobUvod">Both the data on <b>this device</b> and the copy on the <b>server</b> were changed since the last sync. Choose what to keep:</p>
+                    <div class="nal-sukob-tabele">
+                        <div class="nal-sukob-kolona">
+                            <h4><span class="ik" data-ik="nalog" data-a="[U]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-nalog"></use></svg></span> <span data-i18n="nal.sukobLokalno">This device</span></h4>
+                            <dl id="nalSukobLokalnoLista"></dl>
+                        </div>
+                        <div class="nal-sukob-kolona">
+                            <h4><span class="ik" data-ik="oblak" data-a="CLD" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-oblak"></use></svg></span> <span data-i18n="nal.sukobServer">Server</span></h4>
+                            <dl id="nalSukobServerLista"></dl>
+                        </div>
+                    </div>
+                    <div class="nal-sukob-opcije">
+                        <button type="button" class="nal-opcija" data-izbor="lokalno">
+                            <span class="nal-opcija-naslov"><span class="ik" data-ik="nalog" data-a="[U]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-nalog"></use></svg></span> <span data-i18n="nal.opcijaLokalno">Keep local</span></span>
+                            <span class="nal-opcija-opis" data-i18n-html="nal.opcijaLokalnoOpis">Upload the data from this device to the server. <b>The server copy gets replaced.</b></span>
+                        </button>
+                        <button type="button" class="nal-opcija" data-izbor="server">
+                            <span class="nal-opcija-naslov"><span class="ik" data-ik="oblak" data-a="CLD" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-oblak"></use></svg></span> <span data-i18n="nal.opcijaServer">Keep server</span></span>
+                            <span class="nal-opcija-opis" data-i18n-html="nal.opcijaServerOpis">Download the server copy. <b>Local changes on this device get replaced.</b></span>
+                        </button>
+                        <button type="button" class="nal-opcija" data-izbor="spoji">
+                            <span class="nal-opcija-naslov"><span class="ik" data-ik="sinhro" data-a="[~]" aria-hidden="true"><svg class="ik-svg" viewBox="0 0 24 24" focusable="false"><use href="#i-sinhro"></use></svg></span> <span data-i18n="nal.opcijaSpoji">Merge</span></span>
+                            <span class="nal-opcija-opis" data-i18n-html="nal.opcijaSpojiOpis">Combine both sides: notes and periods are joined without duplicates, settings are taken from the newer side. The safest choice.</span>
+                        </button>
+                    </div>
+                    <p class="form-hint nal-sukob-brisanje" data-i18n="nal.sukobBrisanje">Merge note: deletions are not carried over. An item deleted on one side comes back if it still exists on the other side (merge is a union by ID).</p>
+                </div>
+                <div class="modal-footer">
+                    <span class="nal-footer-napomena" data-i18n="nal.sukobNapomena">Notes, schedule and subjects are synced.</span>
+                    <div class="modal-footer-desno">
+                        <button type="button" class="dugme dugme-sekundarno" id="nalSukobOtkazi" data-i18n="nal.sukobOdlozi">Later</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- ===== KOMANDNA PALETA ===== -->
         <div class="kp-overlay" id="kpOverlay" hidden>
             <div class="kp-prekrivac" data-kp-zatvori></div>
@@ -617,7 +784,7 @@
                 </div>
                 <div class="kp-lista" id="kpLista" role="listbox" aria-label="Command results" data-i18n-aria-label="kp.listaAria"></div>
                 <div class="kp-footer">
-                    <span class="kp-footer-levo" data-i18n="kp.footerTekst">SCHOOL TERMINAL · v2.03</span>
+                    <span class="kp-footer-levo" data-i18n="kp.footerTekst">SCHOOL TERMINAL · v2.1</span>
                     <span class="kp-footer-desno" data-i18n-html="kp.footerHint"><kbd>↑</kbd><kbd>↓</kbd> select • <kbd>↵</kbd> run • <kbd>esc</kbd> close</span>
                 </div>
             </div>
@@ -639,7 +806,7 @@
             <!-- ===== BIOS ZAGLAVLJE ===== -->
             <header class="bios-header">
                 <div class="bios-header-levo">
-                    <span class="bios-naziv"><span data-i18n="bios.naziv">SCHOOL BIOS</span> <span class="bios-verzija">v2.03</span></span>
+                    <span class="bios-naziv"><span data-i18n="bios.naziv">SCHOOL BIOS</span> <span class="bios-verzija">v2.1</span></span>
                     <span class="bios-podnaziv" data-i18n="bios.podnaziv">School Information / Settings utility</span>
                 </div>
                 <div class="bios-header-desno">
@@ -728,6 +895,7 @@
     <script src="./unos/unos.js"></script>
     <script src="./modal/modal.js"></script>
     <script src="./toast/toast.js"></script>
+    <script src="./nalog/nalog.js"></script>
     <script src="./komande/komande.js"></script>
     <script src="./osnova/app.js"></script>
     <script src="./dogadjaji/dogadjaji.js"></script>

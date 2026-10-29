@@ -3,7 +3,7 @@
 
 // ===== OSNOVNE KONSTANTE =====
 const KLJUC_SKLADISTA = 'skolski-info-podaci';
-const VERZIJA = '2.03';
+const VERZIJA = '2.1';
 
 // ===== DANI I MESECI =====
 let DANI_LAT = ['Ponedeljak', 'Utorak', 'Sreda', 'Četvrtak', 'Petak', 'Subota', 'Nedelja'];

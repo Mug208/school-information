@@ -1,0 +1,59 @@
+/* CODE tema: varijante modula nalog (prefiks .nal-). */
+/* Osnovne promenljive (boje, ivice, pozadine) se preklapaju globalno u c-tema/c-osnova.css,
+   pa ovde dolaze samo sitna doterivanja za terminalske efekte. */
+
+body.code-tema .nal-status {
+    background: var(--gx-bg-unos);
+    border-color: var(--ivica);
+}
+
+body.code-tema .nal-tabovi {
+    background: rgba(var(--gx-rgb), 0.06);
+}
+
+body.code-tema .nal-tab.aktivan {
+    background: rgba(var(--gx-rgb), 0.12);
+    color: var(--primarna);
+    box-shadow: none;
+}
+
+body.code-tema .nal-cip {
+    background: rgba(var(--gx-rgb), 0.07);
+    letter-spacing: 0.06em;
+}
+
+body.code-tema .nal-cip--upozorenje {
+    color: #f59e0b;
+    background: rgba(245, 158, 11, 0.1);
+    border-color: rgba(245, 158, 11, 0.4);
+}
+
+body.code-tema .nal-cip--dobro {
+    color: var(--primarna);
+    background: rgba(var(--gx-rgb), 0.1);
+    border-color: rgba(var(--gx-rgb), 0.35);
+}
+
+body.code-tema .nal-cip--lose {
+    color: var(--opasna);
+    background: rgba(255, 56, 96, 0.08);
+    border-color: rgba(255, 56, 96, 0.35);
+}
+
+body.code-tema .nal-opcija {
+    background: rgba(var(--gx-rgb), 0.04);
+}
+
+body.code-tema .nal-opcija[data-izbor="spoji"] {
+    background: rgba(var(--gx-rgb), 0.08);
+    border-color: rgba(var(--gx-rgb), 0.4);
+}
+
+body.code-tema .nal-sukob-kolona {
+    background: rgba(var(--gx-rgb), 0.04);
+}
+
+body.code-tema .nal-pregled-zaglavlje {
+    background: rgba(var(--gx-rgb), 0.08);
+    border-color: rgba(var(--gx-rgb), 0.25);
+}

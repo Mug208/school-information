@@ -762,7 +762,7 @@ function redoviEfekti() {
 }
 
 function redoviPodaci() {
-    return [
+    var redovi = [
         rInfo('pd_predmeti', t('bios.pd.predmeti'), function () {
             return statistike().predmeta;
         }),
@@ -785,6 +785,95 @@ function redoviPodaci() {
         }),
         rAkcija('pd_reset', t('bios.pd.reset'), akcijaReset, { opasno: true })
     ];
+
+    // ===== NALOG I SINHRONIZACIJA =====
+    // Ovi redovi žive van radne kopije podešavanja: stanje naloga čuva se u
+    // posebnim localStorage ključevima (nalog/nalog.js) i primenjuje se odmah.
+    if (window.Nalog) {
+        var prijavljen = window.Nalog.jePrijavljen && window.Nalog.jePrijavljen();
+
+        redovi.push(rSekcija('sek_nalog', t('nal.biosSekcija')));
+
+        redovi.push(rInfo('pd_nal_status', t('bios.nal.status'), function () {
+            try {
+                return window.Nalog.opisStatusa();
+            } catch (e) {
+                return t('bios.nal.prazno');
+            }
+        }));
+
+        redovi.push(rInfo('pd_nal_poslednja', t('bios.nal.poslednja'), function () {
+            try {
+                var vreme = window.Nalog.poslednjaSinhronizacija();
+                if (!vreme) return t('nal.biosPoslednjaNikad');
+                var d = new Date(vreme);
+                return dvoje(d.getDate()) + '.' + dvoje(d.getMonth() + 1) + '.' + d.getFullYear() +
+                    '. ' + dvoje(d.getHours()) + ':' + dvoje(d.getMinutes());
+            } catch (e) {
+                return t('nal.biosPoslednjaNikad');
+            }
+        }));
+
+        redovi.push(rAkcija(
+            'pd_nal_prijava',
+            prijavljen ? t('bios.nal.odjava') : t('bios.nal.prijava'),
+            function () {
+                if (window.Nalog.jePrijavljen && window.Nalog.jePrijavljen()) {
+                    zatvori(false);
+                    setTimeout(function () { window.Nalog.odjavi(); }, 80);
+                } else {
+                    zatvori(false);
+                    setTimeout(function () { window.Nalog.otvoriModal(); }, 80);
+                }
+            },
+            { vrednost: '[ Enter ↵ ]' }
+        ));
+
+        redovi.push(rAkcija(
+            'pd_nal_sinhro',
+            t('bios.nal.sinhronizuj'),
+            function () {
+                zatvori(false);
+                setTimeout(function () { window.Nalog.sinhronizuj(); }, 80);
+            },
+            { vrednost: '[ Enter ↵ ]' }
+        ));
+
+        redovi.push(rIzbor(
+            'pd_nal_auto',
+            t('bios.nal.auto'),
+            function () {
+                return window.Nalog.autoSinhro() ? 'uklj' : 'isklj';
+            },
+            function (v) {
+                window.Nalog.postaviAutoSinhro(v === 'uklj');
+                osveziPrikaz();
+            },
+            [
+                { v: 'uklj', l: t('bios.nal.autoUklj') },
+                { v: 'isklj', l: t('bios.nal.autoIsklj') }
+            ]
+        ));
+
+        redovi.push(rTekst(
+            'pd_nal_server',
+            t('bios.nal.server'),
+            function () {
+                try {
+                    return window.Nalog.serverUrl() || t('bios.nal.prazno');
+                } catch (e) {
+                    return t('bios.nal.prazno');
+                }
+            },
+            function (v) {
+                try {
+                    window.Nalog.postaviServerUrl(v);
+                } catch (e) { }
+            }
+        ));
+    }
+
+    return redovi;
 }
 
 function redoviIzlaz() {

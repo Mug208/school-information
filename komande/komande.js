@@ -52,8 +52,26 @@ function kpRegistar() {
             }
         },
         { ikona: 'izvoz', ikonaA: 'EXP', naziv: t('kp.c.izvoz'), kat: t('kp.k.podaci'), kw: 'backup sacuvaj json export', akcija: izveziPodatke },
+        {
+            ikona: 'nalog', ikonaA: '[U]', naziv: t('kp.c.nalog'), kat: t('kp.k.podaci'),
+            kw: 'login prijava nalog registracija account register server password',
+            akcija: () => { if (window.Nalog) window.Nalog.otvoriModal(); }
+        },
+        {
+            ikona: 'sinhro', ikonaA: '[~]', naziv: t('kp.c.sinhronizuj'), kat: t('kp.k.podaci'),
+            kw: 'sync sinhronizacija server oblak cloud preuzmi posalji upload download',
+            akcija: () => { if (window.Nalog) window.Nalog.sinhronizuj(); }
+        },
         { ikona: 'paleta', ikonaA: '[T]', naziv: s.codeTheme ? t('kp.c.codeVarijanta') : t('kp.c.promeniTemu'), kat: t('kp.k.izgled'), taster: 'T', kw: 'tema boja izgled svetla tamna automatska theme', akcija: promeniTemu }
     );
+
+    if (window.Nalog && window.Nalog.jePrijavljen && window.Nalog.jePrijavljen()) {
+        komande.push({
+            ikona: 'nalog', ikonaA: '[U]', naziv: t('kp.c.odjavi'), kat: t('kp.k.podaci'),
+            kw: 'logout odjava nalog account',
+            akcija: () => { if (window.Nalog) window.Nalog.odjavi(); }
+        });
+    }
 
     if (stanje.pretraga) {
         komande.push({

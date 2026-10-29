@@ -1,0 +1,61 @@
+# systemd servis: Caddy proxy ispred Node servera (Linux).
+# Caddy slusa na portu 80 na svim adresama i prosledjuje Node serveru na 8080.
+# Kad je Caddy pod systemd-om, sajt ostaje ziv i posle butovanja uređaja
+# i kad Caddy padne (systemd ga restartuje za 5 sekundi), bez ikakvog rucnog
+# diranja. Za razliku od "caddy start" (ostane u pozadini ali ga niko ne cuva),
+# ovde radi "caddy run" direktno pod systemd-om, bez &.
+#
+# Instalacija (terminal, kao root ili sa sudo ispred svake komande):
+#   1. Promeni ispod putanju do Caddyfile-a i User na svoje ime.
+#      Primer: ExecStart=/usr/bin/caddy run --config /home/mug208/school-information/deploy/Caddyfile
+#               User=mug208
+#      Putanju do caddy binarije proveri sa:  which caddy
+#   2. sudo cp deploy/caddy-skolska.service /etc/systemd/system/
+#   3. sudo systemctl daemon-reload
+#   4. sudo systemctl enable --now caddy-skolska
+#
+# Napomena: ako si Caddy instalirao preko apt-a iz zvaničnog repozitorijuma,
+# on vec dolazi sa svojim caddy servisom koji cita /etc/caddy/Caddyfile.
+# U tom slucaju je jednostavnije da sadrzaj deploy/Caddyfile prekopiras u
+# /etc/caddy/Caddyfile i koristis taj servis (sudo systemctl enable --now caddy),
+# a ovaj fajl preskocis. Bitno je da samo jedan od njih radi, da se ne tuku za port 80.
+#
+# Korisne komande:
+#   systemctl status caddy-skolska          stanje servisa
+#   sudo systemctl reload caddy-skolska     ponovno ucitavanje Caddyfile-a bez prekida
+#   journalctl -u caddy-skolska -f          pracenje loga u zivo
+
+[Unit]
+Description=Caddy proxy za Skolsku Informaciju (port 80 ka Node na 8080)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=notify
+
+# PROMENI OVE LINIJE na svoju putanju i svoje korisnicko ime.
+ExecStart=/usr/bin/caddy run --config /home/korisnik/school-information/deploy/Caddyfile
+ExecReload=/usr/bin/caddy reload --config /home/korisnik/school-information/deploy/Caddyfile
+User=korisnik
+Group=korisnik
+
+# Port 80 je privilegovani port: ove dve linije dozvoljavaju obicnom
+# korisniku da ga zauzme, bez pokretanja Caddy-ja kao root.
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+
+# Ako Caddy padne, systemd ga podize posle 5 sekundi.
+Restart=always
+RestartSec=5
+
+TimeoutStopSec=5s
+LimitNOFILE=1048576
+PrivateTmp=true
+
+# Logovi idu u journald (vidi journalctl -u caddy-skolska).
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=caddy-skolska
+
+[Install]
+WantedBy=multi-user.target

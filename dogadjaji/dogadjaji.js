@@ -431,4 +431,9 @@ document.addEventListener('DOMContentLoaded', () => {
         try { window.codeEngine.init(); } catch (e) {  }
     }
     primeniTemu();
+
+    // Modul nalog (login i sinhronizacija) krece tek kad su podaci ucitani.
+    if (window.Nalog && typeof window.Nalog.init === 'function') {
+        try { window.Nalog.init(); } catch (e) { }
+    }
 });

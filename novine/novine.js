@@ -2,68 +2,82 @@
 'use strict';
 
 const NOVINE_KLJUC = 'skolski-info-novine';
-const NOVINE_VERZIJA = '2.03';
+const NOVINE_VERZIJA = '2.1';
 
 // ===== SADRZAJ NOVINA =====
 const NOVINE_STAVKE = {
     en: [
         {
-            ikona: 'paleta',
-            ikonaA: '[T]',
-            naziv: 'English language + Serbian',
-            opis: 'The app now speaks English by default, and you can switch to Serbian ' +
-                  'in BIOS → Main → Language. The change applies instantly.'
+            ikona: 'nalog',
+            ikonaA: '[U]',
+            naziv: 'Login and data sync',
+            opis: 'Run the included server on an old laptop (node server/server.js) and every ' +
+                  'user gets their own JSON file on it. Log in from any device in your network.'
         },
         {
-            ikona: 'meni',
-            ikonaA: '[=]',
-            naziv: 'New mobile side menu',
-            opis: 'On phones the hamburger button now opens a slide-in side drawer ' +
-                  'with navigation and quick actions, with an overlay and safe-area support.'
+            ikona: 'sinhro',
+            ikonaA: '[~]',
+            naziv: 'Offline-first with warnings',
+            opis: 'No server? No problem, the app works exactly as before and data stays in the ' +
+                  'browser. A status chip warns you about unsynced changes and the unreachable server.'
         },
         {
-            ikona: 'kalendar',
-            ikonaA: '[D]',
-            naziv: 'Calendar fits small screens',
-            opis: 'The calendar scales down on small displays, so the whole month is visible ' +
-                  'without horizontal scrolling or zooming out.'
+            ikona: 'oblak',
+            ikonaA: 'CLD',
+            naziv: 'Conflict resolution: keep / keep / merge',
+            opis: 'If the data changed both locally and on the server, you choose: keep local, ' +
+                  'keep the server copy, or merge both without duplicates.'
         },
         {
-            ikona: 'skola',
+            ikona: 'katanac',
             ikonaA: '[#]',
-            naziv: 'Responsive redesign',
-            opis: 'Header, schedule, notes and BIOS have been fine-tuned for narrow screens: ' +
-                  'tighter paddings, larger touch targets and no more clipped content.'
+            naziv: 'Passwords are hashed, data stays yours',
+            opis: 'The server stores scrypt-hashed passwords and one JSON file per user. ' +
+                  'No npm dependencies, no database, plain files on your own machine.'
+        },
+        {
+            ikona: 'pomoc',
+            ikonaA: '[?]',
+            naziv: 'Note for opening from disk',
+            opis: 'Server settings now explain that an app opened directly from disk (file://) ' +
+                  'cannot detect the server address automatically, so you enter it by hand.'
         }
     ],
     sr: [
         {
-            ikona: 'paleta',
-            ikonaA: '[T]',
-            naziv: 'Engleski + srpski jezik',
-            opis: 'Aplikacija je sada podrazumevano na engleskom, a srpski se uključuje ' +
-                  'u BIOS-u → Glavno → Jezik. Promena se primenjuje odmah.'
+            ikona: 'nalog',
+            ikonaA: '[U]',
+            naziv: 'Prijava i sinhronizacija podataka',
+            opis: 'Pokreni priloženi server na starom laptopu (node server/server.js) i svaki ' +
+                  'korisnik dobija svoj JSON fajl na njemu. Prijavi se sa bilo kog uređaja u mreži.'
         },
         {
-            ikona: 'meni',
-            ikonaA: '[=]',
-            naziv: 'Novi bočni meni na mobilnom',
-            opis: 'Na telefonu hamburger dugme sada otvara bočni fioku-meni ' +
-                  'sa navigacijom i brzim akcijama, sa prekrivačem i podrškom za safe-area.'
+            ikona: 'sinhro',
+            ikonaA: '[~]',
+            naziv: 'Offline-first sa upozorenjima',
+            opis: 'Nema servera? Nema problema, aplikacija radi kao i ranije, podaci ostaju u ' +
+                  'pregledaču. Statusna oznaka upozorava na nesinhronizovane izmene i nedostupan server.'
         },
         {
-            ikona: 'kalendar',
-            ikonaA: '[D]',
-            naziv: 'Kalendar staje na male ekrane',
-            opis: 'Kalendar se smanjuje na malim ekranima, pa je ceo mesec vidljiv ' +
-                  'bez horizontalnog skrolovanja i zumiranja.'
+            ikona: 'oblak',
+            ikonaA: 'CLD',
+            naziv: 'Rešavanje sukoba: zadrži / zadrži / spoji',
+            opis: 'Ako su podaci menjani i lokalno i na serveru, ti biraš: zadrži lokalne, ' +
+                  'zadrži serverske ili spoji oba bez duplikata.'
         },
         {
-            ikona: 'skola',
+            ikona: 'katanac',
             ikonaA: '[#]',
-            naziv: 'Responzivni redizajn',
-            opis: 'Zaglavlje, raspored, beleške i BIOS su doterani za uske ekrane: ' +
-                  'manje paddinge, veće dodirne ciljeve i bez odsečenog sadržaja.'
+            naziv: 'Lozinke se hešuju, podaci ostaju tvoji',
+            opis: 'Server čuva scrypt-hešovane lozinke i po jedan JSON fajl po korisniku. ' +
+                  'Bez npm zavisnosti i bez baze, obični fajlovi na tvojoj mašini.'
+        },
+        {
+            ikona: 'pomoc',
+            ikonaA: '[?]',
+            naziv: 'Napomena za otvaranje sa diska',
+            opis: 'Podešavanja servera sada objašnjavaju da aplikacija otvorena direktno sa diska ' +
+                  '(file://) ne može sama da prepozna adresu servera, pa se unosi ručno.'
         }
     ]
 };

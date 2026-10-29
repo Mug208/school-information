@@ -1,22 +1,22 @@
-# Školski sistem (Školska Informacija v2.03)
+# <img width="40" height="40" alt="Mug208SI" src="https://github.com/user-attachments/assets/2cb1723a-764f-40b1-9a26-ed26d429df00" /> Školski sistem (Školska Informacija v2.1)
 
 Školski Informacija je potpuno samostalan Informacioni sistem namenjeno za učenike(poput mene): raspored časova, kalendar sa događajima i beleške, sve u jednom preglednom interfejsu. Aplikacija radi u bilo kom modernom pregledaču, ne zahteva instalaciju, server ni bazu podataka, a svi podaci ostaju lokalno na vašem računaru.
 
 Projekat je napisan samo u HTML, CSS i JavaScriptu, bez ikakvih frameworka, bundlera ili npm zavisnosti. Dovoljno je otvoriti `index.html` ili preko linka "https://mug208.github.io/school-information/".
 
-## Novo u verziji 2.03
+## Novo u verziji 2.1
 
-- **Engleski jezik je sada podrazumevan** i nikad više, a srpski se uključuje u BIOS-u → Glavno → Jezik (`Language`). Promena se primenjuje odmah i čuva se sa ostalim podešavanjima. Cela aplikacija je prevedena: zaglavlje, raspored, kalendar, beleške, modalni dijalozi, komandna paleta, BIOS i obaveštenja.
-- **Novi bočni meni na mobilnom**: hamburger ikonica otvara fioku koja se uvlači s desne strane, sa prekrivačem, navigacijom, brzim akcijama (komande, tema, BIOS) i animacijom ikonice.
-- **Kalendar prilagođen malim ekranima**: ćelije se smanjuju na uskim ekranima, a kalendar je na srednjim širinama ograničen na 560px, pa ceo mesec staje na ekran bez upotreba zoom out-a.
-- **Responzivni redizajn**: veći dodirni ciljevi, tijesniji razmaci, bez odsečenog sadržaja i podrška za safe-area.
+- **Login i sinhronizacija podataka**: priložen server bez ijedne zavisnosti (`server/server.js`) namenjen starom laptopu. Kad server i internet rade, korisnik se prijavljuje i dobija **svoj JSON fajl na serveru**: podaci se automatski šalju i preuzimaju.
+- **Offline-first**: bez servera aplikacija radi kao i ranije, prijava nije potrebna. Statusna oznaka u zaglavlju upozorava na server koji je pao i na nesinhronizovane izmene; JSON backup i dalje stoji u BIOS-u, Podaci.
+- **Rešavanje sukoba**: ako su podaci menjani i lokalno i na serveru, dijalog nudi tri izbora: zadrži lokalne, zadrži serverske ili **spoji** (unija beleški, časova i predmeta bez duplikata).
+- **Upozorenja protiv gubitka**: odjava sa nesinhronizovanim izmenama traži potvrdu, napuštanje stranice sa nesinhronizovanim izmenama pita da li ste sigurni, a pad servera izbacuje upozorenje sa podsetnikom na JSON backup.
+- **Spremno za produkciju**: `deploy/` folder donosi systemd servis (server se sam diže posle butovanja i restartuje posle pada), Caddy podesenje za HTTPS, dnevne backup skripte za Linux i Windows i uputstvo za reset zaboravljene lozinke (`deploy/README.md`).
+- **Napomena za otvaranje sa diska**: podešavanja servera objašnjavaju da aplikacija otvorena direktno sa diska (`file://`) ne može sama da prepozna adresu servera, pa se adresa unosi ručno.
 
-## Šta ču kasnije dodati V2.1(W.I.P.):
+## Šta ču kasnije dodati (W.I.P.):
 
 - **README.md na engleskom jeziku**, imače jedan PROCITAJME.md na srpskom jeziku i README.md na engleskom kasnije
 - **Restyle**: Van podešavanja, gledaću da izmenim dizajn web aplikacije jer izgleda previše moderno, pogotovo u rasporedu, sa sada nisam ismislio kako da to izmenim i već sam razmišljao mesecima kako bi bio više prilagođen dizajn u odnosu ostalih
-- **Login sistem i online sistem**: Malo izazovno, treba će mi server i da malo promenim logiku, i da se snalazim gde bih mogao staviti login/register u sajtu. Mada napraviću logiku ako ne može se povezivati za serverom onda ideš offline za upotrebom json fajla
--**Svoj logo i loading screen**: Gledaću da nešto naučim kako da napravim dizajn i već imam nešto u glavi kako bih izgledalo, samo treba vremena i bolju sliku kako bih stojao uz sajt. Loading screen je za pokušaj priključenje servera ako za to se koristi
 
 ## Funkcionalnosti
 
@@ -145,7 +145,7 @@ Nakon otključavanja, CODE tema se uključuje i isključuje otkucavanjem sekvenc
 
 ## Podaci i privatnost
 
-Svi podaci čuvaju se u localStorage pregledača pod ključem `skolski-info-podaci`. Ništa se ne šalje na internet i aplikacija funkcioniše potpuno offline.
+Svi podaci čuvaju se u localStorage pregledača pod ključem `skolski-info-podaci`. Aplikacija funkcioniše potpuno offline.
 
 Struktura sačuvanog JSON dokumenta:
 
@@ -181,12 +181,85 @@ BIOS kategorija Podaci nudi izvoz u JSON fajl (naziv u formatu `skolska-informac
 
 Pošto localStorage pripada pregledaču i profilu, redovno izvozite backup, posebno pre čišćenja istorije pregledača ili prelaska na drugi računar.
 
+## Login i sinhronizacija (v2.1)
+
+Od verzije 2.1 aplikacija ima **option** login sistem sa sinhronizacijom podataka. Ključna reč je *option*: ako ne pokrenete server i ne prijavite se, aplikacija radi potpuno isto kao i v2.03 , svi podaci ostaju u localStorage pregledača.
+
+### Kako radi
+
+- **Server dostupan + internet** → možeš da se registruješ/prijaviš. Svaki korisnik dobija **svoj JSON fajl** na serveru (`server/podaci/<ime>.json`), potpuno istog formata kao izvoz iz BIOS-a. Izmene se automatski šalju na server par sekundi posle svakog čuvanja, tako da kada koristite preko drugi uređaja, možete se ulogovati i volia, sve podaci če vam se vratiti koji je poslednji put sačuvan.
+- **Server nedostupan / bez interneta** → prijava nije moguća, ali **nije ni potrebna**: aplikacija nastavlja da radi oflajn, podaci se čuvaju lokalno. Zaglavlje prikazuje upozorenje „Server nedostupan , čuvam lokalno", a na pad servera iskoči obaveštenje sa podsetnikom da izvezeš JSON backup (BIOS → Podaci) dok se server ne vrati.
+- **Server se vrati** → automatska sinhronizacija preuzima/šalje podatke bez tvog posla.
+- **Sukob** (podaci menjani i ovde i na drugom uređaju) → dijalog nudi izbor:
+  1. **Zadrži lokalne** , tvoji podaci sa ovog uređaja prebrisaju serverski primerak,
+  2. **Zadrži serverske** , serverski primerak prebriše lokalne izmene,
+  3. **Spoji** , bezbedan izbor: beleške, časovi i predmeti se spajaju po ID-ju bez duplikata, podešavanja se uzimaju sa novije strane,
+  4. **Kasnije** , sinhronizacija se odlaže, izmene ostaju lokalno (sa upozorenjem).
+
+### Pokretanje servera
+
+Jedini uslov: [Node.js](https://nodejs.org) verzija 16 ili novija (LTS). Bez ijedne npm zavisnosti, bez baze , čisti Node.
+
+```bash
+# u folderu projekta
+node server/server.js
+
+# ili drugi port:
+PORT=9000 node server/server.js
+```
+
+Server na konzoli ispisuje adrese na kojima sluša, npr:
+
+```text
+  Lokalno:    http://localhost:8080/
+  U mreži:    http://192.168.1.20:8080/
+```
+
+Otvori tu adresu na bilo kom uređaju u kućnoj mreži (telefon, drugi računar) , aplikacija se učitava direktno sa servera i adresa se sama podesi. Ako aplikaciju otvaraš sa GitHub Pages ili sa diska (`index.html` duplim klikom), u modalu naloga klikni „Podešavanja servera" i upiši adresu, npr. `http://192.168.1.20:8080`.
+
+Nalozi, tokeni i podaci korisnika čuvaju se u `server/` folderu:
+
+```text
+server/
+├── server.js               # ceo server (bez zavisnosti)
+├── podaci-korisnici.json   # nalozi: ime + scrypt heš + so (nikad čista lozinka)
+├── tokeni.json             # prijavni tokeni (važe 30 dana)
+└── podaci/
+    └── mug208.json         # podaci korisnika, jedan JSON fajl po korisniku
+```
+
+Backup je trivijalan: iskopiraj `server/` folder na USB. Obrisani token = odjava svih uređaja koji ga koriste.
+
+### Spremanje za produkciju (server koji radi non-stop)
+
+Da uređaj postane pravi kućni server: server koji se **sam diže posle butovanja** i **sam restartuje ako padne** (systemd servis), **dnevni backup** na USB ili drugi uređaj, **Caddy** ispred servera za HTTPS ako ikad izađe na internet i uputstvo za **reset zaboravljene lozinke**.
+
+Sve to je u `deploy/` folderu, sa uputstvom korak po korak za Linux i Windows: **`deploy/README.md`**.
+
+### Gde se šta nalazi u aplikaciji
+
+- **Zaglavlje** , dugme sa ikonicom naloga: statusna tačka (zelena = sinhronizovano, žuta = nesinhronizovane izmene, siva = server nedostupan) i statusni čip uz smenu („Sinhronizovano 14:32" i sl.).
+- **Modal naloga** , prijava, registracija, pregled naloga (poslednja sinhronizacija, veličina podataka), sinhronizacija sada i odjava.
+- **BIOS → Podaci** , nova sekcija „Nalog i sinhronizacija": status, poslednja sinhronizacija, prijava/odjava, sinhronizacija sada, automatska sinhronizacija (uključena/isključena) i adresa servera.
+- **Komandna paleta (Ctrl+K)** , komande „Nalog / prijava", „Sinhronizuj sa serverom" i „Odjavi se".
+
+### Tehničke napomene o sinhronizaciji
+
+- Detekcija sukoba radi preko **kanonickog heša** (FNV-1a) podataka: server čuva heš poslednje sačuvane verzije, klijent šalje heš na kome je zasnovao svoje izmene; ako se ne poklapaju, server odgovara `409 Sukob` sa svojim primerkom i frontend prikazuje dijalog. 
+- Token (nasumičnih 32 bajta) stoji u localStorage ključu `skolski-info-token`, adresa servera u `skolski-info-server`, a metadata sinhronizacije u `skolski-info-sinhro` , **niko od njih ne ide u izvozni JSON**, tako da format izvoza ostaje identičan starim verzijama.
+- Lozinke se hešuju `scrypt`-om sa slučajnom solju, poređenje je konstantno-vremensko, prijava je ograničena na 10 pokušaja po IP-u na 10 minuta.
+- Saobraćaj je običan HTTP , za kućnu mrežu u redu. **Ne izlaži server internetu** bez HTTPS proxy-ja (Caddy/nginx), jer token putuje otvoreno.
+- Upozorenje: sa HTTPS stranice (GitHub Pages) pregledač **blokira** pozive ka `http://` serveru (mixed content). Zato za prijavu koristi aplikaciju otvorenu sa adrese servera, ili `index.html` sa diska.
+
 ## Struktura projekta
 
 ```text
 skolski-sistem/
 ├── index.html          # Jedina HTML stranica, učitava sve module
 ├── osnova/             # Jezgro: podaci, stanje, store, logika, ikonice, skladište, App API
+├── nalog/              # Login, registracija i sinhronizacija sa serverom
+├── server/             # Node server bez zavisnosti: nalozi, tokeni, JSON fajl po korisniku
+├── deploy/             # Produkcija: systemd servis, Caddyfile, backup skripte, vodic
 ├── testovi/            # Node.js testovi
 ├── zaglavlje/          # Zaglavlje sa navigacijom, zvonom i statusnom trakom
 ├── kocke               # Za pronalaženje tajne teme

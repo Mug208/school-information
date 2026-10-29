@@ -1,0 +1,476 @@
+/* Modul nalog: prijava, sinhronizacija i status, prefiks .nal-. */
+
+/* ===== HTML hidden ATRIBUT ===== */
+/* display pravila ispod pregaze UA stil za [hidden], pa se ovde vraćaju. */
+#nalPregled[hidden],
+.nal-tabovi[hidden],
+.nal-forma[hidden],
+.nal-server-telo[hidden],
+.nal-oflajn[hidden],
+.nal-greska[hidden],
+.nal-cip[hidden],
+#nalCipSep[hidden] {
+    display: none !important;
+}
+
+/* ===== STATUSNA TACKA NA DUGMETU U ZAGLAVLJU ===== */
+#dugmeNalog {
+    position: relative;
+}
+
+.nal-tacka {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: transparent;
+    border: 1.5px solid var(--tekst-muted);
+    pointer-events: none;
+}
+
+.nal-tacka--dobro {
+    background: var(--uspesna);
+    border-color: var(--uspesna);
+}
+
+.nal-tacka--upozorenje {
+    background: #f59e0b;
+    border-color: #f59e0b;
+}
+
+.nal-tacka--nedostupno {
+    background: var(--tekst-muted);
+    border-color: var(--tekst-muted);
+}
+
+/* ===== STATUSNI ČIP U STATUSNOJ TRACI ===== */
+.nal-cip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.68rem;
+    font-weight: 650;
+    letter-spacing: 0.02em;
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1px solid var(--ivica);
+    background: var(--bg-muted);
+    color: var(--tekst-sekundarni);
+    white-space: nowrap;
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.nal-cip::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    flex: none;
+}
+
+.nal-cip--dobro {
+    border-color: color-mix(in srgb, var(--uspesna) 45%, transparent);
+    color: var(--uspesna);
+    background: color-mix(in srgb, var(--uspesna) 10%, transparent);
+}
+
+.nal-cip--upozorenje {
+    border-color: color-mix(in srgb, #f59e0b 45%, transparent);
+    color: #b45309;
+    background: color-mix(in srgb, #f59e0b 12%, transparent);
+}
+
+.nal-cip--lose {
+    border-color: color-mix(in srgb, var(--opasna) 40%, transparent);
+    color: var(--opasna);
+    background: color-mix(in srgb, var(--opasna) 8%, transparent);
+}
+
+.nal-cip--info {
+    border-color: var(--primarna-40);
+    color: var(--primarna);
+    background: var(--primarna-10);
+}
+
+/* ===== MODAL NALOGA ===== */
+.nal-kartica {
+    max-width: 420px;
+}
+
+/* Status servera na vrhu modala */
+.nal-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    margin-bottom: 14px;
+    border: 1px solid var(--ivica);
+    border-radius: var(--radius);
+    background: var(--bg-muted);
+    font-size: 0.78rem;
+    color: var(--tekst-sekundarni);
+}
+
+.nal-status-tacka {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    flex: none;
+    background: var(--tekst-muted);
+}
+
+.nal-status-tacka--dobro {
+    background: var(--uspesna);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--uspesna) 22%, transparent);
+}
+
+.nal-status-tacka--lose {
+    background: var(--opasna);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--opasna) 20%, transparent);
+}
+
+/* Tabovi prijava/registracija */
+.nal-tabovi {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    padding: 4px;
+    margin-bottom: 16px;
+    background: var(--bg-muted);
+    border-radius: var(--radius);
+}
+
+.nal-tab {
+    padding: 8px 10px;
+    border-radius: calc(var(--radius) - 2px);
+    font-size: 0.8rem;
+    font-weight: 650;
+    color: var(--tekst-sekundarni);
+    transition: var(--tranzicija);
+}
+
+.nal-tab:hover {
+    color: var(--tekst-primarni);
+}
+
+.nal-tab.aktivan {
+    background: var(--bg-kartica);
+    color: var(--primarna);
+    box-shadow: var(--senka-sm);
+}
+
+/* Forma */
+.nal-forma .nal-siroko {
+    width: 100%;
+    margin-top: 4px;
+}
+
+.nal-greska {
+    margin: 8px 0 4px;
+    padding: 8px 12px;
+    border-radius: var(--radius);
+    border: 1px solid color-mix(in srgb, var(--opasna) 35%, transparent);
+    background: color-mix(in srgb, var(--opasna) 8%, transparent);
+    color: var(--opasna);
+    font-size: 0.76rem;
+    line-height: 1.45;
+}
+
+/* Sekcija podešavanja servera */
+.nal-server-sekcija {
+    margin-top: 14px;
+    border-top: 1px dashed var(--ivica);
+    padding-top: 10px;
+}
+
+.nal-server-preklop {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    font-weight: 650;
+    color: var(--tekst-sekundarni);
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
+    transition: var(--tranzicija);
+}
+
+.nal-server-preklop:hover {
+    color: var(--primarna);
+    background: var(--primarna-10);
+}
+
+.nal-server-telo {
+    margin-top: 8px;
+}
+
+.nal-server-red {
+    display: flex;
+    gap: 8px;
+    align-items: stretch;
+}
+
+.nal-server-red input {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Oflajn objašnjenje */
+.nal-oflajn {
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+    padding: 10px 12px;
+    border-radius: var(--radius);
+    border: 1px solid color-mix(in srgb, #f59e0b 40%, transparent);
+    background: color-mix(in srgb, #f59e0b 10%, transparent);
+    font-size: 0.75rem;
+    line-height: 1.5;
+    color: var(--tekst-sekundarni);
+}
+
+.nal-oflajn .ik {
+    flex: none;
+    color: #f59e0b;
+    margin-top: 1px;
+}
+
+/* Pregled naloga (prijavljen korisnik) */
+.nal-pregled {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.nal-pregled-zaglavlje {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: var(--radius);
+    background: var(--primarna-10);
+    border: 1px solid var(--primarna-20);
+}
+
+.nal-pregled-avatar {
+    width: 40px;
+    height: 40px;
+    flex: none;
+    border-radius: 50%;
+    background: var(--primarna);
+    color: var(--primarna-tekst);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.05rem;
+    text-transform: uppercase;
+}
+
+.nal-pregled-ime {
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+.nal-pregled-podnaslov {
+    font-size: 0.72rem;
+    color: var(--tekst-sekundarni);
+}
+
+.nal-pregled-lista {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 6px 14px;
+    font-size: 0.78rem;
+    padding: 4px 2px;
+}
+
+.nal-pregled-lista dt {
+    color: var(--tekst-sekundarni);
+    font-weight: 650;
+}
+
+.nal-pregled-lista dd {
+    color: var(--tekst-primarni);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.nal-pregled-dugmad {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 2px;
+}
+
+.nal-pregled-dugmad .dugme {
+    flex: 1;
+    min-width: 120px;
+}
+
+/* Footer napomena */
+.nal-footer-napomena {
+    font-size: 0.7rem;
+    color: var(--tekst-muted);
+    line-height: 1.4;
+    margin-right: auto;
+    max-width: 55%;
+}
+
+/* ===== DIJALOG SUKOBA ===== */
+.nal-sukob-kartica {
+    max-width: 520px;
+}
+
+.nal-sukob-prekrivac {
+    position: absolute;
+    inset: 0;
+    background: rgb(13 22 26 / 0.55);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+}
+
+.nal-sukob-uvod {
+    font-size: 0.8rem;
+    line-height: 1.55;
+    color: var(--tekst-sekundarni);
+    margin-bottom: 14px;
+}
+
+.nal-sukob-tabele {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.nal-sukob-kolona {
+    border: 1px solid var(--ivica);
+    border-radius: var(--radius);
+    padding: 10px 12px;
+    background: var(--bg-muted);
+}
+
+.nal-sukob-kolona h4 {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--tekst-sekundarni);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.nal-sukob-kolona dl {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.78rem;
+}
+
+.nal-sukob-kolona dt {
+    color: var(--tekst-primarni);
+}
+
+.nal-sukob-vreme {
+    color: var(--tekst-muted);
+    font-size: 0.72rem;
+    margin-top: 4px;
+    padding-top: 6px;
+    border-top: 1px dashed var(--ivica);
+}
+
+/* Opcije rešavanja sukoba */
+.nal-sukob-opcije {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Napomena ispod opcija: brisanja se ne prenose kroz spajanje */
+.nal-sukob-brisanje {
+    margin: 12px 0 0;
+    text-align: left;
+}
+
+.nal-opcija {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    text-align: left;
+    padding: 10px 14px;
+    border: 1px solid var(--ivica);
+    border-radius: var(--radius);
+    background: var(--bg-kartica);
+    transition: var(--tranzicija);
+}
+
+.nal-opcija:hover,
+.nal-opcija:focus-visible {
+    border-color: var(--primarna);
+    background: var(--primarna-10);
+    outline: none;
+}
+
+.nal-opcija-naslov {
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--tekst-primarni);
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.nal-opcija-opis {
+    font-size: 0.72rem;
+    line-height: 1.45;
+    color: var(--tekst-sekundarni);
+}
+
+.nal-opcija[data-izbor="server"] .nal-opcija-naslov .ik { color: var(--opasna); }
+.nal-opcija[data-izbor="lokalno"] .nal-opcija-naslov .ik { color: var(--opasna); }
+.nal-opcija[data-izbor="spoji"] .nal-opcija-naslov .ik { color: var(--uspesna); }
+
+.nal-opcija[data-izbor="spoji"] {
+    border-color: color-mix(in srgb, var(--uspesna) 45%, transparent);
+    background: color-mix(in srgb, var(--uspesna) 7%, transparent);
+}
+
+.nal-opcija[data-izbor="spoji"]:hover,
+.nal-opcija[data-izbor="spoji"]:focus-visible {
+    border-color: var(--uspesna);
+    background: color-mix(in srgb, var(--uspesna) 13%, transparent);
+}
+
+/* ===== RESPONSIVNO ===== */
+@media (max-width: 640px) {
+    .nal-sukob-tabele {
+        grid-template-columns: 1fr;
+    }
+
+    .nal-cip {
+        max-width: 150px;
+        font-size: 0.62rem;
+    }
+
+    .nal-footer-napomena {
+        max-width: 100%;
+        margin-bottom: 6px;
+    }
+
+    .modal-footer:has(.nal-footer-napomena) {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .nal-pregled-dugmad .dugme {
+        min-width: 100%;
+    }
+}

@@ -193,7 +193,25 @@ const IKONE = {
     pomoc:
         '<circle cx="12" cy="12" r="8.6"/>' +
         '<path d="M9.5 9.4a2.6 2.6 0 0 1 5 .9c0 1.7-2.5 2-2.5 3.7"/>' +
-        '<circle cx="12" cy="17.1" r=".95" fill="currentColor" stroke="none"/>'
+        '<circle cx="12" cy="17.1" r=".95" fill="currentColor" stroke="none"/>',
+
+    nalog:
+        '<circle cx="12" cy="8" r="3.7"/>' +
+        '<path d="M4.9 19.6c1.3-3.5 4-5.3 7.1-5.3s5.8 1.8 7.1 5.3"/>',
+
+    sinhro:
+        '<path d="M20 12a8 8 0 1 1-2.3-5.6"/>' +
+        '<path d="M20 3.8v4.4h-4.4"/>',
+
+    oblak:
+        '<path d="M7 18.5a4.3 4.3 0 1 1 .7-8.55A5.8 5.8 0 0 1 19 11.3a3.6 3.6 0 0 1-.4 7.2Z"/>' +
+        '<path d="M12 15.2v-4.6"/>' +
+        '<path d="m10 12.4 2-1.8 2 1.8"/>',
+
+    katanac:
+        '<rect x="5" y="10.6" width="14" height="9.4" rx="2.4"/>' +
+        '<path d="M8 10.6V7.9a4 4 0 0 1 8 0v2.7"/>' +
+        '<circle cx="12" cy="15.3" r="1.1" fill="currentColor" stroke="none"/>'
 };
 
 const IKONE_ATRIBUTI =

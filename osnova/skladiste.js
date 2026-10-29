@@ -6,6 +6,13 @@ function sacuvajPodatke() {
     try {
         localStorage.setItem(KLJUC_SKLADISTA, JSON.stringify(podaciAplikacije));
     } catch (e) {   }
+
+    // Modul nalog prati izmene radi sinhronizacije sa serverom (nalog/nalog.js).
+    try {
+        if (window.Nalog && typeof window.Nalog.obeleziIzmenu === 'function') {
+            window.Nalog.obeleziIzmenu();
+        }
+    } catch (e) { }
 }
 
 function ucitajPodatke() {

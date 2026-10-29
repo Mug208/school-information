@@ -1,0 +1,46 @@
+# Caddy ispred Node servera. Caddy slusa na portu 80/443 i prosledjuje
+# saobracaj Node serveru na portu 8080.
+#
+# Probno pokretanje (iz foldera projekta, u prvom planu):
+#   caddy run --config deploy/Caddyfile
+# Pokretanje kao pravi servis (Linux): deploy/caddy-skolska.service.
+# Time Caddy ide pod nadzor systemd-a: sam se dize posle butovanja i
+# restartuje ako padne, isto kao i sam Node server.
+#
+# Instalacija Caddy-ja: https://caddyserver.com/docs/install
+# (Linux: apt instalacija iz zvaničnog repozitorijuma, Windows: zip sa exe fajlom.)
+
+# ---------------------------------------------------------------
+# Varijanta 1: samo kucna mreza, bez imena domena i bez HTTPS.
+# Slusa na portu 80 na SVIM adresama racunara, pa radi i kad uređaj
+# promeni IP adresu (DHCP). Uredjaji u mrezi otvaraju http://<ip-uređaja>
+# (bez porta).
+# ---------------------------------------------------------------
+http://:80 {
+        reverse_proxy localhost:8080
+}
+
+# Opciono: HTTPS unutar mreze. Caddy sam pravi i potpisuje lokalni
+# sertifikat (tls internal), pa se saobracaj sifruje do uređaja.
+# Svaki klijentski uredjaj onda jednom treba pokrenuti:  caddy trust
+# (ubacuje Caddy-jev korenski sertifikat u sistem). Nije neophodno za
+# kucnu mrezu bez sw.js, ali je tu ako ikad zatreba.
+#
+# https://:443 {
+#         tls internal
+#         reverse_proxy localhost:8080
+# }
+
+# ---------------------------------------------------------------
+# Varijanta 2: pristup sa interneta preko besplatnog imena
+# (npr. DuckDNS: mojskolski.duckdns.org). Caddy sam trazi i obnavlja
+# HTTPS sertifikat (Let's Encrypt). Otkomentarisi i ubaci svoje ime.
+#
+# mojskolski.duckdns.org {
+#       reverse_proxy localhost:8080
+# }
+# ---------------------------------------------------------------
+
+# Napomena: Node server i dalje slusa na portu 8080, ali sa strane
+# spoljasnjeg sveta taj port ne mora da bude otvoren. Za pristup sa
+# interneta otvori samo port 80 i 443 na ruteru (prosledjivanje).
