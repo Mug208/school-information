@@ -213,6 +213,9 @@ Od verzije 2.1 aplikacija ima **option** login sistem sa sinhronizacijom podatak
 ### Kako radi
 
 - **Server dostupan + internet** → možeš da se registruješ/prijaviš. Svaki korisnik dobija **svoj JSON fajl** na serveru (`server/podaci/<ime>.json`), potpuno istog formata kao izvoz iz BIOS-a. Izmene se automatski šalju na server par sekundi posle svakog čuvanja, tako da kada koristite preko drugi uređaja, možete se ulogovati i volia, sve podaci če vam se vratiti koji je poslednji put sačuvan.
+
+<img width="275" height="158" alt="image" src="https://github.com/user-attachments/assets/4b306ba8-7e92-4cec-b1d0-9c1a8a179581" />
+
 - **Server nedostupan / bez interneta** → prijava nije moguća, ali **nije ni potrebna**: aplikacija nastavlja da radi oflajn, podaci se čuvaju lokalno. Zaglavlje prikazuje upozorenje „Server nedostupan , čuvam lokalno", a na pad servera iskoči obaveštenje sa podsetnikom da izvezeš JSON backup (BIOS → Podaci) dok se server ne vrati.
 - **Server se vrati** → automatska sinhronizacija preuzima/šalje podatke bez tvog posla.
 - **Sukob** (podaci menjani i ovde i na drugom uređaju) → dijalog nudi izbor:
