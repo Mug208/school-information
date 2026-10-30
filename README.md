@@ -4,7 +4,7 @@
 
 Projekat je napisan samo u HTML, CSS i JavaScriptu, bez ikakvih frameworka, bundlera ili npm zavisnosti. Dovoljno je otvoriti `index.html` ili preko linka "https://mug208.github.io/school-information/" i sa serverom(pristup login sistemom) "https://school-information.duckdns.org/".
 
-Pre proketanja link sa serverom, treba pažnja da ovaj server pristupa maksimalno 50 korisnika(kasnije ću uveličavati granicu ako vidim da je sve ide kako treba), i server može ponekad da padne u nekom trenutku, molimo vas da ne zloupotrebite ovo, iako sam namestio ograničenje koliko naloga po minuti može da se napravi, da ne napravite više od jedan naloga. Preporučeno je da sačuvate lozinku negde sigurno da ne zaboravite, jer još nisam implementirao log in za emailom, to ću gledati kasnije da uradim, pa možete preko emaila da izmenite lozinku(ako nađem taj način), u svakom sigurnosti, sa sada obrisaču nalog koji vidim da je dugo nije aktivan
+Pre proketanja link sa serverom, treba pažnja da ovaj server pristupa maksimalno 50 korisnika(kasnije ću uveličavati granicu ako je sve stabilno), i server može ponekad da padne u nekom trenutku, molimo vas da ne zloupotrebite ovo, iako sam namestio ograničenje koliko naloga po minuti može da se napravi, da ne napravite više od jedan naloga. Preporučeno je da sačuvate lozinku negde sigurno da ne zaboravite, jer još nisam implementirao log in za emailom, to ću gledati kasnije da uradim, pa možete preko emaila da izmenite lozinku(ako nađem taj način), u svakom sigurnosti, sa sada obrisaču nalog koji vidim da je dugo nije aktivan
 
 ## Novo u verziji 2.1
 
