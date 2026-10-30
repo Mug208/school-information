@@ -2,7 +2,9 @@
 
 Školski Informacija je potpuno samostalan Informacioni sistem namenjeno za učenike(poput mene): raspored časova, kalendar sa događajima i beleške, sve u jednom preglednom interfejsu. Aplikacija radi u bilo kom modernom pregledaču, ne zahteva instalaciju, server ni bazu podataka, a svi podaci ostaju lokalno na vašem računaru.
 
-Projekat je napisan samo u HTML, CSS i JavaScriptu, bez ikakvih frameworka, bundlera ili npm zavisnosti. Dovoljno je otvoriti `index.html` ili preko linka "https://mug208.github.io/school-information/".
+Projekat je napisan samo u HTML, CSS i JavaScriptu, bez ikakvih frameworka, bundlera ili npm zavisnosti. Dovoljno je otvoriti `index.html` ili preko linka "https://mug208.github.io/school-information/" i sa serverom(pristup login sistemom) "https://school-information.duckdns.org/".
+
+Pre proketanja link sa serverom, treba pažnja da ovaj server pristupa maksimalno 50 korisnika(kasnije ću uveličavati granicu ako vidim da je sve ide kako treba), i server može ponekad da padne u nekom trenutku, molimo vas da ne zloupotrebite ovo, iako sam namestio ograničenje koliko naloga po minuti može da se napravi, da ne napravite više od jedan naloga. Preporučeno je da sačuvate lozinku negde sigurno da ne zaboravite, jer još nisam implementirao log in za emailom, to ću gledati kasnije da uradim, pa možete preko emaila da izmenite lozinku(ako nađem taj način), u svakom sigurnosti, sa sada obrisaču nalog koji vidim da je dugo nije aktivan
 
 ## Novo u verziji 2.1
 
@@ -95,12 +97,35 @@ Projekat je napisan samo u HTML, CSS i JavaScriptu, bez ikakvih frameworka, bund
 - Sadržaj se menja na jednom mestu, u `novine/novine.js`.
 <img width="1221" height="890" alt="image" src="https://github.com/user-attachments/assets/d957bf6b-0836-4514-adcc-cebd8124e854" />
 
+### Login i registracija(Samo preko "https://school-information.duckdns.org/" i ako server aktivan)
+- Registracija: u modalu naloga izaberi „Registracija", upiši ime i lozinku. Nalog se pravi na serveru, a lozinka se čuva samo kao scrypt heš, nikad u čitljivom obliku.
+- Prijava: isto ime i lozinku unosiš na bilo kom uređaju u mreži. Posle prijave podaci se povlače sa servera i čuvaju na nalogu.
+- Odjava: dugme „Odjava" u modalu naloga. Ako ima nesinhronizovanih izmena, aplikacija prvo pita da li si siguran
+
+<img width="289" height="450" alt="image" src="https://github.com/user-attachments/assets/0a0e103b-caa4-43bf-8f7b-84f016809d4e" />
+
+<img width="289" height="450" alt="image" src="https://github.com/user-attachments/assets/7707886a-8126-4e9c-896d-f59be84db4f6" />
+
+## Podešavanja servera
+
+- Modal naloga ima dugme „Podešavanja servera" sa jednim poljem: adresom servera.
+- Ostavljeno prazno: aplikacija koristi adresu sa koje je otvorena. Tako radi kad si je otvorio sa samog servera, npr. http://192.168.1.20:8080; adresa se prepozna sama.
+- Ručni unos: potreban samo kad otvaraš aplikaciju sa diska (index.html duplim klikom) ili sa GitHub Pages. Tada adresa ne može da se prepozna automatski, pa je upiši ovde, npr. http://192.168.1.20:8080.
+- Sa Caddy na portu 80: adresa ide bez porta, npr. http://192.168.1.20.
+- Adresa se pamti u pregledaču (localStorage), zasebno za svaki uređaj. Na novom uređaju se unosi jednom.
+- Ispod polja stoji status veze, pa odmah vidiš da li je adresa dobra: „Server radi i dostupan je" ili „Server nije dostupan".
+
+<img width="290" height="558" alt="image" src="https://github.com/user-attachments/assets/03b40316-5753-4003-8858-e9e17cfd0319" />
+
+<img width="290" height="558" alt="image" src="https://github.com/user-attachments/assets/9190e568-31d2-49f3-a41d-e2221e9723ae" />
+
+<img width="266" height="508" alt="image" src="https://github.com/user-attachments/assets/c02709ec-24c3-403d-a083-5fdae64e3075" />
 
 ## Pokretanje
 
 Ne postoji proces instalacije ni build korak.
 
-Može pokrenuti preko linka "https://mug208.github.io/school-information/" ili preko fajlova:
+Može pokrenuti preko linka "https://mug208.github.io/school-information/" i za serverom "https://school-information.duckdns.org/" ili preko fajlova:
 
 1. Preuzmite .zip fajla celog ove web aplikacije.
 2. Raspakujte i otvorite folder "skolski-sistem V2.01"
